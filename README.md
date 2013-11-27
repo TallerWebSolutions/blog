@@ -19,9 +19,9 @@ Repository of the Taller blog.
 
 If you would like to keep your blog server up, consider using forever like follows:
 
-`forever index.js`
+`forever start index.js`
 
-To set a desired environment (e.g. development), run `NODE_ENV=development forever index.js`
+To set a desired environment (e.g. development), run `NODE_ENV=development forever start index.js`
 
 ------------------------------
 
