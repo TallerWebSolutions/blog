@@ -1,4 +1,3 @@
-blog
-====
+# [Taller](http://taller.net.br/) Blog
 
-Taller Blog
+Repository of the Taller blog.
