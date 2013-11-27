@@ -3,3 +3,6 @@ config.js
 
 # Igonre node packages.
 node_modules/*
+
+# Ignore databases.
+content/data/*
