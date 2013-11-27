@@ -2,11 +2,13 @@
 
 Repository of the Taller blog.
 
-## Dependencies
+## Getting Started
+
+### Dependencies
 
 1. [Node.js and NPM](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
 
-## Getting Started
+### Installation
 
 1. Clone the project with `git clone https://github.com/TallerWebSolutions/blog.git blog`
 2. Navigate to the project root `cd blog`
