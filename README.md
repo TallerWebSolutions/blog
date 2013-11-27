@@ -15,6 +15,7 @@ Assuming you have
 3. Run `npm install --production`
 4. To start the blog, run `npm start` (optionally run with `--development`)
 
+> Consider running all commands with a preceding `sudo`. If you don't know what that means, you probably need to use it.
 
 ### Stay up [forever](https://github.com/nodejitsu/forever)
 
