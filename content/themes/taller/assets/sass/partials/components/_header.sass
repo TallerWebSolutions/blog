@@ -1,0 +1,39 @@
+/*
+ *------------------------------------------------------------------------------
+ * Header
+ *------------------------------------------------------------------------------
+ */
+
+#site-head
+  h1, h2
+    display: none
+
+
+#blog-logo
+  img
+    max-height: none
+
+#site-head.post-header
+  h1
+    display: block
+    font-family: 'Lato', sans-serif
+    font-weight: 300
+    font-size: 64px
+
+  .post-meta
+    color: white
+
+  #site-head-content
+    position: static
+
+  #blog-logo img
+    +filter(saturate(50%))
+    position: absolute
+    bottom: 0
+    left: 0
+    max-height: 120px
+    opacity: 0.5
+    transition: ease 0.3s
+    &:hover
+      +filter(saturate(100%))
+      opacity: 1
