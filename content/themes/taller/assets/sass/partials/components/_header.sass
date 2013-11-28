@@ -26,14 +26,14 @@
   #site-head-content
     position: static
 
-  #blog-logo img
-    +filter(saturate(50%))
+  .back-to-home
     position: absolute
-    bottom: 0
-    left: 0
-    max-height: 120px
+    left: 1em
+    bottom: 1em
+    color: white
+    text-decoration: none
+    font-family: 'Lato', sans-serif
     opacity: 0.5
     transition: ease 0.3s
     &:hover
-      +filter(saturate(100%))
       opacity: 1

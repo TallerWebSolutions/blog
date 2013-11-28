@@ -7,8 +7,7 @@
 <header class="post-header" id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
     <div class="vertical">
         <div id="site-head-content" class="inner">
-
-            {{#if @blog.logo}}<a id="blog-logo" href="{{@blog.url}}" title="@blog.description"><img src="{{@blog.logo}}" alt="Blog Logo" /></a>{{/if}}
+            <a class="back-to-home" href="{{@blog.url}}" title="Voltar a página inicial">Início</a>
             <h1 class="blog-title">{{{post.title}}}</h1>
             <span class="post-meta"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD.MM.YYYY'}}</time></span>
         </div>
