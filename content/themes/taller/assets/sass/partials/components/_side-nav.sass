@@ -1,0 +1,53 @@
+/*
+ *------------------------------------------------------------------------------
+ * Side Navigation on Post Pages
+ *------------------------------------------------------------------------------
+ */
+
+#side-nav
+  @extend %sidebar-transition
+  position: fixed
+  z-index: 50
+  top: 0
+  bottom: 0
+  left: -338px
+  width: 340px
+  color: white
+  background-color: $color-grey-darkest
+  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.1)
+
+  &:hover
+    left: 0
+
+  .inner
+    padding: 2em
+
+  .arrow-container
+    position: absolute
+    top: 0
+    bottom: 0
+    width: 20px
+    right: -20px
+    &:after
+      content: ""
+      display: block
+      position: absolute
+      top: 50%
+      margin-top: -10px
+      margin-left: 4px
+      border: 10px solid rgba(0, 0, 0, 0)
+      border-left: 16px solid #222
+
+body.side-nav-open,
+body.side-nav-transition
+  overflow-x: hidden
+
+#site-head,
+#content-wrapper,
+.footer-parallax
+  .side-nav-open &,
+  .side-nav-transition &
+    @extend %sidebar-transition
+
+  .side-nav-open &
+    left: 170px

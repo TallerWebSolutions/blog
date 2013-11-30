@@ -32,7 +32,7 @@
     var $footer = $('#site-footer').addClass('parallaxed'),
         $footerBackground = $('<div>', {
           'class': 'footer-parallax'
-        }).appendTo('body'),
+        }).insertAfter('#content-wrapper'),
         shown = false;
 
     /**
