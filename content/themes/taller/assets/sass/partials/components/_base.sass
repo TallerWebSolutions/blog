@@ -4,5 +4,117 @@
  *------------------------------------------------------------------------------
  */
 
-a:hover, a:focus
-  color: $color-main-red
+
+
+// ------------------------------------
+// Body.
+// ------------------------------------
+
+body
+  line-height: 1.25em
+  font-family: $font-serif
+  font-size: $font-size-body
+  color: $color-grey-darkest
+
+
+// ------------------------------------
+// Headers.
+// ------------------------------------
+
+%heading
+  margin: 1em 0 0.4em
+  font-family: $font-heading
+  font-weight: 600
+
+h1, h2, h3, h4, h5, h6
+  @extend %heading
+  line-height: 1em
+
+h1
+  font-size: $font-size-h1
+
+h2
+  font-size: $font-size-h2
+
+h3
+  font-size: $font-size-h3
+
+h4
+  font-size: $font-size-h4
+
+h5
+  font-size: $font-size-h5
+
+h6
+  font-size: $font-size-h6
+
+
+
+// ------------------------------------
+// Anchors.
+// ------------------------------------
+
+a
+  text-decoration: none
+  color: $color-grey-darkest
+  &:hover,
+  &:focus
+    color: $color-red
+
+  h1 &, h2 &, h3 &, h4 &, h5 &, h6 &
+    color: inherit
+
+
+// ------------------------------------
+// Text.
+// ------------------------------------
+
+p
+  line-height: 1.25em
+
+
+// ------------------------------------
+// Lists.
+// ------------------------------------
+
+ul, ol
+  padding-left: 1.3em
+
+
+// ------------------------------------
+// Blockquotes.
+// ------------------------------------
+
+blockquote
+  margin: 2em 0
+  padding: 1em 2em
+  border-left: 0.5em solid rgba(0, 0, 0, 0.1)
+  font-style: italic
+  color: $color-grey-light
+  background-color: rgba(0, 0, 0, 0.01)
+  
+  cite
+    @extend %transition-navigation !optional
+    display: block
+    margin: 1em 0 -1em
+    padding: 1em 0 0
+    border-top: 1px dashed rgba(0, 0, 0, 0.3)
+    text-align: right
+    opacity: 0.3
+    &:before
+      content: "—"
+      margin-right: 0.5em
+
+  &:hover cite
+    opacity: 1
+
+
+// ------------------------------------
+// Line Breaks.
+// ------------------------------------
+
+hr
+  height: 1px
+  margin: 3em 0 4em
+  border: none
+  background-color: $color-grey-lightest

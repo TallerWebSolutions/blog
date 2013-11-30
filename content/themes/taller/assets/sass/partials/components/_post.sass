@@ -5,8 +5,114 @@
  */
 
 .post
-  border-bottom-color: darken($color-background-grey, 10%)
-  &:after
-    border-color: darken($color-background-grey, 10%)
-    background: $color-background-grey
-    box-shadow: $color-background-grey 0 0 0 5px
+  color: #666
+  a
+    color: $color-long-text-link
+    &:hover,
+    &:focus
+      color: $color-long-text-link-hover
+
+.article-head
+  padding: 0 0 1em
+  border-bottom: 0.3em solid rgba(0, 0, 0, 0.1)
+  font-family: $font-heading
+  font-size: 0.8em
+
+  .share
+    float: right
+
+  .meta
+    > span
+      margin-right: 1em
+
+    .post-title
+      display: none
+
+.post-content
+  margin-top: 2em
+  padding: 2em 0
+  background-color: white
+  box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1)
+
+  > p:first-child
+    font-size: 1.4em
+
+  > *
+    position: relative
+    margin-left: 2rem
+    margin-right: 2rem
+
+  img
+    max-width: 100%
+
+  blockquote
+    margin-left: 0
+    margin-right: 0
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    border-width: 1px 0
+    box-shadow: inset 0 0 50px -22px rgba(0, 0, 0, 0.2)
+    cite a
+      color: inherit
+      &:hover
+        color: $color-link
+
+  hr
+    margin: 3em 0 2em
+
+.post-footer
+
+  > h4
+    margin: 3em 0 0.2em
+    border-top: 1px dashed $color-grey-lighter
+    font-family: $font-serif
+    font-size: 1.8rem
+    text-transform: uppercase
+    text-shadow: 1px 1px 1px #FFF
+    color: $color-grey-light
+    span
+      position: relative
+      top: -0.55em
+      padding-right: 0.8em
+      background-color: $color-grey-lightest
+
+  .author
+    border: 1px solid $color-grey-lighter
+    padding: 2px
+    background-color: white
+
+    .author-main-info
+      padding: 0.5em
+      color: white
+      background-size: cover
+      background-position: center center
+
+      h4, p
+        margin: 0.3em 0 0 0
+        line-height: 1em
+        font-family: $font-heading
+        font-weight: 300
+      h4
+        margin-top: 0.8em
+        font-size: 1.6em
+        font-weight: normal
+
+    .author-picture,
+    .author-picture + div
+      display: inline-block
+      vertical-align: top
+
+    .author-picture
+      max-width: 90px
+      margin: 0.5em 1.5em -1.5em 1.5em
+      border: 5px solid #FFF
+      border-radius: 90px
+      background-color: #FFF
+
+    .author-secondary-info
+      text-align: right
+      padding: 0.5em
+      font-family: $font-sans
+      font-size: 0.9em
+      
+      span
+        margin-left: 1em

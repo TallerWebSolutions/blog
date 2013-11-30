@@ -5,35 +5,32 @@
  */
 
 #site-head
-  h1, h2
-    display: none
+  +display-box
+  +box-align(center)
+  +box-pack(center)
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  width: 100%
+  height: 60%
+  text-align: center
+  font-family: $font-heading
+  color: white
+  background-image: image-url("cover.png")
+  background-size: cover
+  background-position: center center
 
-
-#blog-logo
-  img
-    max-height: none
-
-#site-head.post-header
-  h1
-    display: block
-    font-family: 'Lato', sans-serif
+  h1, .site-head-subinfo
+    margin-bottom: 0
     font-weight: 300
-    font-size: 64px
 
-  .post-meta
-    color: white
-
-  #site-head-content
-    position: static
-
-  .back-to-home
+  .site-head-subinfo
     position: absolute
-    left: 1em
-    bottom: 1em
-    color: white
-    text-decoration: none
-    font-family: 'Lato', sans-serif
-    opacity: 0.5
-    transition: ease 0.3s
-    &:hover
-      opacity: 1
+    display: block
+    width: 100%
+
+#site-head-content
+  position: relative
+  margin-left: 20%
+  margin-right: 20%

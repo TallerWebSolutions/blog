@@ -1,8 +1,12 @@
 /*
  *------------------------------------------------------------------------------
- * Core Modules
+ * Transitions
  *------------------------------------------------------------------------------
- * Use this file to import globally used modules.
+ * Set common transitions to be used throughout the site.
  */
 
-@import transitions
+
+%transition-navigation
+  +transition(ease 300ms)
+  &:hover
+    +transition(ease 150ms)
