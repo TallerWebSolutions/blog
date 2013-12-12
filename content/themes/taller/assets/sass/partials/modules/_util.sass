@@ -1,11 +1,13 @@
 /*
  *------------------------------------------------------------------------------
- * Core Modules
+ * Utilitiy
  *------------------------------------------------------------------------------
- * Use this file to import globally used modules.
  */
 
-@import util
-@import images
-@import layout
-@import transitions
+%clearfix:after
+  content: "."
+  display: block
+  clear: both
+  visibility: hidden
+  line-height: 0
+  height: 0

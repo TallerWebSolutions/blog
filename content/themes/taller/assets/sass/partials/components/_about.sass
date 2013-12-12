@@ -4,7 +4,7 @@
  *------------------------------------------------------------------------------
  */
 
-#side-nav
+#about
   @extend %sidebar-transition
   position: fixed
   z-index: 50
@@ -14,9 +14,9 @@
   width: 340px
   color: white
   background-color: $color-grey-darkest
-  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.1)
+  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.1), inset 0 0 150px rgba(0, 0, 0, 0.2)
 
-  &:hover
+  &:hover, &:target
     left: 0
 
   .inner
@@ -38,16 +38,17 @@
       border: 10px solid rgba(0, 0, 0, 0)
       border-left: 16px solid #222
 
-body.side-nav-open,
-body.side-nav-transition
+body.about-open,
+body.about-transition
   overflow-x: hidden
 
 #site-head,
 #content-wrapper,
-.footer-parallax
-  .side-nav-open &,
-  .side-nav-transition &
+.footer-parallax,
+#post-meta.sticked
+  .about-open &,
+  .about-transition &
     @extend %sidebar-transition
 
-  .side-nav-open &
+  .about-open &
     left: 170px

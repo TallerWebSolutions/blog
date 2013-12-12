@@ -6,20 +6,34 @@
 
 .post
   color: #666
+  > .inner
+    @extend %border-light
+    background-color: white
+    box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1)
   a
     color: $color-long-text-link
     &:hover,
     &:focus
       color: $color-long-text-link-hover
 
-.article-head
-  padding: 0 0 1em
-  border-bottom: 0.3em solid rgba(0, 0, 0, 0.1)
+#post-meta
+  +transition(ease 350ms)
+  width: 100% !important
+  padding: 1em 0 1em
   font-family: $font-heading
   font-size: 0.8em
 
   .share
     float: right
+    .fa
+      padding: 1em
+      margin: -1em 0 -1em -1em
+      line-height: 1em
+      font-size: 1.3em
+      &:last-child
+        margin-right: -1em
+    .hidden
+      display: none
 
   .meta
     > span
@@ -27,6 +41,27 @@
 
     .post-title
       display: none
+      border-right: 1px dotted rgba(255, 255, 255, 0.5)
+      padding-right: 1em
+      vertical-align: top
+      font-weight: 300
+      font-size: 1.6em
+
+  &.sticked
+    +transition(none)
+    +background-cover($cover-header-home)
+    left: 0
+    border-bottom: 0.3em solid rgba(0, 0, 0, 0.3)
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+    color: white
+    .inner
+      margin: 0 1.5em 0 5.5rem
+    .meta .post-title
+      display: inline-block
+    a
+      color: white
+      &:hover, &:focus
+        opacity: 0.9
 
 // Expand item to the post margins.
 %expanded
@@ -34,10 +69,9 @@
   margin-right: 0
 
 .post-content
-  margin-top: 2em
+  @extend %border-light
   padding: 2em 0
-  background-color: white
-  box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1)
+  line-height: 1.5em
 
   > p:first-child
     font-size: 1.4em
@@ -46,6 +80,8 @@
     position: relative
     margin-left: 2rem
     margin-right: 2rem
+    &:first-child
+      margin-top: 1rem
 
   > p.has-image
     @extend %expanded
@@ -54,32 +90,31 @@
     max-width: 100%
 
   blockquote
-    @extend %expanded
+    margin-left: 4em
     border: 1px solid rgba(0, 0, 0, 0.1)
-    border-width: 1px 0
+    border-radius: 0.4em
     box-shadow: inset 0 0 50px -22px rgba(0, 0, 0, 0.2)
     cite a
       color: inherit
       &:hover
         color: $color-link
 
-    &:before,
-    &:after
+    &:before
       position: absolute
       display: block
       height: 0
       width: 50px
-      font-size: 8em
+      font-size: 6em
       font-family: $font-cursive
-      color: #DDD
+      color: #EEE
     &:before
       content: "“"
       left: -0.7em
       top: 0.5em
-    &:after
-      content: "„"
-      right: -0.48em
-      bottom: 0.6em
+    // &:after
+    //   content: "„"
+    //   right: -0.48em
+    //   bottom: 0.6em
 
   hr
     @extend %expanded
@@ -87,7 +122,11 @@
 
 .post-footer
 
-  > h4
+  #author
+    margin-top: -1px // Fix fot hash pointing.
+    padding-top: 1px
+
+  h4
     margin: 3em 0 0.2em
     border-top: 1px dashed $color-grey-lighter
     font-family: $font-serif
@@ -102,22 +141,21 @@
       background-color: $color-grey-lightest
 
   .author
-    border: 1px solid $color-grey-lighter
+    @extend %border-light
     padding: 2px
     background-color: white
 
     .author-main-info
+      +background-cover($cover-header-home)
       padding: 0.5em
       color: white
-      background-size: cover
-      background-position: center center
 
-      h4, p
+      h3, p
         margin: 0.3em 0 0 0
         line-height: 1em
         font-family: $font-heading
         font-weight: 300
-      h4
+      h3
         margin-top: 0.8em
         font-size: 1.6em
         font-weight: normal
@@ -130,7 +168,7 @@
     .author-picture
       max-width: 90px
       margin: 0.5em 1.5em -1.5em 1.5em
-      border: 5px solid #FFF
+      border: 3px solid #FFF
       border-radius: 90px
       background-color: #FFF
 
@@ -142,3 +180,160 @@
       
       span
         margin-left: 1em
+
+#main
+  padding-top: 2rem-28px
+
+
+// MAIN PAGE POSTS
+.articles
+  @extend %clearfix
+  overflow: visible
+
+.post.preview
+  position: relative
+  display: inline-block
+  width: 48%
+  margin-bottom: 2rem
+
+  &:first-child
+    width: 100%
+    float: none
+
+  &:nth-child(odd)
+    float: right
+    clear: right
+  &:nth-child(even)
+    float: left
+    clear: left
+
+  .inner
+    position: relative
+    display: block
+    color: inherit
+    opacity: 0.9
+    .post-content
+      border: 0
+      padding: 1rem 0.5rem 1.5rem
+
+    &:hover, &:focus
+      box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.15)
+      opacity: 1
+      h2
+        color: $color-link-hover
+      .post-excerpt
+        opacity: 1
+
+    &, h2, .post-excerpt
+      @extend %transition-navigation
+
+  .post-header
+    padding-bottom: 1rem
+    border-bottom: 1px solid $color-grey-lighter
+    text-align: center
+
+  h2
+    margin: 0
+    font-weight: 300
+
+  .site-head-subinfo
+    position: relative
+    bottom: -1.6rem
+    display: inline-block
+    padding: 0 1em
+    font-size: 0.8rem
+    background-color: white
+    time
+      margin-left: 0.5em
+  
+  .featured-media
+    height: 240px
+    background-size: cover
+    background-position: center center
+    border: 1px solid #CCC
+    border-width: 0 0 1px 0
+    margin-bottom: -1em
+
+    &.featured-cover
+      position: absolute
+      z-index: 1
+      top: 1px
+      right: 1px
+      left: 1px
+      bottom: 1px
+      border-width: 0
+      margin-bottom: 0
+
+  &:first-child
+    .featured-media
+      position: absolute
+      top: 1px
+      left: 1px
+      bottom: 1px
+      height: auto
+      width: 50%
+      margin: 0
+      border-width: 0 1px 0 0
+      margin-bottom: 0
+
+    .post-content
+      margin-left: 50%
+
+  &.has-featured-cover
+    .inner
+      background-size: cover
+      background-position: center center
+
+    header
+      border: none
+
+    .site-head-subinfo
+      background: none
+
+    &.has-featured-dark
+      color: white
+      .post-header, .post-excerpt, .post-footer
+        position: relative
+        z-index: 5
+      .inner
+        &:hover, &:focus
+          h2
+            color: inherit
+
+  .post-excerpt
+    padding: 1rem 0
+    opacity: 0.8
+    word-wrap: break-word
+
+  .post-footer
+    padding-top: 1rem
+    font-size: 0.8rem
+    
+    > span
+      margin-right: 1em
+
+.pagination-container
+  position: relative
+  margin-top: 2rem
+  border-top: 1px solid $color-grey-lighter
+  box-shadow: inset 0 1px 1px 0 white
+  text-align: center
+  opacity: 0.5
+  font-size: 0.9rem
+  
+  i
+    position: relative
+    top: -0.8em
+    display: inline-block
+    width: 3em
+    margin-top: -2em
+    border: 1px solid #bbb
+    border-radius: 3em
+    line-height: 3em
+    font-family: $font-cursive
+    box-shadow: 0 1px 1px 1px white
+    background-color: $color-grey-lightest
+
+  .pagination > *
+    float: right
+    margin-left: 1.2em

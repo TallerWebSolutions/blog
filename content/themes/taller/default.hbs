@@ -28,10 +28,15 @@
 
     <ul id="main-nav">
         <li>
-            <a href="http://taller.net.br/" title="Taller Main Website">Home</a>
+            <a href="http://taller.net.br/" title="Taller Main Website">Taller</a>
         </li>
         <li>
-            <a href="{{@blog.url}}" title="Blog Home" class="active">Blog</a>
+            <a href="{{@blog.url}}" title="Blog Home" class="active blog-anchor">
+                Blog
+                <div id="taller-flag">
+                    <img src="/assets/images/brand.png" alt="Taller Logo">
+                </div>
+            </a>
         </li>
         <li>
             <a href="http://drupaldeelite.com.br/" title="Drupal de Elite">Drupal de Elite</a>
@@ -51,9 +56,10 @@
     <script type="text/javascript" src="/assets/js/index.js"></script>
     <script type="text/javascript" src="/assets/js/post.js"></script>
     <script type="text/javascript" src="/assets/js/parallax.js"></script>
-    <script type="text/javascript" src="/assets/js/side-nav.js"></script>
 
     <script type="text/javascript" src="/assets/js/prism-adjust.js"></script>
     <script type="text/javascript" src="/assets/js/vendors/prism.js"></script>
+    <script type="text/javascript" src="/assets/js/vendors/sticky-kit.js"></script>
+    <script type="text/javascript" src="/assets/js/vendors/jquery-hashchange.js"></script>
 </body>
 </html>

@@ -6,34 +6,44 @@
 {{! The big featured header on the homepage, with the site logo and description }}
 <header id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
     <div id="site-head-content" class="inner">
-        {{#if @blog.logo}}<a id="blog-logo" href="{{@blog.url}}" title="@blog.description"><img src="{{@blog.logo}}" alt="Blog Logo" /></a>{{/if}}
         <h1 class="blog-title">{{@blog.title}}</h1>
-        <h2 class="blog-description site-head-subinfo">{{@blog.description}}</h2>
+        <div class="blog-description">{{@blog.description}}</div>
     </div>
 </header>
 
 <div id="content-wrapper">
     <main class="content" role="main" id="main">
+        <div class="articles">
+            {{! Each post will be output using this markup }}
+            {{#foreach posts}}
 
-        {{! Each post will be output using this markup }}
-        {{#foreach posts}}
+            {{preprocess_post 'list'}}
 
-        <article class="{{post_class}}">
-            <header class="post-header">
-                <span class="post-meta"><time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time> {{#if tags}}on {{tags}}{{/if}}</span>
-                <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
-
-            </header>
-            <section class="post-excerpt">
-                <p>{{excerpt}}&hellip;</p>
-            </section>
-        </article>
-
-        {{/foreach}}
+            <article class="{{post_class}} preview">
+                <a href="{{url}}" class="inner {{featured_media_cover}}" >
+                    {{featured_media}}
+                    <div class="post-content">
+                        <header class="post-header">
+                            <h2 class="post-title">{{{title}}}</h2>
+                            <span class="site-head-subinfo fa fa-clock-o"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMMM YYYY'}}</time></span>
+                        </header>
+                        <section class="post-excerpt">
+                            <p>{{excerpt}}&hellip;</p>
+                        </section>
+                        <footer class="post-footer">
+                            {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author}}</span>{{/if}}
+                            {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
+                        </footer>
+                    </div>
+                </a>
+            </article>
+            {{/foreach}}
+        </div>
 
         {{!! After all the posts, we have the previous/next pagination links }}
-        {{pagination}}
-
+        <div class="pagination-container">
+            <i>fim</i>
+        </div>
     </main>
 
     <footer id="site-footer">

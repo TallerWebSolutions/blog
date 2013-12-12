@@ -1,11 +1,10 @@
 /*
  *------------------------------------------------------------------------------
- * Core Modules
+ * Images
  *------------------------------------------------------------------------------
- * Use this file to import globally used modules.
  */
 
-@import util
-@import images
-@import layout
-@import transitions
+=background-cover($image-url: false)
+  @extend %background-cover
+  @if $image-url
+    background-image: $image-url

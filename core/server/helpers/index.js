@@ -6,6 +6,7 @@ var _           = require('underscore'),
     packageInfo = require('../../../package.json'),
     errors      = require('../errorHandling'),
     models      = require('../models'),
+    jQuery      = require('jquery'),
     coreHelpers;
 
 
@@ -160,7 +161,9 @@ coreHelpers = function (ghost) {
     //
     ghost.registerThemeHelper('excerpt', function (options) {
         var truncateOptions = (options || {}).hash || {},
-            excerpt;
+            excerpt,
+            data = options && options.data || {},
+            limitWords = (this.featuredMedia || !data.first) ? 20 : 50;
 
         truncateOptions = _.pick(truncateOptions, ['words', 'characters']);
 
@@ -169,7 +172,7 @@ coreHelpers = function (ghost) {
         /*jslint regexp:false */
 
         if (!truncateOptions.words && !truncateOptions.characters) {
-            truncateOptions.words = 50;
+            truncateOptions.words = limitWords;
         }
 
         return new hbs.handlebars.SafeString(
@@ -201,17 +204,109 @@ coreHelpers = function (ghost) {
     });
 
     ghost.registerThemeHelper('post_class', function (options) {
-        var classes = ['post'],
+        var classes = ['post'].concat(this.classes || []),
             tags = this.post && this.post.tags ? this.post.tags : this.tags || [];
 
         if (tags) {
             classes = classes.concat(tags.map(function (tag) { return 'tag-' + tag.slug; }));
         }
 
+        // Custom classes.
+        
+
         return ghost.doFilter('post_class', classes, function (classes) {
             var classString = _.reduce(classes, function (memo, item) { return memo + ' ' + item; }, '');
             return new hbs.handlebars.SafeString(classString.trim());
         });
+    });
+
+    ghost.registerThemeHelper('preprocess_post', function (viewMode, options) {
+        this.$html = jQuery(this.html);
+        this.classes = [];
+        this.view_mode = viewMode || 'full';
+
+        var post = this,
+            featuredMedia = {
+                $element: post.$html.find('[alt*="featured"]'),
+                classes: []
+            };
+
+        if (featuredMedia.$element.length) {
+            var featuredOptions = featuredMedia.$element.attr('alt').split(' ');
+            featuredOptions.splice(0, 1);
+
+            featuredOptions.push(featuredMedia.$element.prop("tagName").toLowerCase());
+
+            post.classes.push('has-featured-media');
+            featuredMedia.classes.push('featured-media');
+
+            featuredOptions.forEach(function(val) {
+                post.classes.push('has-featured-' + val);
+                featuredMedia.classes.push('featured-' + val);
+            });
+
+            post.featuredMedia = featuredMedia;
+        }
+
+        if (post.view_mode == 'full') {
+            var hasFeaturedImage = post.featuredMedia && post.featuredMedia.$element.is('img'),
+                hasCoverMedia    = post.featuredMedia && post.featuredMedia.classes.indexOf('featured-top-cover') > -1,
+                hiddenMedia      = post.featuredMedia && post.featuredMedia.classes.indexOf('featured-hidden') > -1,
+                hasCoverImage    = !post.cover && hasFeaturedImage && hasCoverMedia;
+
+            if (hiddenMedia || hasCoverImage) {
+                post.featuredMedia.$element.remove();
+            }   
+
+            if (hasCoverImage) {
+                post.cover = post.featuredMedia.$element.attr('src');
+                post.cover_classes = post.featuredMedia.classes.join(' ');
+            }
+        }
+
+        // Save changes.
+        this.html = jQuery('<div />').append(this.$html).html();
+    });
+
+    ghost.registerThemeHelper('featured_media_cover', function (options) {
+        var content = '';
+
+        if (this.featuredMedia && this.featuredMedia.$element.is('img') && this.featuredMedia.classes.indexOf('featured-cover') > -1) {
+            var imgSrc = this.featuredMedia.$element.attr('src');
+            content += '" style="background-image: url(' + imgSrc + ');';
+        }
+
+        return new hbs.handlebars.SafeString(content);
+    });
+
+    ghost.registerThemeHelper('featured_media', function (options) {
+        if (this.featuredMedia) {
+            var output = '';
+
+            switch (this.view_mode) {
+                case 'list':
+
+                    var $element       = this.featuredMedia.$element,
+                        $dumpContainer = jQuery('<div />');
+
+                    switch ($element.prop("tagName")) {
+                        case 'IMG':
+                            if (this.featuredMedia.classes.indexOf('featured-cover') != -1) return;
+
+                            $newElement = jQuery('<div />')
+                                .css('background-image', 'url(' + $element.attr('src') + ')');
+                            $element = $newElement;
+                            break;
+                    }
+
+                    $element.addClass(this.featuredMedia.classes.join(' '));
+
+                    output = new hbs.handlebars.SafeString($dumpContainer.append($element).html());
+                    break;
+            }
+
+            return output;
+        }
     });
 
     ghost.registerThemeHelper('ghost_head', function (options) {
