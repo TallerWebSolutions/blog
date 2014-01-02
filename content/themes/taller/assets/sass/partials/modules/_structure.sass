@@ -1,0 +1,19 @@
+/*
+ *------------------------------------------------------------------------------
+ * Structure Module
+ *------------------------------------------------------------------------------
+ */
+
+
+%spaced-content
+  // Smart looping the breakpoint of type width.
+  $spaced-content-current: 23%
+  @each $breakpoint in get-breakpoint-group("width" "screen")
+    +breakpoint(nth($breakpoint, 1))
+      padding-left: $spaced-content-current
+      padding-right: $spaced-content-current
+      $spaced-content-current: $spaced-content-current - 3%
+
+  +breakpoint("tiniest-width")
+    padding-left: 20px
+    padding-right: 20px

@@ -7,11 +7,16 @@
 #content-wrapper
   position: absolute
   z-index: 10
-  top: 40%
+  top: 180px
   right: 0
   width: 100%
 
+  +breakpoint("min-responsive-height")
+    top: 40%
+
 #main
-  padding: 3rem 20% 8rem
+  @extend %spaced-content
+  padding-top: 3rem
+  padding-bottom: 8rem
   background-color: $color-background
   box-shadow: 0 10px 100px rgba(0, 0, 0, 0.6)

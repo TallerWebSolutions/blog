@@ -1,0 +1,94 @@
+/*
+ *------------------------------------------------------------------------------
+ * Media Definitions
+ *------------------------------------------------------------------------------
+ * Use this file to set media variables & functions.
+ */
+
+
+
+// ------------------------------------
+// Functions.
+// ------------------------------------
+
+// Return a media definition by name.
+@function get-breakpoint($breakpoint-name)
+  @each $breakpoint in $breakpoints
+    @if nth($breakpoint, 1) == $breakpoint-name
+      @return nth($breakpoint, 2)
+  @debug "No breakpoint found"
+
+@function get-breakpoint-group($group-names)
+  $group: ()
+  @each $breakpoint in $breakpoints
+    @if length($breakpoint) >= 3
+      $match: true
+      @each $group-name in $group-names
+        @if not contains(nth($breakpoint, 3), $group-name)
+          $match: false
+      @if $match
+        $group: append($group, $breakpoint)
+  @return $group
+
+@function join-breakpoints($breakpoint-names)
+  $media-definitions: ()
+  @each $breakpoint-name in $breakpoint-names
+    $media-definitions: append($media-definitions, get-breakpoint($breakpoint-name))
+  @return implode($media-definitions, " and ")
+
+
+
+// Define the breakpoint array with a dumb definition.
+$breakpoints: ()
+
+
+// ------------------------------------
+// Descriptive variables.
+// ------------------------------------
+
+$breakpoints: append($breakpoints, ("screen", "screen"))
+
+// Height based.
+$breakpoints: append($breakpoints, ("largest-width-min", "(min-width: 1680px)", "width"))
+$breakpoints: append($breakpoints, (  "large-width-min", "(min-width: 1280px)", "width"))
+$breakpoints: append($breakpoints, (  "large-width-max", "(max-width: 1680px)", "width"))
+$breakpoints: append($breakpoints, ("default-width-min", "(min-width: 1024px)", "width"))
+$breakpoints: append($breakpoints, ("default-width-max", "(max-width: 1280px)", "width"))
+$breakpoints: append($breakpoints, (  "small-width-min", "(min-width:  800px)", "width"))
+$breakpoints: append($breakpoints, (  "small-width-max", "(max-width: 1024px)", "width"))
+$breakpoints: append($breakpoints, ("smaller-width-min", "(min-width:  640px)", "width"))
+$breakpoints: append($breakpoints, ("smaller-width-max", "(max-width:  800px)", "width"))
+$breakpoints: append($breakpoints, (   "tiny-width-min", "(min-width:  480px)", "width"))
+$breakpoints: append($breakpoints, (   "tiny-width-max", "(max-width:  640px)", "width"))
+$breakpoints: append($breakpoints, ("tiniest-width-max", "(max-width:  480px)", "width"))
+
+// Width based.
+// $breakpoints: append($breakpoints, ("largest-height-min", "(min-height: 1680px)", "height"))
+// $breakpoints: append($breakpoints, (  "large-height-min", "(min-height: 1280px)", "height"))
+// $breakpoints: append($breakpoints, (  "large-height-max", "(max-height: 1680px)", "height"))
+// $breakpoints: append($breakpoints, ("default-height-min", "(min-height: 1024px)", "height"))
+// $breakpoints: append($breakpoints, ("default-height-max", "(max-height: 1280px)", "height"))
+// $breakpoints: append($breakpoints, (  "small-height-min", "(min-height:  800px)", "height"))
+// $breakpoints: append($breakpoints, (  "small-height-max", "(max-height: 1024px)", "height"))
+// $breakpoints: append($breakpoints, ("smaller-height-min", "(min-height:  640px)", "height"))
+// $breakpoints: append($breakpoints, ("smaller-height-max", "(max-height:  800px)", "height"))
+// $breakpoints: append($breakpoints, (   "tiny-height-min", "(min-height:  480px)", "height"))
+// $breakpoints: append($breakpoints, (   "tiny-height-max", "(max-height:  640px)", "height"))
+// $breakpoints: append($breakpoints, ("tiniest-height-max", "(max-height:  480px)", "height"))
+
+
+// ------------------------------------
+// Alias variables.
+// ------------------------------------
+
+// Height based.
+$breakpoints: append($breakpoints, ("min-responsive-height", "screen and (min-height: 450px)"))
+
+// Width based.
+$breakpoints: append($breakpoints, ("largest-width", join-breakpoints("screen" "largest-width-min"                    ), "screen" "width"))
+$breakpoints: append($breakpoints, (  "large-width", join-breakpoints("screen" "large-width-min"   "large-width-max"  ), "screen" "width"))
+$breakpoints: append($breakpoints, ("default-width", join-breakpoints("screen" "default-width-min" "default-width-max"), "screen" "width"))
+$breakpoints: append($breakpoints, (  "small-width", join-breakpoints("screen" "small-width-min"   "small-width-max"  ), "screen" "width"))
+$breakpoints: append($breakpoints, ("smaller-width", join-breakpoints("screen" "smaller-width-min" "smaller-width-max"), "screen" "width"))
+$breakpoints: append($breakpoints, (   "tiny-width", join-breakpoints("screen" "tiny-width-min"    "tiny-width-max"   ), "screen" "width"))
+$breakpoints: append($breakpoints, ("tiniest-width", join-breakpoints("screen" "tiniest-width-max"),                     "screen" "width"))

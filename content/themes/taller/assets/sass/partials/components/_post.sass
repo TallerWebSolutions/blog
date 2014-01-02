@@ -56,6 +56,12 @@
     color: white
     .inner
       margin: 0 1.5em 0 5.5rem
+      $margin-left-current: 6.5rem
+      @each $breakpoint in get-breakpoint-group("width" "screen")
+        +breakpoint(nth($breakpoint, 1))
+          margin-left: $margin-left-current
+          $margin-left-current: $margin-left-current - 0.3rem
+
     .meta .post-title
       display: inline-block
     a
@@ -85,6 +91,11 @@
 
   > p.has-image
     @extend %expanded
+    text-align: center
+
+  > iframe
+    @extend %expanded
+    width: 100%
 
   img
     max-width: 100%
@@ -192,20 +203,21 @@
 
 .post.preview
   position: relative
-  display: inline-block
-  width: 48%
   margin-bottom: 2rem
 
-  &:first-child
-    width: 100%
-    float: none
+  +breakpoint("small-width-min")
+    &
+      width: 48%
+    &:first-child
+      width: 100%
+      float: none
 
-  &:nth-child(odd)
-    float: right
-    clear: right
-  &:nth-child(even)
-    float: left
-    clear: left
+    &:nth-child(odd)
+      float: right
+      clear: right
+    &:nth-child(even)
+      float: left
+      clear: left
 
   .inner
     position: relative
@@ -214,7 +226,7 @@
     opacity: 0.9
     .post-content
       border: 0
-      padding: 1rem 0.5rem 1.5rem
+      padding: 0
 
     &:hover, &:focus
       box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.15)
@@ -228,7 +240,8 @@
       @extend %transition-navigation
 
   .post-header
-    padding-bottom: 1rem
+    margin: 2rem
+    padding-bottom: 0.4rem
     border-bottom: 1px solid $color-grey-lighter
     text-align: center
 
@@ -238,7 +251,7 @@
 
   .site-head-subinfo
     position: relative
-    bottom: -1.6rem
+    bottom: -1.1rem
     display: inline-block
     padding: 0 1em
     font-size: 0.8rem
@@ -247,13 +260,20 @@
       margin-left: 0.5em
   
   .featured-media
-    height: 240px
+    width: 100%
+    margin: 0
     background-size: cover
     background-position: center center
-    border: 1px solid #CCC
-    border-width: 0 0 1px 0
-    margin-bottom: -1em
+    
+    &.featured-img
+      border: 1px solid #CCC
+      border-width: 1px 0
 
+    &.featured-iframe
+      max-height: 224px
+    
+    &:not(.featured-cover)
+      margin-bottom: -0.8rem
     &.featured-cover
       position: absolute
       z-index: 1
@@ -261,23 +281,8 @@
       right: 1px
       left: 1px
       bottom: 1px
-      border-width: 0
-      margin-bottom: 0
-
-  &:first-child
-    .featured-media
-      position: absolute
-      top: 1px
-      left: 1px
-      bottom: 1px
       height: auto
-      width: 50%
-      margin: 0
-      border-width: 0 1px 0 0
-      margin-bottom: 0
-
-    .post-content
-      margin-left: 50%
+      border-width: 0
 
   &.has-featured-cover
     .inner
@@ -301,12 +306,13 @@
             color: inherit
 
   .post-excerpt
-    padding: 1rem 0
+    margin: 2rem
     opacity: 0.8
     word-wrap: break-word
 
   .post-footer
-    padding-top: 1rem
+    margin-top: -0.5rem
+    margin-bottom: 1.5rem
     font-size: 0.8rem
     
     > span

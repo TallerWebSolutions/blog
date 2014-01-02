@@ -1,0 +1,24 @@
+/*
+ *------------------------------------------------------------------------------
+ * Util Definitions
+ *------------------------------------------------------------------------------
+ * Use this file to set utility variables & functions.
+ */
+
+// ------------------------------------
+// Functions.
+// ------------------------------------
+
+@function contains($list, $value)
+  @each $item in $list
+    @if $item == $value
+      @return true
+  @return false
+
+@function implode($list, $glue: " ")
+  @if length($list) == 0
+    @return ""
+  $result: nth($list, 1)
+  @for $i from 2 through length($list)
+    $result: $result + $glue + nth($list, $i)
+  @return $result

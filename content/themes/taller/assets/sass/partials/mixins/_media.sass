@@ -1,0 +1,15 @@
+/*
+ *------------------------------------------------------------------------------
+ * Media Mixins
+ *------------------------------------------------------------------------------
+ */
+
+
+// Includes 'content' for a pre-defined media.
+=breakpoint($breakpoint-name)
+  @media #{get-breakpoint($breakpoint-name)}
+    @content
+
+=breakpoint-loop($breakpoint-group)
+  @each $breakpoint in get-breakpoing-group($breakpoint-group)
+    @content

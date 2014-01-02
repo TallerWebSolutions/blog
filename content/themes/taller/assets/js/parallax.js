@@ -10,15 +10,23 @@
    * Header parallax effect on the text.
    */
   (function() {
-    var $headerContent    = $('#site-head-content'),
+    var $header           = $('#site-head'),
+        $headerContent    = $header.find('#site-head-content'),
         $postDate         = $headerContent.find('.site-head-subinfo');
 
     /**
      * Effect handler.
      */
     function headerParallax(e) {
-      $headerContent.css("margin-top", -window.scrollY*0.9);
-      $postDate.css("margin-top", window.scrollY / 8);
+      var headerHeight = $header[0].clientHeight,
+          scrollTop    = window.scrollY,
+          walked       = (headerHeight - scrollTop) / headerHeight;
+
+      $headerContent.css({
+        'margin-top': -scrollTop * 0.9,
+        'opacity': walked + 0.1
+      });
+      $postDate.css('margin-top', scrollTop / 8);
     }
 
     // Listen to scrolling.

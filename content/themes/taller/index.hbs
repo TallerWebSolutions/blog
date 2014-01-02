@@ -20,13 +20,14 @@
             {{preprocess_post 'list'}}
 
             <article class="{{post_class}} preview">
-                <a href="{{url}}" class="inner {{featured_media_cover}}" >
-                    {{featured_media}}
+                <a href="{{url}}" class="inner">
+
                     <div class="post-content">
                         <header class="post-header">
                             <h2 class="post-title">{{{title}}}</h2>
                             <span class="site-head-subinfo fa fa-clock-o"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMMM YYYY'}}</time></span>
                         </header>
+                        {{featured_media}}
                         <section class="post-excerpt">
                             <p>{{excerpt}}&hellip;</p>
                         </section>
