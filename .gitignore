@@ -1,7 +1,7 @@
 # Ignore configuration file.
 config.js
 
-# Igonre node packages.
+# Ignore node packages.
 node_modules/*
 
 # Ignore databases.
