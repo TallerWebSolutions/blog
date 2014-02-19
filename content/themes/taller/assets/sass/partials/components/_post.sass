@@ -93,6 +93,19 @@
     @extend %expanded
     text-align: center
 
+  .align-left
+    margin-right: 2rem
+
+  .align-right
+    margin-left: 2rem
+
+  .align-left, .align-right
+    margin-bottom: 1rem
+    &.streched
+      margin-bottom: 0
+      margin-left: 0
+      margin-right: 0
+
   > iframe
     @extend %expanded
     width: 100%
