@@ -7,7 +7,7 @@
 
 %spaced-content
   // Smart looping the breakpoint of type width.
-  $spaced-content-current: 23%
+  $spaced-content-current: 20%
   @each $breakpoint in get-breakpoint-group("width" "screen")
     +breakpoint(nth($breakpoint, 1))
       padding-left: $spaced-content-current
