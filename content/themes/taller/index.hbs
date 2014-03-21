@@ -6,7 +6,9 @@
 {{! The big featured header on the homepage, with the site logo and description }}
 <header id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
     <div id="site-head-content" class="inner">
-        <h1 class="blog-title">{{@blog.title}}</h1>
+        <h1 class="blog-title">{{@blog.title}}
+            <img id="taller-logo" src="assets/images/brand.png" />
+        </h1>
         <div class="blog-description">{{@blog.description}}</div>
     </div>
 </header>
