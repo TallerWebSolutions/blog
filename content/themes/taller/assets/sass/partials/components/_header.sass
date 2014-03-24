@@ -5,9 +5,9 @@
  */
 
 #site-head
-  +display-box
-  +box-align(center)
-  +box-pack(center)
+  +flexbox
+  justify-content: center
+  align-items: center
   +background-cover($cover-header-home)
   position: fixed
   top: 0
@@ -39,3 +39,24 @@
 #site-head-content
   @extend %spaced-content
   position: relative
+  .blog-title
+    position: relative
+    margin-left: 80px
+    #taller-logo
+      position: absolute
+      top: -1rem
+      left: -80px
+      height: 6rem
+
+
++breakpoint("tiniest-width")
+  #post-meta
+    display: none !important
+  #taller-flag
+    display: none
+  #site-head-content
+    .blog-title
+      margin-left: 60px
+      #taller-logo
+        left: -60px
+        height: 5rem
