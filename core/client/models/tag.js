@@ -1,8 +1,8 @@
-/*global window, document, Ghost, $, _, Backbone */
+/*global Ghost */
 (function () {
     'use strict';
 
-    Ghost.Collections.Tags = Backbone.Collection.extend({
-        url: Ghost.settings.apiRoot + '/tags/'
+    Ghost.Collections.Tags = Ghost.ProgressCollection.extend({
+        url: Ghost.paths.apiRoot + '/tags/'
     });
 }());

@@ -1,5 +1,6 @@
 // # Ghost Configuration
 // Setup your Ghost install for various environments
+// Documentation can be found at http://docs.ghost.org/usage/configuration/
 
 var path = require('path'),
     config;
@@ -37,6 +38,9 @@ config = {
             host: '127.0.0.1',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
+        },
+        paths: {
+            contentPath: path.join(__dirname, '/content/')
         }
     },
 
@@ -77,13 +81,14 @@ config = {
         server: {
             host: '127.0.0.1',
             port: '2369'
-        }
+        },
+        logging: false
     },
 
     // ### Travis
-    // Automated testing run through Github
-    travis: {
-        url: 'http://127.0.0.1:2368',
+    // Automated testing run through GitHub
+    'travis-sqlite3': {
+        url: 'http://127.0.0.1:2369',
         database: {
             client: 'sqlite3',
             connection: {
@@ -92,8 +97,51 @@ config = {
         },
         server: {
             host: '127.0.0.1',
-            port: '2368'
-        }
+            port: '2369'
+        },
+        logging: false
+    },
+
+    // ### Travis
+    // Automated testing run through GitHub
+    'travis-mysql': {
+        url: 'http://127.0.0.1:2369',
+        database: {
+            client: 'mysql',
+            connection: {
+                host     : '127.0.0.1',
+                user     : 'travis',
+                password : '',
+                database : 'ghost_travis',
+                charset  : 'utf8'
+            }
+        },
+        server: {
+            host: '127.0.0.1',
+            port: '2369'
+        },
+        logging: false
+    },
+
+    // ### Travis
+    // Automated testing run through GitHub
+    'travis-pg': {
+        url: 'http://127.0.0.1:2369',
+        database: {
+            client: 'pg',
+            connection: {
+                host     : '127.0.0.1',
+                user     : 'postgres',
+                password : '',
+                database : 'ghost_travis',
+                charset  : 'utf8'
+            }
+        },
+        server: {
+            host: '127.0.0.1',
+            port: '2369'
+        },
+        logging: false
     }
 };
 

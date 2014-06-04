@@ -1,8 +1,44 @@
-/*global window, document, Ghost, $, _, Backbone */
+/*global Ghost, _, Backbone, NProgress */
+
+(function () {
+    "use strict";
+    NProgress.configure({ showSpinner: false });
+
+    // Adds in a call to start a loading bar
+    // This is sets up a success function which completes the loading bar
+    function wrapSync(method, model, options) {
+        if (options !== undefined && _.isObject(options)) {
+            NProgress.start();
+
+            /*jshint validthis:true */
+            var self = this,
+                oldSuccess = options.success;
+            /*jshint validthis:false */
+
+            options.success = function () {
+                NProgress.done();
+                return oldSuccess.apply(self, arguments);
+            };
+        }
+
+        /*jshint validthis:true */
+        return Backbone.sync.call(this, method, model, options);
+    }
+
+    Ghost.ProgressModel = Backbone.Model.extend({
+        sync: wrapSync
+    });
+
+    Ghost.ProgressCollection = Backbone.Collection.extend({
+        sync: wrapSync
+    });
+}());
+
+/*global Ghost, _, Backbone */
 (function () {
     'use strict';
 
-    Ghost.Models.Post = Backbone.Model.extend({
+    Ghost.Models.Post = Ghost.ProgressModel.extend({
 
         defaults: {
             status: 'draft'
@@ -12,11 +48,10 @@
 
         parse: function (resp) {
             if (resp.status) {
-                resp.published = !!(resp.status === 'published');
-                resp.draft = !!(resp.status === 'draft');
+                resp.published = resp.status === 'published';
+                resp.draft = resp.status === 'draft';
             }
             if (resp.tags) {
-                // TODO: parse tags into it's own collection on the model (this.tags)
                 return resp;
             }
             return resp;
@@ -50,7 +85,7 @@
         nextPage: 0,
         prevPage: 0,
 
-        url: Ghost.settings.apiRoot + '/posts/',
+        url: Ghost.paths.apiRoot + '/posts/',
         model: Ghost.Models.Post,
 
         parse: function (resp) {
@@ -69,35 +104,37 @@
 
 }());
 
-/*global window, document, Ghost, $, _, Backbone */
+/*global Ghost */
 (function () {
     'use strict';
     //id:0 is used to issue PUT requests
-    Ghost.Models.Settings = Backbone.Model.extend({
-        url: Ghost.settings.apiRoot + '/settings/?type=blog,theme',
+    Ghost.Models.Settings = Ghost.ProgressModel.extend({
+        url: Ghost.paths.apiRoot + '/settings/?type=blog,theme,app',
         id: '0'
     });
 
 }());
-/*global window, document, Ghost, $, _, Backbone */
+
+/*global Ghost */
 (function () {
     'use strict';
 
-    Ghost.Collections.Tags = Backbone.Collection.extend({
-        url: Ghost.settings.apiRoot + '/tags/'
+    Ghost.Collections.Tags = Ghost.ProgressCollection.extend({
+        url: Ghost.paths.apiRoot + '/tags/'
     });
 }());
 
-/*global window, document, Ghost, $, _, Backbone */
+/*global Ghost, Backbone */
 (function () {
     'use strict';
 
     Ghost.Models.Themes = Backbone.Model.extend({
-        url: Ghost.settings.apiRoot + '/themes'
+        url: Ghost.paths.apiRoot + '/themes'
     });
 
 }());
-/*global Ghost, Backbone */
+
+/*global Ghost, Backbone, $ */
 (function () {
     'use strict';
     Ghost.Models.uploadModal = Backbone.Model.extend({
@@ -108,7 +145,8 @@
             style: ["wide"],
             animation: 'fade',
             afterRender: function () {
-                this.$('.js-drop-zone').upload();
+                var filestorage = $('#' + this.options.model.id).data('filestorage');
+                this.$('.js-drop-zone').upload({fileStorage: filestorage});
             },
             confirm: {
                 reject: {
@@ -129,29 +167,31 @@
             this.options.key = options.key;
             this.options.src = options.src;
             this.options.confirm.accept = options.accept;
+            this.options.acceptEncoding = options.acceptEncoding || 'image/*';
         }
     });
 
 }());
-/*global window, document, Ghost, $, _, Backbone */
+
+/*global Ghost */
 (function () {
     'use strict';
 
-    Ghost.Models.User = Backbone.Model.extend({
-        url: Ghost.settings.apiRoot + '/users/me/'
+    Ghost.Models.User = Ghost.ProgressModel.extend({
+        url: Ghost.paths.apiRoot + '/users/me/'
     });
 
 //    Ghost.Collections.Users = Backbone.Collection.extend({
-//        url: Ghost.settings.apiRoot + '/users/'
+//        url: Ghost.paths.apiRoot + '/users/'
 //    });
 
 }());
 
-/*global window, document, Ghost, $, _, Backbone */
+/*global Ghost */
 (function () {
     'use strict';
 
-    Ghost.Models.Widget = Backbone.Model.extend({
+    Ghost.Models.Widget = Ghost.ProgressModel.extend({
 
         defaults: {
             title: '',
@@ -184,8 +224,8 @@
         }
     });
 
-    Ghost.Collections.Widgets = Backbone.Collection.extend({
-        // url: Ghost.settings.apiRoot + '/widgets/', // What will this be?
+    Ghost.Collections.Widgets = Ghost.ProgressCollection.extend({
+        // url: Ghost.paths.apiRoot + '/widgets/', // What will this be?
         model: Ghost.Models.Widget
     });
 

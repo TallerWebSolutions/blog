@@ -1,24 +1,31 @@
-var ghostBookshelf,
-    Bookshelf = require('bookshelf'),
+var Bookshelf = require('bookshelf'),
     when      = require('when'),
     moment    = require('moment'),
-    _         = require('underscore'),
+    _         = require('lodash'),
     uuid      = require('node-uuid'),
-    config    = require('../../../config'),
-    Validator = require('validator').Validator,
-    sanitize  = require('validator').sanitize;
+    config    = require('../config'),
+    unidecode = require('unidecode'),
+    sanitize  = require('validator').sanitize,
+    schema    = require('../data/schema'),
+    validation     = require('../data/validation'),
+
+    ghostBookshelf;
 
 // Initializes a new Bookshelf instance, for reference elsewhere in Ghost.
-ghostBookshelf = Bookshelf.initialize(config[process.env.NODE_ENV || 'development'].database);
-ghostBookshelf.client = config[process.env.NODE_ENV].database.client;
+ghostBookshelf = Bookshelf.ghost = Bookshelf.initialize(config().database);
+ghostBookshelf.client = config().database.client;
 
-ghostBookshelf.validator = new Validator();
 
 // The Base Model which other Ghost objects will inherit from,
 // including some convenience functions as static properties on the model.
 ghostBookshelf.Model = ghostBookshelf.Model.extend({
 
     hasTimestamps: true,
+
+    // get permitted attributs from schema.js
+    permittedAttributes: function () {
+        return _.keys(schema.tables[this.tableName]);
+    },
 
     defaults: function () {
         return {
@@ -27,9 +34,17 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
     },
 
     initialize: function () {
+        var self = this;
         this.on('creating', this.creating, this);
-        this.on('saving', this.saving, this);
-        this.on('saving', this.validate, this);
+        this.on('saving', function (model, attributes, options) {
+            return when(self.saving(model, attributes, options)).then(function () {
+                return self.validate(model, attributes, options);
+            });
+        });
+    },
+
+    validate: function () {
+        validation.validateSchema(this.tableName, this.toJSON());
     },
 
     creating: function () {
@@ -39,10 +54,13 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
     },
 
     saving: function () {
-         // Remove any properties which don't belong on the post model
-        this.attributes = this.pick(this.permittedAttributes);
+         // Remove any properties which don't belong on the model
+        this.attributes = this.pick(this.permittedAttributes());
 
-        this.set('updated_by', 1);
+        // sessions do not have 'updated_by' column
+        if (this.tableName !== 'sessions') {
+            this.set('updated_by', 1);
+        }
     },
 
     // Base prototype properties will go here
@@ -57,12 +75,24 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
         return attrs;
     },
 
+    // Convert bools to ints to be consistent
+    // across db providers
+    fixBools: function (attrs) {
+        _.each(attrs, function (value, key) {
+            if (typeof value === "boolean") {
+                attrs[key] = value ? 1 : 0;
+            }
+        });
+
+        return attrs;
+    },
+
     format: function (attrs) {
-        return this.fixDates(attrs);
+        return this.fixBools(this.fixDates(attrs));
     },
 
     toJSON: function (options) {
-        var attrs = this.fixDates(_.extend({}, this.attributes)),
+        var attrs = this.fixBools(this.fixDates(_.extend({}, this.attributes))),
             relations = this.relations;
 
         if (options && options.shallow) {
@@ -80,60 +110,6 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
 
     sanitize: function (attr) {
         return sanitize(this.get(attr)).xss();
-    },
-
-    // #### generateSlug
-    // Create a string act as the permalink for an object.
-    generateSlug: function (Model, base) {
-        var slug,
-            slugTryCount = 1,
-            // Look for a post with a matching slug, append an incrementing number if so
-            checkIfSlugExists = function (slugToFind) {
-                return Model.read({slug: slugToFind}).then(function (found) {
-                    var trimSpace;
-
-                    if (!found) {
-                        return when.resolve(slugToFind);
-                    }
-
-                    slugTryCount += 1;
-
-                    // If this is the first time through, add the hyphen
-                    if (slugTryCount === 2) {
-                        slugToFind += '-';
-                    } else {
-                        // Otherwise, trim the number off the end
-                        trimSpace = -(String(slugTryCount - 1).length);
-                        slugToFind = slugToFind.slice(0, trimSpace);
-                    }
-
-                    slugToFind += slugTryCount;
-
-                    return checkIfSlugExists(slugToFind);
-                });
-            };
-
-        // Remove URL reserved chars: `:/?#[]@!$&'()*+,;=` as well as `\%<>|^~£"`
-        slug = base.trim().replace(/[:\/\?#\[\]@!$&'()*+,;=\\%<>\|\^~£"]/g, '')
-            // Replace dots and spaces with a dash
-            .replace(/(\s|\.)/g, '-')
-            // Convert 2 or more dashes into a single dash
-            .replace(/-+/g, '-')
-            // Make the whole thing lowercase
-            .toLowerCase();
-
-        // Remove trailing hypen
-        slug = slug.charAt(slug.length - 1) === '-' ? slug.substr(0, slug.length - 1) : slug;
-        // Check the filtered slug doesn't match any of the reserved keywords
-        slug = /^(ghost|ghost\-admin|admin|wp\-admin|wp\-login|dashboard|logout|login|signin|signup|signout|register|archive|archives|category|categories|tag|tags|page|pages|post|posts|user|users)$/g
-            .test(slug) ? slug + '-post' : slug;
-
-        //if slug is empty after trimming use "post"
-        if (!slug) {
-            slug = 'post';
-        }
-        // Test for duplicate slugs.
-        return checkIfSlugExists(slug);
     }
 
 }, {
@@ -173,7 +149,7 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
     edit: function (editedObj, options) {
         options = options || {};
         return this.forge({id: editedObj.id}).fetch(options).then(function (foundObj) {
-            return foundObj.save(editedObj);
+            return foundObj.save(editedObj, options);
         });
     },
 
@@ -188,7 +164,16 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
      */
     add: function (newObj, options) {
         options = options || {};
-        return this.forge(newObj).save(options);
+        var instance = this.forge(newObj);
+        // We allow you to disable timestamps
+        // when importing posts so that
+        // the new posts `updated_at` value
+        // is the same as the import json blob.
+        // More details refer to https://github.com/TryGhost/Ghost/issues/1696
+        if (options.importing) {
+            instance.hasTimestamps = false;
+        }
+        return instance.save(null, options);
     },
 
     create: function () {
@@ -207,6 +192,74 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
 
     'delete': function () {
         return this.destroy.apply(this, arguments);
+    },
+
+    // #### generateSlug
+    // Create a string act as the permalink for an object.
+    generateSlug: function (Model, base, readOptions) {
+        var slug,
+            slugTryCount = 1,
+            baseName = Model.prototype.tableName.replace(/s$/, ''),
+            // Look for a post with a matching slug, append an incrementing number if so
+            checkIfSlugExists;
+
+        checkIfSlugExists = function (slugToFind) {
+            var args = {slug: slugToFind};
+            //status is needed for posts
+            if (readOptions && readOptions.status) {
+                args.status = readOptions.status;
+            }
+            return Model.findOne(args, readOptions).then(function (found) {
+                var trimSpace;
+
+                if (!found) {
+                    return when.resolve(slugToFind);
+                }
+
+                slugTryCount += 1;
+
+                // If this is the first time through, add the hyphen
+                if (slugTryCount === 2) {
+                    slugToFind += '-';
+                } else {
+                    // Otherwise, trim the number off the end
+                    trimSpace = -(String(slugTryCount - 1).length);
+                    slugToFind = slugToFind.slice(0, trimSpace);
+                }
+
+                slugToFind += slugTryCount;
+
+                return checkIfSlugExists(slugToFind);
+            });
+        };
+
+        slug = base.trim();
+
+        // Remove non ascii characters
+        slug = unidecode(slug);
+
+        // Remove URL reserved chars: `:/?#[]@!$&'()*+,;=` as well as `\%<>|^~£"`
+        slug = slug.replace(/[:\/\?#\[\]@!$&'()*+,;=\\%<>\|\^~£"]/g, '')
+            // Replace dots and spaces with a dash
+            .replace(/(\s|\.)/g, '-')
+            // Convert 2 or more dashes into a single dash
+            .replace(/-+/g, '-')
+            // Make the whole thing lowercase
+            .toLowerCase();
+
+        // Remove trailing hyphen
+        slug = slug.charAt(slug.length - 1) === '-' ? slug.substr(0, slug.length - 1) : slug;
+
+        // Check the filtered slug doesn't match any of the reserved keywords
+        slug = /^(ghost|ghost\-admin|admin|wp\-admin|wp\-login|dashboard|logout|login|signin|signup|signout|register|archive|archives|category|categories|tag|tags|page|pages|post|posts|user|users|rss|feed)$/g
+            .test(slug) ? slug + '-' + baseName : slug;
+
+        //if slug is empty after trimming use "post"
+        if (!slug) {
+            slug = baseName;
+        }
+        // Test for duplicate slugs.
+        return checkIfSlugExists(slug);
     }
 
 });
