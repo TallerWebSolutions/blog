@@ -99,3 +99,66 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
   // Save changes.
   this.html = jQuery('<div />').append(this.$html).html();
 });
+
+/*
+ * Handles featured media.
+ */
+hbs.registerHelper('fmt', function (type, options) {
+
+  var types = type.split(' '),
+    accepted = false,
+    index = -1,
+    op = null,
+    t = 0;
+
+  if (this.featuredMedia) {
+    for (; t < types.length; t++) {
+      op = types[t].charAt(0) == '!' ? 'has-not' : 'has';
+      if (op == 'has-not') types[t] = types[t].substr(1);
+      index = this.featuredMedia.types.indexOf(types[t]);
+      accepted = op == 'has' ? index > -1 : index == -1;
+      if (!accepted) break;
+    }
+    if (accepted) {
+      console.log(options.fn(this));
+      // Step in the block.
+      return options.fn(this);
+    }
+  }
+
+  // Step out the block.
+  options.inverse(this);
+});
+
+/*
+ * Prints featured media, if any.
+ */
+hbs.registerHelper('featured_media', function (options) {
+  if (this.featuredMedia) {
+    var output = '';
+
+    switch (this.view_mode) {
+      case 'list':
+
+        var $element       = this.featuredMedia.$element,
+          $dumpContainer = jQuery('<div />');
+
+        // Image variation.
+        if ($element.prop("tagName") == 'IMG' && this.featuredMedia.types.indexOf('cover') > -1) {
+          $newElement = jQuery('<div />', {
+            css: {
+              'background-image': 'url(' + $element.attr('src') + ')'
+            }
+          });
+          $element = $newElement;
+        }
+
+        $element.addClass(this.featuredMedia.classes.join(' '));
+
+        output = new hbs.handlebars.SafeString($dumpContainer.append($element).html());
+        break;
+    }
+
+    return output;
+  }
+});
