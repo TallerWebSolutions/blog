@@ -4,25 +4,98 @@
 
 /*
 
-    0.  Includes
+    0.  Normalize
     1.  Icons
     2.  General
     3.  Utilities
     4.  General
     5.  Single Post
-    6.  Third Party Elements
-    7.  Pagination
-    8.  Footer
-    9.  Media Queries (Tablet)
-    10. Media Queries (Mobile)
+    6.  Tag Archive
+    7.  Third Party Elements
+    8.  Pagination
+    9.  Footer
+    10.  Media Queries (Tablet)
+    11. Media Queries (Mobile)
 
  */
 
 /* ==========================================================================
-   0. Includes - Ground zero
+   0. Normalize.css v2.1.3 | MIT License | git.io/normalize | (minified)
    ========================================================================== */
 
-@import url(normalize.css);
+article, aside, details,
+figcaption, figure,
+footer, header, hgroup,
+main, nav, section,
+summary { display: block; }
+audio, canvas, video { display: inline-block; }
+audio:not([controls]) { display: none; height: 0; }
+[hidden], template { display: none; }
+html {
+   font-family: sans-serif;
+   -ms-text-size-adjust: 100%;
+   -webkit-text-size-adjust: 100%;
+}
+body { margin: 0; }
+a { background: transparent; }
+a:focus { outline: thin dotted; }
+a:active, a:hover { outline: 0; }
+h1 { font-size: 2em; margin: 0.67em 0; }
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: bold; }
+dfn { font-style: italic; }
+hr {
+   -moz-box-sizing: content-box;
+   box-sizing: content-box;
+   height: 0;
+}
+mark { background: #ff0; color: #000; }
+code, kbd, pre,
+samp { font-family: monospace, serif; font-size: 1em; }
+pre { white-space: pre-wrap; }
+q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+small { font-size: 80%; }
+sub, sup {
+   font-size: 75%;
+   line-height: 0;
+   position: relative;
+   vertical-align: baseline;
+}
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+img { border: 0; }
+svg:not(:root) { overflow: hidden; }
+figure { margin: 0; }
+fieldset {
+   border: 1px solid #c0c0c0;
+   margin: 0 2px;
+   padding: 0.35em 0.625em 0.75em;
+}
+legend { border: 0; padding: 0; }
+button, input, select,
+textarea { font-family: inherit; font-size: 100%; margin: 0; }
+button, input { line-height: normal; }
+button, select { text-transform: none; }
+button, html input[type="button"],
+input[type="reset"], input[type="submit"] {
+   -webkit-appearance: button;
+   cursor: pointer;
+}
+button[disabled], html input[disabled] { cursor: default; }
+input[type="checkbox"],
+input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="search"] {
+   -webkit-appearance: textfield;
+   -moz-box-sizing: content-box;
+   -webkit-box-sizing: content-box;
+   box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+button::-moz-focus-inner,
+input::-moz-focus-inner { border: 0; padding: 0; }
+textarea { overflow: auto; vertical-align: top; }
+table { border-collapse: collapse; border-spacing: 0; }
 
 
 /* ==========================================================================
@@ -42,7 +115,11 @@
 }
 
 /* Apply these base styles to all icons */
-.icon-ghost, .icon-feed, .icon-twitter, .icon-google-plus, .icon-facebook {
+.icon-ghost:before,
+.icon-feed:before,
+.icon-twitter:before,
+.icon-google-plus:before,
+.icon-facebook:before {
     font-family: 'icons';
     speak: none;
     font-style: normal;
@@ -50,11 +127,12 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    -webkit-font-smoothing: antialiased;
     text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Each icon is created by inserting the corret character into the 
+/* Each icon is created by inserting the corret character into the
    content of the :before pseudo element. Like a boss. */
 .icon-ghost:before {
     content: "\e000";
@@ -87,7 +165,7 @@ html {
 body {
     height: 100%;
     max-height: 100%;
-    font-family: 'Droid Serif', serif;
+    font-family: 'Noto Serif', serif;
     font-size: 2.0rem;
     line-height: 1.6em;
     color: #3A4145;
@@ -158,13 +236,30 @@ h4 a, h5 a, h6 a {
 }
 
 
-p, ul, ol {
+p, ul, ol, dl {
     margin: 1.6em 0;
 }
 
 ol ol, ul ul,
 ul ol, ol ul {
     margin: 0.4em 0;
+}
+
+dl dt {
+    float: left;
+    width: 180px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+    margin-bottom: 1em
+}
+
+dl dd {
+    margin-left: 200px;
+    margin-bottom: 1em
 }
 
 hr {
@@ -191,7 +286,7 @@ blockquote p {
 
 blockquote small {
     display: inline-block;
-    margin: 0.8em 0 0.8em 1.5em;;
+    margin: 0.8em 0 0.8em 1.5em;
     font-size:0.9em;
     color: #ccc;
 }
@@ -204,28 +299,6 @@ blockquote cite {
 
 blockquote cite a { font-weight: normal; }
 
-
-dl {
-    margin: 1.6em 0;
-}
-
-dl dt {
-    float: left;
-    width: 180px;
-    overflow: hidden;
-    clear: left;
-    text-align: right;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: bold;
-    margin-bottom: 1em
-}
-
-dl dd {
-    margin-left: 200px;
-    margin-bottom: 1em
-}
-
 mark {
     background-color: #ffc336;
 }
@@ -234,7 +307,7 @@ code, tt {
     padding: 1px 3px;
     font-family: Inconsolata, monospace, sans-serif;
     font-size: 0.85em;
-    white-space: pre;
+    white-space: pre-wrap;
     border: 1px solid #E3EDF3;
     background: #F7FAFB;
     border-radius: 2px;
@@ -275,8 +348,8 @@ kbd {
     font-weight: bold;
     background: #f4f4f4;
     border-radius: 4px;
-    box-shadow: 
-        0 1px 0 rgba(0, 0, 0, 0.2), 
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.2),
         0 1px 0 0 #fff inset;
 }
 
@@ -318,17 +391,35 @@ table tbody > tr:nth-child(odd) > th {
     background-color: #f6f6f6;
 }
 
-table.plain {
-    tbody > tr:nth-child(odd) > td,
-    tbody > tr:nth-child(odd) > th {
-        background: transparent;
-    }
+table.plain tbody > tr:nth-child(odd) > td,
+table.plain tbody > tr:nth-child(odd) > th {
+   background: transparent;
+}
+
+iframe, .fluid-width-video-wrapper {
+    display: block;
+    margin: 1.6em 0;
+}
+
+/* When a video is inside the fitvids wrapper, drop the
+margin on the iframe, cause it breaks stuff. */
+.fluid-width-video-wrapper iframe {
+    margin: 0;
 }
 
 
 /* ==========================================================================
    3. Utilities - These things get used a lot
    ========================================================================== */
+
+/* Clears shit */
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
 
 /* Hides shit */
 .hidden {
@@ -357,7 +448,7 @@ table.plain {
    ========================================================================== */
 
 /* Big cover image on the home page */
-#site-head {
+.site-head {
     position: relative;
     display: table;
     width: 100%;
@@ -369,8 +460,12 @@ table.plain {
     background-size: cover;
 }
 
+.blog-logo {
+    text-decoration: none;
+}
+
 /* Yo-logo. Yolo-go. Upload one in ghost/settings/ */
-#blog-logo img {
+.blog-logo img {
     display: block;
     max-height: 100px;
     width: auto;
@@ -378,20 +473,14 @@ table.plain {
     line-height: 0;
 }
 
-#back {
-    color: rgba(0,0,0,0.2);
-    position: fixed;
-    top: 8px;
-    left: 8px;
-    padding: 6px;
-    font-size: 16px;
-}
-
 /* The details of your blog. Defined in ghost/settings/ */
 .blog-title {
     margin: 10px 0 10px 0;
     font-size: 5rem;
     letter-spacing: -1px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.1);
 }
 
 .blog-description {
@@ -399,8 +488,9 @@ table.plain {
     font-size: 1.8rem;
     line-height: 1.5em;
     font-weight: 300;
-    font-family: 'Droid Serif', serif;
+    font-family: 'Noto Serif', serif;
     letter-spacing: 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
 /* Every post, on every page, gets this style on its <article> tag */
@@ -512,6 +602,12 @@ table.plain {
    5. Single Post - When you click on an individual post
    ========================================================================== */
 
+/* Stop .full-img from creating horizontal scroll - slight hack due to
+   imperfections with browser width % calculations and rounding */
+.post-template .content {
+    overflow: hidden;
+}
+
 /* Tweak the .post wrapper style */
 .post-template .post {
     margin-top: 0;
@@ -527,13 +623,29 @@ table.plain {
 /* Insert some mad padding up in the header for better spacing */
 .post-template .post-header {
     padding: 60px 0;
+    text-align: center;
 }
 
-/* Keep large images within the bounds of the post-width */
+.post-template .blog-title {
+    display: inline-block;
+    padding: 2.5rem 0;
+}
+
+/* Keep images centred and within the bounds of the post-width */
 .post-content img {
     display: block;
     max-width: 100%;
+    height: auto;
     margin: 0 auto;
+    padding: 0.6em 0;
+}
+
+/* Break out larger images to be wider than the main text column
+   the class is applied with jQuery */
+.post-content .full-img {
+    width: 126%;
+    max-width: none;
+    margin: 0 -13%;
 }
 
 /* The author credit area after the post */
@@ -555,6 +667,41 @@ table.plain {
     line-height: 1.6em;
 }
 
+/* list of author links - location / url */
+.author-meta {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    font-style: italic;
+    color: #9EABB3;
+}
+
+.author-meta li {
+    float: left;
+    margin-left: 10px; /* space to the left of the bullet */
+}
+
+/* bullet divider */
+.author-meta li:before {
+    content: "•";
+    display: inline-block;
+    margin-right: 10px; /* space to the right of the bullet */
+    color: #BBC7CC;
+}
+
+/* disable the bullet divider for the first item in the list */
+.author-meta li:first-child { margin-left: 0; }
+.author-meta li:first-child:before { display: none; }
+
+.author-meta a {
+    color: #9EABB3;
+}
+.author-meta a:hover {
+    color: #57A3E8;
+}
+
 /* Create some space to the right for the share links */
 .post-footer .author {
     margin-right: 180px;
@@ -574,8 +721,9 @@ table.plain {
 .post-footer .share a {
     font-size: 1.8rem;
     display: inline-block;
-    margin: 1.4rem 1.6rem 1.6rem 0;
+    margin: 1rem 1.6rem 1.6rem 0;
     color: #BBC7CC;
+    text-decoration: none;
 }
 
 .post-footer .share a:hover {
@@ -584,7 +732,56 @@ table.plain {
 
 
 /* ==========================================================================
-   6. Third Party Elements - Embeds from other services
+   6. Tag archive
+   ========================================================================== */
+
+.archive-template .site-head {
+    height: auto;
+    padding-bottom: 5rem;
+}
+
+.archive-template .site-head a {
+    color: #fff;
+}
+
+.archive-template .blog-logo {
+    display: block;
+    margin-top: 5rem;
+}
+
+.tag-archive-header {
+    padding: 20px 0;
+    text-align: center;
+    max-width: 700px;
+    margin: 4rem auto;
+    border-bottom: 1px solid #EBF2F6;
+    position: relative;
+}
+
+.tag-archive-header:after {
+    display: block;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: #E7EEF2 1px solid;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    margin-left: -5px;
+    background: #fff;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    box-shadow: #fff 0 0 0 5px;
+}
+
+.archive-template .blog-title {
+    display: inline-block;
+    padding: 2.5rem 0;
+}
+
+/* ==========================================================================
+   7. Third Party Elements - Embeds from other services
    ========================================================================== */
 
 /* Github */
@@ -601,7 +798,7 @@ table.plain {
 
 
 /* ==========================================================================
-   7. Pagination - Tools to let you flick between pages
+   8. Pagination - Tools to let you flick between pages
    ========================================================================== */
 
 /* The main wrapper for our pagination links */
@@ -652,7 +849,7 @@ table.plain {
 
 
 /* ==========================================================================
-   8. Footer - The bottom of every page
+   9. Footer - The bottom of every page
    ========================================================================== */
 
 .site-footer {
@@ -712,7 +909,7 @@ table.plain {
     color: #D2DEE3;
     font-size: 10px;
     position: absolute;
-    top: 2px;
+    top: 9px;
     left: 9px;
     font-weight: bold;
     transition: color 0.5s ease;
@@ -735,10 +932,9 @@ table.plain {
     padding: 4px 8px 5px 8px;
     position:absolute;
     top: -23px;
-    left: -23px;
+    left: -21px;
     color: rgba(255,255,255,0.9);
     font-size: 1.1rem;
-    font-weight: bold;
     line-height: 1em;
     text-align: center;
     background: #50585D;
@@ -770,7 +966,7 @@ table.plain {
 
 
 /* ==========================================================================
-   9. Media Queries - Smaller than 900px
+   10. Media Queries - Smaller than 900px
    ========================================================================== */
 
 @media only screen and (max-width: 900px) {
@@ -779,10 +975,10 @@ table.plain {
         margin-left: 0;
     }
 
-    #site-head {
-        -webkit-box-sizing: border-box; 
+    .site-head {
+        -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        box-sizing: border-box; 
+        box-sizing: border-box;
         height: auto;
         min-height: 240px;
         padding: 15% 0;
@@ -831,17 +1027,17 @@ table.plain {
 }
 
 /* ==========================================================================
-   10. Media Queries - Smaller than 500px
+   11. Media Queries - Smaller than 500px
    ========================================================================== */
 
 
 @media only screen and (max-width: 500px) {
 
-    #blog-logo img {
+    .blog-logo img {
         max-height: 80px;
     }
 
-    .inner, 
+    .inner,
     .pagination {
         width: auto;
         margin-left: 16px;
@@ -856,7 +1052,7 @@ table.plain {
         line-height: 1.6em;
     }
 
-    #site-head {
+    .site-head {
         padding: 10% 0;
     }
 
@@ -889,6 +1085,18 @@ table.plain {
 
     .post-template .post-header {
         padding: 30px 0;
+    }
+
+    .post-content img {
+        padding: 0;
+    }
+
+    .post-content .full-img {
+        width: auto;
+        width: calc(100% + 32px); /* expand with to image + margins */
+        margin: 0 -16px; /* get rid of margins */
+        min-width: 0;
+        max-width: 112%; /* fallback when calc doesn't work */
     }
 
     .post-meta {
