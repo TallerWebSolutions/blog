@@ -99,27 +99,34 @@ ul, ol
 // ------------------------------------
 
 blockquote
-  margin: 2em 0
-  padding: 1em 2em
-  border-left: 0.5em solid rgba(0, 0, 0, 0.1)
+  padding-left: 1em
+  border-left: 5px solid #A02627
   font-style: italic
-  color: $color-grey-light
-  background-color: rgba(0, 0, 0, 0.01)
   
   cite
-    @extend %transition-navigation !optional
+    @extend %transition-navigation
     display: block
-    margin: 1em 0 -1em
-    padding: 1em 0 0
-    border-top: 1px dashed rgba(0, 0, 0, 0.3)
-    text-align: right
-    opacity: 0.3
+    font-size: 0.8em
+    opacity: 0.7
     &:before
       content: "—"
       margin-right: 0.5em
-
+    a
+      @extend %transition-navigation
+      color: inherit
   &:hover cite
     opacity: 1
+
+  &.pull-right,
+  &.pull-left
+    padding: 1em
+    margin-top: 0.5em
+    max-width: 35%
+    border: 1px dashed #CCC
+    border-width: 2px 0
+    text-align: center
+    p
+      margin-bottom: 1em
 
 
 // ------------------------------------
@@ -131,3 +138,9 @@ hr
   margin: 3em 0 4em
   border: none
   background-color: $color-grey-lightest
+
+.pull-left
+  float: left
+
+.pull-right
+  float: right
