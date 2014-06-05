@@ -27,7 +27,9 @@
 
   <header id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
     <div id="site-head-content" class="inner">
-      <img id="blog-logo" src="{{@blog.url}}/assets/images/mini-horizontal-policromia.png" alt="">
+      <a href="{{@blog.url}}">
+        <img id="blog-logo" src="{{@blog.url}}/assets/images/mini-horizontal-policromia.png" alt="">
+      </a>
       <h1 class="blog-title">{{@blog.title}}</h1>
       <ul id="main-nav">
         <li>
