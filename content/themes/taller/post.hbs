@@ -8,9 +8,11 @@
 {{! The big featured header on the homepage, with the site logo and description }}
 <header class="highlight-header post-header {{post.cover_classes}}" id="post-head">
   <div class="inner">
-    {{#if post.tags}}{{#post}}<span class="post-category">{{tags separator=", "}}</span>{{/post}}{{/if}}
+    <span class="site-head-subinfo"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='D MMMM YYYY'}}</time></span>
     <h1 class="post-title">{{{post.title}}}</h1>
-    <span class="site-head-subinfo"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD.MM.YYYY'}}</time></span>
+    <div class="post-meta">
+      {{#if post.tags}}{{#post}}<span class="post-category">{{tags separator=", "}}</span>{{/post}}{{/if}}
+    </div>
   </div>
 </header>
 
