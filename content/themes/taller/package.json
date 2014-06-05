@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Taller ghost theme.",
   "dependencies": {
-    "jquery": "^2.1.1"
+    "jquery": "^2.1.1",
+    "gravatar": "^1.0.6"
   }
 }

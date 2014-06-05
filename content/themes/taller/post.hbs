@@ -64,7 +64,7 @@
               <h4><span>O Autor</span></h4>
               <section class="author">
                 <div class="author-main-info" {{#if author.cover}}style="background-image: url({{author.cover}})"{{/if}}>
-                  <img class="author-picture" src="{{author.image}}" alt="">
+                  {{#if author.image}}<img class="author-picture" src="{{author.image}}" alt="">{{/if}}
                   <div>
                     <h3>{{author.name}}</h3>
                     {{#if author.bio}}<p>{{author.bio}}</p>{{/if}}
@@ -72,7 +72,7 @@
                 </div>
                 <div class="author-secondary-info">
                   {{#if author.website}}<span class="meta-website"><a href="{{author.website}}" title=""><i class="fa fa-globe"></i> {{author.website}}</a></span>{{/if}}
-                  {{#if author.email}}<span class="meta-email"><a href="{{author.email}}" title=""><i class="fa fa-envelope"></i> {{author.email}}</a></span>{{/if}}
+                  {{#if author.email}}<span class="meta-email"><a href="mailto:{{author.email}}" title=""><i class="fa fa-envelope"></i> {{author.email}}</a></span>{{/if}}
                 </div>
               </section>
             </div>

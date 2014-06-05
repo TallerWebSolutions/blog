@@ -10,7 +10,12 @@ var rootPath  = '../../../../'
   , fs        = require('fs')
   , _         = require('lodash'),
   jsdomEnv    = require('jsdom').env,
-  jQuery      = require('jquery');
+  lodash      = require('lodash'),
+  jQuery      = require('jquery'),
+  gravatar    = require('gravatar'),
+
+  // Custom
+  authors     = require('../authors');
 
 // Start fake DOM to allow the usage of jQuery server-side.
 jsdomEnv('<html><head></head><body></body></html>', function (err, window) {
@@ -33,17 +38,54 @@ hbs.registerHelper('json', function (context) {
  * Preprocesses a post.
  */
 hbs.registerHelper('preprocess_post', function (viewMode, options) {
-  this.$html = jQuery(this.html);
-  this.classes = [];
-  this.view_mode = viewMode || 'full';
 
-  var post = this,
-    featuredSelector = '[alt*="featured"]',
-    featuredMedia = {
-      $element: post.$html.find(featuredSelector).add(post.$html.filter(featuredSelector)),
-      classes: [],
-      types: []
-    };
+  var post = this;
+
+  post.$html = jQuery(this.html);
+  post.classes = [];
+  post.view_mode = viewMode || 'full';
+
+  /*
+   * Post config parser.
+   */
+  (function () {
+    var postConfig = null;
+    var config = post.$html.filter('script[rel="post-config"]');
+
+    config.each(function () {
+      try {
+        postConfig = JSON.parse(this.innerHTML);
+      } catch(e) {
+      }
+    });
+
+    if (postConfig) {
+      
+      // Set custom author information.
+      if (postConfig.author && authors[postConfig.author]) {
+        var author = authors[postConfig.author];
+        var gravatarImage = author.email && gravatar.url(author.email, {s: '100'}) || null;
+
+        if (gravatarImage) {
+          author.image = author.image || gravatarImage;
+        }
+
+        lodash.merge(post.author, {
+          image: '',
+          bio: '',
+          website: ''
+        }, author);
+      }
+
+    }
+  })();
+
+  var featuredSelector = '[alt*="featured"]',
+      featuredMedia = {
+        $element: post.$html.find(featuredSelector).add(post.$html.filter(featuredSelector)),
+        classes: [],
+        types: []
+      };
 
   if (featuredMedia.$element.length) {
 
@@ -97,37 +139,7 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
   }
 
   // Save changes.
-  this.html = jQuery('<div />').append(this.$html).html();
-});
-
-/*
- * Handles featured media.
- */
-hbs.registerHelper('fmt', function (type, options) {
-
-  var types = type.split(' '),
-    accepted = false,
-    index = -1,
-    op = null,
-    t = 0;
-
-  if (this.featuredMedia) {
-    for (; t < types.length; t++) {
-      op = types[t].charAt(0) == '!' ? 'has-not' : 'has';
-      if (op == 'has-not') types[t] = types[t].substr(1);
-      index = this.featuredMedia.types.indexOf(types[t]);
-      accepted = op == 'has' ? index > -1 : index == -1;
-      if (!accepted) break;
-    }
-    if (accepted) {
-      console.log(options.fn(this));
-      // Step in the block.
-      return options.fn(this);
-    }
-  }
-
-  // Step out the block.
-  options.inverse(this);
+  post.html = jQuery('<div />').append(post.$html).html();
 });
 
 /*
