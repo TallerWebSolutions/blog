@@ -25,25 +25,26 @@
 </head>
 <body class="{{body_class}}">
 
-  <ul id="main-nav">
-    <li>
-      <a href="http://taller.net.br/" title="Taller Main Website">Taller</a>
-    </li>
-    <li>
-      <a href="{{@blog.url}}" title="Blog Home" class="active blog-anchor">
-        Blog
-        <div id="taller-flag">
-          <img src="/assets/images/brand.png" alt="Taller Logo">
-        </div>
-      </a>
-    </li>
-    <li>
-      <a href="http://drupaldeelite.com.br/" title="Drupal de Elite">Drupal de Elite</a>
-    </li>
-    <li>
-      <a href="{{@blog.url}}/rss/" class="subscribe" title="Subscribe to the blog"><i class="fa fa-rss"></i></a>
-    </li>
-  </ul>
+  <header id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
+    <div id="site-head-content" class="inner">
+      <img id="blog-logo" src="{{@blog.url}}/assets/images/mini-horizontal-policromia.png" alt="">
+      <h1 class="blog-title">{{@blog.title}}</h1>
+      <ul id="main-nav">
+        <li>
+          <a href="http://taller.net.br/" title="Taller Main Website">Taller</a>
+        </li>
+        <li>
+          <a href="{{@blog.url}}" title="Blog Home" class="active blog-anchor">Blog</a>
+        </li>
+        <li>
+          <a href="http://drupaldeelite.com.br/" title="Drupal de Elite">Drupal de Elite</a>
+        </li>
+        <li>
+          <a href="{{@blog.url}}/rss/" class="subscribe" title="Subscribe to the blog"><i class="fa fa-rss"></i></a>
+        </li>
+      </ul>
+    </div>
+  </header>
 
   {{! Everything else gets inserted here }}
   {{{body}}}
@@ -51,11 +52,10 @@
   {{! Ghost outputs important scripts and data with this tag }}
   {{ghost_foot}}
 
-  {{! The main JavaScript file for Casper }}
+  {{! The main JavaScript file for Taller theme }}
   <script type="text/javascript" src="/assets/js/index.js"></script>
   <script type="text/javascript" src="/assets/js/post.js"></script>
   <script type="text/javascript" src="/assets/js/list.js"></script>
-  <script type="text/javascript" src="/assets/js/parallax.js"></script>
 
   <script type="text/javascript" src="/assets/js/prism-adjust.js"></script>
   <script type="text/javascript" src="/assets/js/vendors/prism.js"></script>

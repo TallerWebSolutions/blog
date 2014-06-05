@@ -6,8 +6,9 @@
 {{#post}}{{preprocess_post 'full'}}{{/post}}
 
 {{! The big featured header on the homepage, with the site logo and description }}
-<header class="post-header {{post.cover_classes}}" id="site-head" {{#if post.cover}}style="background-image: url({{post.cover}})"{{/if}}>
-  <div id="site-head-content" class="inner">
+<header class="highlight-header post-header {{post.cover_classes}}" id="post-head">
+  <div class="inner">
+    {{#if post.tags}}{{#post}}<span class="post-category">{{tags separator=", "}}</span>{{/post}}{{/if}}
     <h1 class="post-title">{{{post.title}}}</h1>
     <span class="site-head-subinfo"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD.MM.YYYY'}}</time></span>
   </div>
@@ -23,6 +24,14 @@
       <header class="article-head">
         <section id="post-meta">
           <div class="inner">
+            <section class="meta">
+              <span class="post-title">{{title}}</span>
+              {{#if author}}
+                <span class="post-author"><i class="fa fa-user"></i> <a href="#author">{{author}}</a></span>
+              {{/if}}
+              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
+            </section>
+
             <section class="share">
               <a class="fa fa-twitter" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}"
                 onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
@@ -36,14 +45,6 @@
                  onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                 <span class="hidden">Google+</span>
               </a>
-            </section>
-
-            <section class="meta">
-              <span class="post-title">{{title}}</span>
-              {{#if author}}
-                <span class="post-author"><i class="fa fa-user"></i> <a href="#author">{{author}}</a></span>
-              {{/if}}
-              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
             </section>
           </div>
         </section>

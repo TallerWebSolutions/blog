@@ -4,14 +4,6 @@
   the {body} of the default.hbs template, which contains our header/footer. }}
 
 {{! The big featured header on the homepage, with the site logo and description }}
-<header id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
-  <div id="site-head-content" class="inner">
-    <h1 class="blog-title">{{@blog.title}}
-      <img id="taller-logo" src="assets/images/brand.png" />
-    </h1>
-    <div class="blog-description">{{@blog.description}}</div>
-  </div>
-</header>
 
 <div id="content-wrapper">
   <main class="content" role="main" id="main">
@@ -22,7 +14,7 @@
       {{preprocess_post 'list'}}
 
       <article class="{{post_class}} preview">
-        <a href="{{url}}" class="inner">
+        <a href="{{url}}#disqus_thread" class="inner">
 
           <div class="post-content">
             <header class="post-header">
@@ -35,7 +27,7 @@
             </section>
             <footer class="post-footer">
               {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author}}</span>{{/if}}
-              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
+              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", " autolink="false"}}</span>{{/if}}
             </footer>
           </div>
         </a>

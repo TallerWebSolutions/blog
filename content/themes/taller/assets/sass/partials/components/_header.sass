@@ -4,59 +4,57 @@
  *------------------------------------------------------------------------------
  */
 
+body
+
 #site-head
-  +flexbox
-  justify-content: center
-  align-items: center
-  +background-cover($cover-header-home)
-  position: fixed
-  top: 0
-  right: 0
-  width: 100%
-  height: 180px
-  text-align: center
-  font-family: $font-heading
-  color: white
-
-  +breakpoint("min-responsive-height")
-    height: 40%
-
-  h1, .site-head-subinfo
-    margin-top: 0
-    margin-bottom: 0
-    font-weight: 300
-
-  .site-head-subinfo
-    position: absolute
-    left: 0
-    display: block
-    width: 100%
-
-  .blog-description
-    margin-top: 1em
-    opacity: 0.9
+  position: relative
+  color: $color-grey-darkest
+  background-color: white
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 10px 20px -10px rgba(0, 0, 0, 0.03)
+  background-image: image-url("header-background.png")
+  background-size: cover
 
 #site-head-content
   @extend %spaced-content
   position: relative
+  text-align: right
+  
+  #blog-logo
+    float: left
+    margin: 0.6em 0
+
   .blog-title
-    position: relative
-    margin-left: 80px
-    #taller-logo
-      position: absolute
-      top: -1rem
-      left: -80px
-      height: 6rem
-
-
-+breakpoint("tiniest-width")
-  #post-meta
-    display: none !important
-  #taller-flag
     display: none
-  #site-head-content
-    .blog-title
-      margin-left: 60px
-      #taller-logo
-        left: -60px
-        height: 5rem
+    // margin: 0
+    // font-size: 2rem
+    // line-height: 2.5em
+
+  .blog-description
+    display: inline-block
+
+.highlight-header
+  +background-cover($cover-header-home)
+  @extend %spaced-content
+  position: relative
+  padding-top: 6rem
+  padding-bottom: 3.5rem
+  text-align: right
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.15)
+  color: white
+  .inner
+    position: relative
+    h1
+      margin: 0 0 0.1em 0
+      font-weight: 300
+    .post-category a
+      @extend %transition-navigation
+      background-color: transparent
+      padding: 0.5em 0.8em
+      position: absolute
+      color: white
+      right: 0
+      top: -54px
+      border: 1px solid white
+      &:hover
+        color: #333
+        background-color: white

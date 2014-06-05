@@ -24,9 +24,8 @@
 
       // Adjust position of articles.
       $posts.each(function(index) {
-        // First is wide.
-        // Second & third won't have different tops.
-        if (index > 2) {
+        // First & second won't have different tops.
+        if (index > 1) {
           var $current    = $(this),
               $next       = $current.next();
 
