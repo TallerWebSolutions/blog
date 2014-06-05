@@ -11,7 +11,14 @@
     <span class="site-head-subinfo"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='D MMMM YYYY'}}</time></span>
     <h1 class="post-title">{{{post.title}}}</h1>
     <div class="post-meta">
-      {{#if post.tags}}{{#post}}<span class="post-category">{{tags separator=", "}}</span>{{/post}}{{/if}}
+      {{#if post.author.isPerson}}
+        {{#post.author}}
+          <section class="author">
+            por <h3 class="author-name">{{name}}</h3>
+            {{#if image}}<img class="author-picture" src="{{image}}" alt="">{{/if}}
+          </section>
+        {{/post.author}}
+      {{/if}}
     </div>
   </div>
 </header>
@@ -56,46 +63,44 @@
         {{content}}
       </section>
 
-      {{#if author}}
-        <footer class="post-footer">
+      <footer class="post-footer">
 
-          {{#if author}}
-            <div id="author">
-              <h4><span>O Autor</span></h4>
-              <section class="author">
-                <div class="author-main-info" {{#if author.cover}}style="background-image: url({{author.cover}})"{{/if}}>
-                  {{#if author.image}}<img class="author-picture" src="{{author.image}}" alt="">{{/if}}
-                  <div>
-                    <h3>{{author.name}}</h3>
-                    {{#if author.bio}}<p>{{author.bio}}</p>{{/if}}
-                  </div>
+        {{#if author}}
+          <div id="author">
+            <h4><span>O Autor</span></h4>
+            <section class="author">
+              <div class="author-main-info" {{#if author.cover}}style="background-image: url({{author.cover}})"{{/if}}>
+                {{#if author.image}}<img class="author-picture" src="{{author.image}}" alt="">{{/if}}
+                <div>
+                  <h3>{{author.name}}</h3>
+                  {{#if author.bio}}<p>{{author.bio}}</p>{{/if}}
                 </div>
-                <div class="author-secondary-info">
-                  {{#if author.website}}<span class="meta-website"><a href="{{author.website}}" title=""><i class="fa fa-globe"></i> {{author.website}}</a></span>{{/if}}
-                  {{#if author.email}}<span class="meta-email"><a href="mailto:{{author.email}}" title=""><i class="fa fa-envelope"></i> {{author.email}}</a></span>{{/if}}
-                </div>
-              </section>
-            </div>
-          {{/if}}
+              </div>
+              <div class="author-secondary-info">
+                {{#if author.website}}<span class="meta-website"><a href="{{author.website}}" title=""><i class="fa fa-globe"></i> {{author.website}}</a></span>{{/if}}
+                {{#if author.email}}<span class="meta-email"><a href="mailto:{{author.email}}" title=""><i class="fa fa-envelope"></i> {{author.email}}</a></span>{{/if}}
+              </div>
+            </section>
+          </div>
+        {{/if}}
 
-          <h4><span>Comentários</span></h4>
-          <div id="disqus_thread"></div>
-          <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'taller-blog'; // required: replace example with your forum shortname
-            var disqus_developer = 1;
+        <h4><span>Comentários</span></h4>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'taller-blog'; // required: replace example with your forum shortname
+          var disqus_developer = 1;
 
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </footer>
-      {{/if}}
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </footer>
 
       {{/post}}
     </article>

@@ -49,34 +49,33 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
    * Post config parser.
    */
   (function () {
-    var postConfig = null;
-    var config = post.$html.filter('script[rel="post-config"]');
+    var postConfig = {};
+    var metaData = post.$html.find('meta').add(post.$html.filter('meta'));
 
-    config.each(function () {
-      try {
-        postConfig = JSON.parse(this.innerHTML);
-      } catch(e) {
+    metaData.each(function () {
+      var name = jQuery(this).attr('name');
+      var content = jQuery(this).attr('content');
+
+      if (name && content) {
+        postConfig[name] = content;
       }
     });
 
-    if (postConfig) {
-      
-      // Set custom author information.
-      if (postConfig.author && authors[postConfig.author]) {
-        var author = authors[postConfig.author];
-        var gravatarImage = author.email && gravatar.url(author.email, {s: '100'}) || null;
+    // Set custom author information.
+    if (postConfig.author && authors[postConfig.author]) {
+      var author = authors[postConfig.author];
+      var gravatarImage = author.email && gravatar.url(author.email, {s: '100'}) || null;
 
-        if (gravatarImage) {
-          author.image = author.image || gravatarImage;
-        }
-
-        lodash.merge(post.author, {
-          image: '',
-          bio: '',
-          website: ''
-        }, author);
+      if (gravatarImage) {
+        author.image = author.image || gravatarImage;
       }
 
+      lodash.merge(post.author, {
+        image: '',
+        bio: '',
+        website: '',
+        isPerson: true
+      }, author);
     }
   })();
 
