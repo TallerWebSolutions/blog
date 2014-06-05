@@ -53,12 +53,11 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
     var metaData = post.$html.find('meta').add(post.$html.filter('meta'));
 
     metaData.each(function () {
-      var name = jQuery(this).attr('name');
-      var content = jQuery(this).attr('content');
+      var $meta = jQuery(this);
+      var name = $meta.attr('name');
+      var content = $meta.attr('content');
 
-      if (name && content) {
-        postConfig[name] = content;
-      }
+      if (name && content) postConfig[name] = content;
     });
 
     // Set custom author information.

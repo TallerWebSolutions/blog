@@ -14,6 +14,11 @@
     $('.post-content img').parent('p').addClass('has-image');
 
     /**
+     * Remove meta-data paragraph.
+     */
+    $('.post-content meta').parent('p').hide();
+
+    /**
      * Sticky header.
      */
     (function() {
