@@ -6,7 +6,7 @@
 {{#post}}{{preprocess_post 'full'}}{{/post}}
 
 {{! The big featured header on the homepage, with the site logo and description }}
-<header class="highlight-header post-header {{post.cover_classes}}" id="post-head">
+<header class="highlight-header post-header {{post.cover_classes}}" {{#if post.cover}}style='background-image: url("{{post.cover}}")'{{/if}} id="post-head">
   <div class="inner">
     <span class="site-head-subinfo"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='D MMMM YYYY'}}</time></span>
     <h1 class="post-title">{{{post.title}}}</h1>

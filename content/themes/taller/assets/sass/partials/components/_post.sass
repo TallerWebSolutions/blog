@@ -18,6 +18,7 @@
       color: $color-long-text-link-hover
 
 #post-meta
+  z-index: 10 !important
   width: 100% !important
   padding: 1em 0 1em
   margin-top: -38px
@@ -81,6 +82,10 @@
         color: $color-red
         opacity: 0.9
 
+    +breakpoint("tiny-width-max")
+      .meta .post-title
+        display: none
+
 // Expand item to the post margins.
 %expanded
   margin-left: 0
@@ -120,18 +125,26 @@
       text-align: center
       display: inline-block
 
-  .align-left
-    margin-right: 2rem
+  .pull-left
+    float: left
 
-  .align-right
+  .pull-right
+    float: right
+
+  .pull-left, .pull-right
     margin-left: 2rem
-
-  .align-left, .align-right
+    margin-right: 2rem
+    position: relative
+    z-index: 1
     margin-bottom: 1rem
     &.streched
       margin-bottom: 0
       margin-left: 0
       margin-right: 0
+
+    +breakpoint("tiny-width-max")
+      &
+        float: none
 
   > iframe
     @extend %expanded

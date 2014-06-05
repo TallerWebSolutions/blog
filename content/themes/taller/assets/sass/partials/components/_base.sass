@@ -119,6 +119,7 @@ blockquote
 
   &.pull-right,
   &.pull-left
+    font-weight: 600
     padding: 1em
     margin-top: 0.5em
     max-width: 35%
@@ -126,7 +127,13 @@ blockquote
     border-width: 2px 0
     text-align: center
     p
-      margin-bottom: 1em
+      margin-bottom: 0.5em
+    cite
+      font-weight: 500
+    +breakpoint("tiny-width-max")
+      &
+        max-width: none
+
 
 
 // ------------------------------------
