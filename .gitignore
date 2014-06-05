@@ -7,5 +7,5 @@ node_modules/*
 # Ignore databases.
 content/data/*
 
-# Ignore images.
+# Ignore uploaded images.
 content/images/*

@@ -1,2 +1,5 @@
 # Ignore CSS files.
 *.css
+
+# Ignore Sass cache files.
+.sass-cache/*
