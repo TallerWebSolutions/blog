@@ -3,5 +3,10 @@
     "name": "Lucas Constantino Silva",
     "bio": "Desenvolvedor front-end e outras coisas mais",
     "email": "lucas@taller.net.br"
+  },
+  "rodrigo": {
+    "name": "Rodrigo Panchiniak",
+    "email": "rodrigo@taller.net.br",
+    "bio": "O Lucas me obrigou a escrever essa frase."
   }
 }
