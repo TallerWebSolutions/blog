@@ -13,9 +13,12 @@ var rootPath  = '../../../../'
   lodash      = require('lodash'),
   jQuery      = require('jquery'),
   gravatar    = require('gravatar'),
+  github      = require('request-json').newClient('https://raw.githubusercontent.com/'),
 
   // Custom
   authors     = require('../authors');
+
+var lastProcess = new Date();
 
 // Start fake DOM to allow the usage of jQuery server-side.
 jsdomEnv('<html><head></head><body></body></html>', function (err, window) {
@@ -75,6 +78,19 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
         website: '',
         isPerson: true
       }, author);
+    } else {
+
+      // Update author settings for next calls.
+      var currTime = new Date();
+      if (currTime.getTime() - lastProcess.getTime() > 5000) {
+        lastProcess = currTime;
+        var authorsFile = 'TallerWebSolutions/blog/master/content/themes/taller/authors.json';
+        github.get(authorsFile, function (err, res, body) {
+          if (typeof body == "object") {
+            authors = body;
+          }
+        });
+      }
     }
   })();
 

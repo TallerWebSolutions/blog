@@ -4,6 +4,7 @@
   "description": "Taller ghost theme.",
   "dependencies": {
     "jquery": "^2.1.1",
-    "gravatar": "^1.0.6"
+    "gravatar": "^1.0.6",
+    "request-json": "^0.4.10"
   }
 }
