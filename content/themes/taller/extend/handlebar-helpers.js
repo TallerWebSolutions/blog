@@ -13,7 +13,7 @@ var rootPath  = '../../../../'
   lodash      = require('lodash'),
   jQuery      = require('jquery'),
   gravatar    = require('gravatar'),
-  github      = require('request-json').newClient('https://raw.githubusercontent.com/'),
+  spreedsheet = require('request-json').newClient('http://spreadsheets.google.com/'),
 
   // Custom
   authors     = [];
@@ -188,10 +188,28 @@ hbs.registerHelper('featured_media', function (options) {
  * Updates the authors list.
  */
 function updateAuthors() {
-  var authorsFile = 'TallerWebSolutions/blog/master/content/themes/taller/authors.json';
-  github.get(authorsFile, function (err, res, body) {
-    if (typeof body == "object") {
-      authors = body;
+  var authorsSpreedsheet = '/feeds/list/1PiDzw2KybJdXnGQlrQxz8OKHDxTGFBP0KG_EjVtS-Gg/od6/public/values?alt=json';
+  spreedsheet.get(authorsSpreedsheet, function (err, res, body) {
+    if (body && body.feed && body.feed.entry) {
+      authors = {};
+      body.feed.entry.forEach(function (entry) {
+        if (typeof entry == 'object') {
+          var name = entry.gsx$email
+                  && entry.gsx$email
+                  && entry.gsx$email.$t
+                  && entry.gsx$email.$t.split('@')[0] || null;
+
+          if (name) {
+            authors[name] = {};
+            Object.keys(entry).forEach(function (key) {
+              if (~key.indexOf('gsx') && entry[key].$t) {
+                var attr = key.split('$')[1];
+                authors[name][attr] = entry[key].$t;
+              }
+            });
+          }
+        }
+      });
     }
   });
 }
