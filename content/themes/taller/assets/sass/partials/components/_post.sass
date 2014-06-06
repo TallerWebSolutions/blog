@@ -198,7 +198,10 @@
         font-size: 1.6em
         font-weight: normal
       p
-        margin-bottom: 0.8em
+        margin-bottom: 0
+        margin-left: 144px
+        +breakpoint("tiniest-width-max")
+          margin-left: 135px
 
     .author-picture,
     .author-picture + div

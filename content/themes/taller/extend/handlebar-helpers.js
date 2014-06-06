@@ -16,7 +16,7 @@ var rootPath  = '../../../../'
   github      = require('request-json').newClient('https://raw.githubusercontent.com/'),
 
   // Custom
-  authors     = require('../authors');
+  authors     = [];
 
 var lastProcess = new Date();
 
@@ -79,17 +79,11 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
         isPerson: true
       }, author);
     } else {
-
       // Update author settings for next calls.
       var currTime = new Date();
       if (currTime.getTime() - lastProcess.getTime() > 5000) {
         lastProcess = currTime;
-        var authorsFile = 'TallerWebSolutions/blog/master/content/themes/taller/authors.json';
-        github.get(authorsFile, function (err, res, body) {
-          if (typeof body == "object") {
-            authors = body;
-          }
-        });
+        updateAuthors();
       }
     }
   })();
@@ -188,3 +182,19 @@ hbs.registerHelper('featured_media', function (options) {
     return output;
   }
 });
+
+
+/**
+ * Updates the authors list.
+ */
+function updateAuthors() {
+  var authorsFile = 'TallerWebSolutions/blog/master/content/themes/taller/authors.json';
+  github.get(authorsFile, function (err, res, body) {
+    if (typeof body == "object") {
+      authors = body;
+    }
+  });
+}
+
+// Update author list twice a day.
+setInterval(updateAuthors, 43200);
