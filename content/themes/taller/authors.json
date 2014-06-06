@@ -8,5 +8,10 @@
     "name": "Rodrigo Panchiniak",
     "email": "rodrigo@taller.net.br",
     "bio": "O Lucas me obrigou a escrever essa frase."
+  },
+  "sebas": {
+    "name": "Sebastian Ferrari",
+    "bio": "Skater que gosta de programar, odeia desperdiço e fazer o trabalho da maquina. CTO e Co-fundador da Taller.",
+    "email": "sebas@taller.net.br"
   }
 }
