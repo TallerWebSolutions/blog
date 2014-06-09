@@ -8,7 +8,7 @@
 
     $(document).ready(function(){
 
-        
+      console.image(window.location.origin + '/assets/images/magic.gif');
 
     });
 
