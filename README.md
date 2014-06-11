@@ -1,4 +1,5 @@
-> O blog da Taller utliza a plataforma [Ghost](https://github.com/TryGhost/Ghost). Segue abaixo a documentação extraída do repositório deste projeto, através de fork.
+> O blog da Taller utliza a plataforma [Ghost](https://github.com/TryGhost/Ghost).
+> Segue abaixo a documentação extraída do repositório deste projeto, através de fork.
 
 # [Ghost](https://github.com/TryGhost/Ghost) [![Build Status](https://travis-ci.org/TryGhost/Ghost.png?branch=master)](https://travis-ci.org/TryGhost/Ghost)
 
