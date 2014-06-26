@@ -12,3 +12,6 @@ content/data/*
 
 # Ignore uploaded images.
 content/images/*
+
+# Ignore bower_components
+bower_components/*
