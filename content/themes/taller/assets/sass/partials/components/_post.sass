@@ -115,8 +115,6 @@
 
   > p
     @extend %hyphenated-paragraphs
-    @media all and(min--moz-device-pixel-ratio:0)
-      text-align: justify
 
   > p:first-child
     font-size: 1.2em
@@ -128,7 +126,9 @@
     margin-right: 2rem
     &:first-child
       margin-top: 1rem
-
+    +breakpoint("tiniest-width")
+      margin-left: 1rem
+      margin-right: 1rem
   > p.has-image
     @extend %expanded
     text-align: center
@@ -372,6 +372,10 @@
     margin: 2rem
     opacity: 0.8
     word-wrap: break-word
+    p
+      @extend %hyphenated-paragraphs
+    +breakpoint("tiniest-width")
+      margin: 1rem
 
   .post-footer
     margin-top: -0.5rem
