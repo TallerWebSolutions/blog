@@ -113,6 +113,11 @@
   font-weight: 300
   color: #333
 
+  > p
+    @extend %hyphenated-paragraphs
+    @media all and(min--moz-device-pixel-ratio:0)
+      text-align: justify
+
   > p:first-child
     font-size: 1.2em
     margin-top: 0
