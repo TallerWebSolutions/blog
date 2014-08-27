@@ -176,6 +176,9 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
     }
   }
 
+
+  post.$html.find('a').attr('target', '_blank');
+
   // Save changes.
   post.html = jQuery('<div />').append(post.$html).html();
 });
