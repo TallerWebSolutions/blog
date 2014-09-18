@@ -34,7 +34,37 @@ jsdomEnv('<html><head></head><body></body></html>', function (err, window) {
  * JSON Stringify helper.
  */
 hbs.registerHelper('json', function (context) {
-  return safeString(JSON.stringify(context));
+  return JSON.stringify(context);
+});
+
+hbs.registerHelper('abstract', function (context) {
+
+  // Get a user defined abstract if available.
+  if (this.abstractText) return this.abstractText;
+
+  var $html = jQuery(this.html),
+      result = '',
+      min = 240,
+      max = 500;
+
+  console.log(this.featuredMedia);
+
+  $html.filter('p').each(function(index) {
+    if (result.length < min && jQuery(this).text()) {
+      result += jQuery(this).text() + ' ';
+    }
+  });
+
+  if (this.featuredMedia && this.view_mode == 'list') {
+    max = 300;
+  }
+
+  // Limit text if longer then max allowed.
+  if (result.length > max) {
+    result = result.substr(0, max) + '...';
+  }
+
+  return result;
 });
 
 /*
@@ -145,6 +175,10 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
       post.cover_classes = post.featuredMedia.classes.join(' ');
     }
   }
+
+  post.$html.find('a').filter(function () {
+    return jQuery(this).attr('href').indexOf('//blog.taller.net.br') == -1;
+  }).attr('target', '_blank');
 
   // Save changes.
   post.html = jQuery('<div />').append(post.$html).html();

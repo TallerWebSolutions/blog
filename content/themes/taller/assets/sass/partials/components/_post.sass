@@ -13,9 +13,23 @@
     box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1)
   a
     color: $color-long-text-link
+    font-weight: 400
+    position: relative
+    &:after
+      content: ""
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 50%
+      width: 0
+      border-bottom: 2px solid $color-long-text-link
+      transition: all 300ms ease-out
     &:hover,
     &:focus
       color: $color-long-text-link-hover
+      &:after
+        left: 0
+        width: 100%
 
 #post-meta
   z-index: 10 !important
@@ -95,9 +109,12 @@
   @extend %border-light
   padding: 2em 0
   line-height: 1.5em
-  font-size: 20px
+  font-size: 1.25em
   font-weight: 300
   color: #333
+
+  > p
+    @extend %hyphenated-paragraphs
 
   > p:first-child
     font-size: 1.2em
@@ -109,7 +126,9 @@
     margin-right: 2rem
     &:first-child
       margin-top: 1rem
-
+    +breakpoint("tiniest-width")
+      margin-left: 1rem
+      margin-right: 1rem
   > p.has-image
     @extend %expanded
     text-align: center
@@ -260,6 +279,8 @@
     display: block
     color: inherit
     opacity: 0.9
+    margin-top: -5px
+    margin-bottom: 5px
     .post-content
       border: 0
       padding: 0
@@ -353,6 +374,10 @@
     margin: 2rem
     opacity: 0.8
     word-wrap: break-word
+    p
+      @extend %hyphenated-paragraphs
+    +breakpoint("tiniest-width")
+      margin: 1rem
 
   .post-footer
     margin-top: -0.5rem

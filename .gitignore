@@ -7,5 +7,11 @@ node_modules/*
 # Ignore databases.
 content/data/*
 
+# Avoid ignoring dump databases.
+!content/data/dump*
+
 # Ignore uploaded images.
 content/images/*
+
+# Ignore bower_components
+bower_components/*
