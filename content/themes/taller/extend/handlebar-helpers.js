@@ -176,6 +176,10 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
     }
   }
 
+  post.$html.find('a').filter(function () {
+    return $(this).attr('href').indexOf('//blog.taller.net.br') == -1;
+  }).attr('target', '_blank');
+
   // Save changes.
   post.html = jQuery('<div />').append(post.$html).html();
 });
