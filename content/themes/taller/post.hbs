@@ -40,7 +40,9 @@
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:type" content="article">
         <meta property="article:author" content="{{author.name}}">
-        <meta property="article:tag" content="{{tags separator=", "}}">
+        {{#foreach tags}}
+          <meta property="article:tag" content="{{this.name}}">
+        {{/foreach}}
       {{/contentFor}}
 
       <header class="article-head">
