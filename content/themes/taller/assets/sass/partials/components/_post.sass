@@ -113,9 +113,6 @@
   font-weight: 300
   color: #333
 
-  > p
-    @extend %hyphenated-paragraphs
-
   > p:first-child
     font-size: 1.2em
     margin-top: 0
@@ -370,8 +367,6 @@
     margin: 2rem
     opacity: 0.8
     word-wrap: break-word
-    p
-      @extend %hyphenated-paragraphs
     +breakpoint("tiniest-width")
       margin: 1rem
 
