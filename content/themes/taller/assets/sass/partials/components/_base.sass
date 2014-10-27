@@ -15,6 +15,10 @@ body
   font-family: $font-sans
   font-size: $font-size-body
   color: $color-grey-darkest
+  +breakpoint("tiny-width")
+    font-size: $font-size-tablet
+  +breakpoint("tiniest-width")
+    font-size: $font-size-mobile
 
 // ------------------------------------
 // Headers.
@@ -92,7 +96,7 @@ blockquote
   padding-left: 1em
   border-left: 5px solid #A02627
   font-style: italic
-  
+
   cite
     @extend %transition-navigation
     display: block

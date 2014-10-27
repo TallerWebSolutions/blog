@@ -48,7 +48,7 @@ $breakpoints: ()
 
 $breakpoints: append($breakpoints, ("screen", "screen"))
 
-// Height based.
+// Width based.
 $breakpoints: append($breakpoints, ("largest-width-min", "(min-width: 1680px)", "width"))
 $breakpoints: append($breakpoints, (  "large-width-min", "(min-width: 1280px)", "width"))
 $breakpoints: append($breakpoints, (  "large-width-max", "(max-width: 1680px)", "width"))
@@ -62,7 +62,7 @@ $breakpoints: append($breakpoints, (   "tiny-width-min", "(min-width:  480px)", 
 $breakpoints: append($breakpoints, (   "tiny-width-max", "(max-width:  640px)", "width"))
 $breakpoints: append($breakpoints, ("tiniest-width-max", "(max-width:  480px)", "width"))
 
-// Width based.
+// Height based.
 // $breakpoints: append($breakpoints, ("largest-height-min", "(min-height: 1680px)", "height"))
 // $breakpoints: append($breakpoints, (  "large-height-min", "(min-height: 1280px)", "height"))
 // $breakpoints: append($breakpoints, (  "large-height-max", "(max-height: 1680px)", "height"))
@@ -90,5 +90,6 @@ $breakpoints: append($breakpoints, (  "large-width", join-breakpoints("screen" "
 $breakpoints: append($breakpoints, ("default-width", join-breakpoints("screen" "default-width-min" "default-width-max"), "screen" "width"))
 $breakpoints: append($breakpoints, (  "small-width", join-breakpoints("screen" "small-width-min"   "small-width-max"  ), "screen" "width"))
 $breakpoints: append($breakpoints, ("smaller-width", join-breakpoints("screen" "smaller-width-min" "smaller-width-max"), "screen" "width"))
-$breakpoints: append($breakpoints, (   "tiny-width", join-breakpoints("screen" "tiny-width-min"    "tiny-width-max"   ), "screen" "width"))
+// $breakpoints: append($breakpoints, (   "tiny-width", join-breakpoints("screen" "tiny-width-min"    "tiny-width-max"   ), "screen" "width"))
+$breakpoints: append($breakpoints, (   "tiny-width", join-breakpoints("screen" "tiny-width-min"    "small-width-max"   ), "screen" "width"))
 $breakpoints: append($breakpoints, ("tiniest-width", join-breakpoints("screen" "tiniest-width-max"),                     "screen" "width"))
