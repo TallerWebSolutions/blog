@@ -1,10 +1,8 @@
 /*
- *------------------------------------------------------------------------------
- * Base Elements
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
+ * Base Elements.
+ *--------------------------------------------------------------------
  */
-
-
 
 // ------------------------------------
 // Body.
@@ -12,7 +10,7 @@
 
 body
   line-height: 1.25em
-  font-family: $font-sans
+  font-family: $font-text
   font-size: $font-size-body
   color: $color-grey-darkest
   +breakpoint("tiny-width")
@@ -47,9 +45,11 @@ h4
 
 h5
   font-size: $font-size-h5
+  font-family: $font-text
 
 h6
   font-size: $font-size-h6
+  font-family: $font-text
 
 // ------------------------------------
 // Anchors.
@@ -65,7 +65,6 @@ a
   h1 &, h2 &, h3 &, h4 &, h5 &, h6 &
     color: inherit
 
-
 // ------------------------------------
 // Text.
 // ------------------------------------
@@ -73,12 +72,12 @@ a
 p
   line-height: 1.5em
   margin-bottom: 1.5em
+  font-weight: 300
 
 ::selection
   color: white
   background-color: rgba($color-red, 0.7)
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4)
-
 
 // ------------------------------------
 // Lists.
@@ -86,7 +85,6 @@ p
 
 ul, ol
   padding-left: 1.3em
-
 
 // ------------------------------------
 // Blockquotes.
@@ -127,8 +125,6 @@ blockquote
     +breakpoint("tiny-width-max")
       &
         max-width: none
-
-
 
 // ------------------------------------
 // Blocks.
