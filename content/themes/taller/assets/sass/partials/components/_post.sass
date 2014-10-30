@@ -4,13 +4,16 @@
  *------------------------------------------------------------------------------
  */
 
+.home-template
+  .post
+    > .inner
+      @extend %border-light
+      background-color: white
 .post
   color: #666
-  
+
   > .inner
-    @extend %border-light
-    background-color: white
-    box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1)
+    border: none
   a
     color: $color-long-text-link
     font-weight: 400
@@ -109,7 +112,6 @@
   @extend %border-light
   padding: 2em 0
   line-height: 1.5em
-  font-size: 1.25em
   font-weight: 300
   color: #333
 
@@ -118,9 +120,10 @@
     margin-top: 0
 
   > *
+    max-width: 480px
+    margin-right: auto
+    margin-left: auto
     position: relative
-    margin-left: 2rem
-    margin-right: 2rem
     &:first-child
       margin-top: 1rem
     +breakpoint("tiniest-width")
@@ -129,6 +132,7 @@
   > p.has-image
     @extend %expanded
     text-align: center
+    max-width: 100%
 
   .post-full
     h1, h2, h3, h4, h5
@@ -143,7 +147,6 @@
 
     p
       color: black
-      letter-spacing: 0.03em
 
   .pull-left
     float: left
@@ -196,7 +199,7 @@
       position: relative
       top: -0.55em
       padding-right: 0.8em
-      background-image: image-url("background-pattern.png")
+      background-color: white
 
   .author
     @extend %border-light
@@ -243,7 +246,7 @@
       padding: 0.5em
       font-family: $font-sans
       font-size: 0.9em
-      
+
       span
         margin-left: 1em
 
@@ -314,13 +317,13 @@
     background-color: white
     time
       margin-left: 0.5em
-  
+
   .featured-media
     width: 100%
     margin: 0
     background-size: cover
     background-position: center center
-    
+
     &.featured-img
       border: 1px solid #CCC
       border-width: 1px 0
@@ -329,7 +332,7 @@
 
     &.featured-iframe
       max-height: 224px
-    
+
     &:not(.featured-cover)
       margin-bottom: -0.8rem
     &.featured-cover
@@ -374,7 +377,7 @@
     margin-top: -0.5rem
     margin-bottom: 1.5rem
     font-size: 0.8rem
-    
+
     > span
       margin-right: 1em
 
@@ -386,7 +389,7 @@
   text-align: center
   opacity: 0.5
   font-size: 0.9rem
-  
+
   i
     position: relative
     top: -0.8em
