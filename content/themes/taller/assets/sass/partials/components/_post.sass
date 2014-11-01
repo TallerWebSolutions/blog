@@ -1,7 +1,7 @@
 /*
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  * Posts
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  */
 
 .home-template
@@ -120,7 +120,7 @@
     margin-top: 0
 
   > *
-    max-width: 480px
+    max-width: 30em
     margin-right: auto
     margin-left: auto
     position: relative
@@ -129,6 +129,10 @@
     +breakpoint("tiniest-width")
       margin-left: 1rem
       margin-right: 1rem
+    // @media all and (min-width: $medium-screen)
+    //   max-width: 540px
+    // @media all and (min-width: $big-screen)
+    //   max-width: 600px
   > p.has-image
     @extend %expanded
     text-align: center
