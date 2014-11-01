@@ -11,8 +11,14 @@
 body
   line-height: 1.25em
   font-family: $font-text
-  font-size: $font-size-body
   color: $color-grey-darkest
+  font-size: $font-size-small
+  @media all and (min-width: $small-screen)
+    font-size: $font-size-medium
+  @media all and (min-width: $medium-screen)
+    font-size: $font-size-big
+  @media all and (min-width: $big-screen)
+    font-size: $font-size-bigger
 
 // ------------------------------------
 // Headers.
