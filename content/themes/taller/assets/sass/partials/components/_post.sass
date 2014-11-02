@@ -6,7 +6,7 @@
 
 .post
   color: #666
-  
+
   > .inner
     @extend %border-light
     background-color: white
@@ -243,43 +243,29 @@
       padding: 0.5em
       font-family: $font-sans
       font-size: 0.9em
-      
+
       span
         margin-left: 1em
 
 // MAIN PAGE POSTS
+.preview
+  width: 100%
+  max-width: 30em
+  box-sizing: border-box
+
 .articles
   @extend %clearfix
   overflow: visible
 
 .post.preview
   position: relative
-  margin-bottom: 2rem
-
-  +breakpoint("small-width-min")
-    &
-      width: 48%
-
-    &:nth-child(odd)
-      float: left
-      clear: left
-    &:nth-child(even)
-      float: right
-      clear: right
+  margin: 5px
 
   .inner
-    position: relative
     display: block
-    color: inherit
-    opacity: 0.9
-    margin-top: -5px
-    margin-bottom: 5px
     .post-content
       border: 0
       padding: 0
-
-    h2
-      font-size: 2rem
 
     &:hover, &:focus
       box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.15)
@@ -314,13 +300,13 @@
     background-color: white
     time
       margin-left: 0.5em
-  
+
   .featured-media
     width: 100%
     margin: 0
     background-size: cover
     background-position: center center
-    
+
     &.featured-img
       border: 1px solid #CCC
       border-width: 1px 0
@@ -329,7 +315,7 @@
 
     &.featured-iframe
       max-height: 224px
-    
+
     &:not(.featured-cover)
       margin-bottom: -0.8rem
     &.featured-cover
@@ -367,14 +353,12 @@
     margin: 2rem
     opacity: 0.8
     word-wrap: break-word
-    +breakpoint("tiniest-width")
-      margin: 1rem
 
   .post-footer
     margin-top: -0.5rem
     margin-bottom: 1.5rem
     font-size: 0.8rem
-    
+
     > span
       margin-right: 1em
 
@@ -386,7 +370,7 @@
   text-align: center
   opacity: 0.5
   font-size: 0.9rem
-  
+
   i
     position: relative
     top: -0.8em
