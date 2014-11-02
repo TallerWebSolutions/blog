@@ -21,7 +21,7 @@
               </header>
               {{featured_media}}
               <section class="post-excerpt">
-                <p>{{abstract}}</p>
+                <p lang="pt">{{abstract}}</p>
               </section>
               <footer class="post-footer">
                 {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author}}</span>{{/if}}
@@ -50,12 +50,16 @@
 </div>
 
 {{!-- Masonry scripts. --}}
-<script type="text/javascript" src="/assets/lib/masonry/dist/masonry.pkgd.js"></script>
+<script type="text/javascript" src="/assets/lib/masonry/dist/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="/assets/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script type="text/javascript">
   var container = document.querySelector('#masonry-container');
-  var msnry = new Masonry( container, {
-    // options
-    itemSelector: '.preview',
-    "isFitWidth": true
+  var msnry;
+  // initialize Masonry after all images have loaded
+  imagesLoaded( container, function() {
+    msnry = new Masonry( container, {
+      itemSelector: '.preview',
+      "isFitWidth": true
+    } );
   });
 </script>
