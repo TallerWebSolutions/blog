@@ -9,6 +9,13 @@
     > .inner
       @extend %border-light
       background-color: white
+
++breakpoint("tiniest-width")
+  .post-template
+    #post-head
+      padding-right: 10px
+      padding-left: 10px
+
 .post
   color: #666
 
@@ -42,6 +49,9 @@
   text-align: right
   font-family: $font-heading
   font-size: 0.8em
+
+  .inner
+    padding-right: 10px
 
   a
     color: #222
@@ -111,7 +121,6 @@
 .post-content
   @extend %border-light
   padding: 2em 0
-  line-height: 1.5em
   font-weight: 300
   color: #333
 
