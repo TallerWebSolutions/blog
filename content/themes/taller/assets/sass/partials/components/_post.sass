@@ -1,6 +1,6 @@
 /*
  *--------------------------------------------------------------------
- * Posts
+ * Posts.
  *--------------------------------------------------------------------
  */
 
@@ -129,7 +129,7 @@
     margin-top: 0
 
   > *
-    max-width: 30em
+    max-width: 480px
     margin-right: auto
     margin-left: auto
     position: relative
@@ -138,10 +138,10 @@
     +breakpoint("tiniest-width")
       margin-left: 1rem
       margin-right: 1rem
-    // @media all and (min-width: $medium-screen)
-    //   max-width: 540px
-    // @media all and (min-width: $big-screen)
-    //   max-width: 600px
+    @media all and (min-width: $medium-screen)
+      max-width: 540px
+    @media all and (min-width: $big-screen)
+      max-width: 600px
   > p.has-image
     @extend %expanded
     text-align: center
@@ -262,19 +262,16 @@
       span
         margin-left: 1em
 
-// MAIN PAGE POSTS
-.preview
-  width: 100%
-  max-width: 30em
-  box-sizing: border-box
-
+// Main Page Posts.
 .articles
   @extend %clearfix
   overflow: visible
 
 .post.preview
+  width: 100%
+  max-width: 30em
   position: relative
-  margin: 5px
+  padding: 5px
 
   .inner
     display: block
@@ -297,7 +294,7 @@
       @extend %transition-navigation
 
   .post-header
-    margin: 2rem
+    margin: 2rem 1rem
     padding-bottom: 0.4rem
     border-bottom: 1px solid $color-grey-lighter
     text-align: center
@@ -365,13 +362,13 @@
       z-index: 2
 
   .post-excerpt
-    margin: 2rem
+    margin: 1rem
     opacity: 0.8
     word-wrap: break-word
 
   .post-footer
     font-size: 0.8rem
-    margin: -0.5rem 2rem 1.5rem 2rem
+    margin: -1rem 1rem 1rem 1rem
 
     > span
       margin-right: 1em
