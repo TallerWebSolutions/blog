@@ -4,10 +4,9 @@
   the {body} of the default.hbs template, which contains our header/footer. }}
 
 {{! The big featured header on the homepage, with the site logo and description }}
-
 <div id="content-wrapper">
   <main class="content" role="main" id="main">
-    <div class="articles">
+    <div class="articles" id="masonry-container">
       {{! Each post will be output using this markup }}
       {{#foreach posts}}
         {{preprocess_post 'list'}}
@@ -49,3 +48,14 @@
     </div>
   </footer>
 </div>
+
+{{!-- Masonry scripts. --}}
+<script type="text/javascript" src="/assets/lib/masonry/dist/masonry.pkgd.js"></script>
+<script type="text/javascript">
+  var container = document.querySelector('#masonry-container');
+  var msnry = new Masonry( container, {
+    // options
+    itemSelector: '.preview',
+    "isFitWidth": true
+  });
+</script>

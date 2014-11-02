@@ -263,38 +263,24 @@
         margin-left: 1em
 
 // MAIN PAGE POSTS
+.preview
+  width: 100%
+  max-width: 30em
+  box-sizing: border-box
+
 .articles
   @extend %clearfix
   overflow: visible
 
 .post.preview
   position: relative
-  margin-bottom: 2rem
-
-  +breakpoint("small-width-min")
-    &
-      width: 48%
-
-    &:nth-child(odd)
-      float: left
-      clear: left
-    &:nth-child(even)
-      float: right
-      clear: right
+  margin: 5px
 
   .inner
-    position: relative
     display: block
-    color: inherit
-    opacity: 0.9
-    margin-top: -5px
-    margin-bottom: 5px
     .post-content
       border: 0
       padding: 0
-
-    h2
-      font-size: 2rem
 
     &:hover, &:focus
       box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.15)
@@ -382,8 +368,6 @@
     margin: 2rem
     opacity: 0.8
     word-wrap: break-word
-    +breakpoint("tiniest-width")
-      margin: 1rem
 
   .post-footer
     font-size: 0.8rem
