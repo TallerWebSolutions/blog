@@ -1,47 +1,51 @@
 /*
- *------------------------------------------------------------------------------
- * Typography Definitions
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
+ * Typography Definitions.
+ *--------------------------------------------------------------------
  * Use this file to set typography variables & functions.
- * 
- * Althought this might seem like the place for it, this is not the place for
- * defining custom font sources. To keep this file a non-emitting partial, you
- * you should only set here the font-related variables, such as font sizes,
- * font weights, font families, etc.
+ *
+ * Althought this might seem like the place for it, this is not the
+ * place for defining custom font sources. To keep this file a
+ * non-emitting partial, you should only set here the font-related
+ * variables, such as font sizes, font weights, font families, etc.
  */
- 
 
 // ------------------------------------
 // Font attributes.
 // ------------------------------------
 
-$font-size:         16px
-$font-size-body:    $font-size // For REM based sizes. 
-$font-line-height:  1.5em
-$font-indent:       2em
+$font-size-small:  14px
+$font-size-medium: 16px
+$font-size-big:    18px
+$font-size-bigger: 20px
+$font-indent:      2em
+
+$line-height-small:  1.2em
+$line-height-medium: 1.3em
+$line-height-big:    1.4em
+$line-height-bigger: 1.5em
 
 // ------------------------------------
 // Heading attributes.
 // ------------------------------------
 
-$font-size-h1: 4.0rem
-$font-size-h2: 3.0rem
-$font-size-h3: 2.0rem
-$font-size-h4: 1.0rem
-$font-size-h5: 0.9rem
-$font-size-h6: 0.8rem
+$font-size-h1: 2.60rem
+$font-size-h2: 1.70rem
+$font-size-h3: 1.50rem
+$font-size-h4: 1.30rem
+$font-size-h5: 0.85rem
+$font-size-h6: 0.80rem
 
 // ------------------------------------
 // Font families.
 // ------------------------------------
 
-$font-times:      "Times New Roman", Times, Georgia, "DejaVu Serif", serif
-$font-georgia:    Georgia, $font-times
-$font-tahoma:     Tahoma, Verdana, "DejaVu Sans", sans-serif
-$font-verdana:    Verdana, Tahoma, "DejaVu Sans", sans-serif
-$font-arial:      Arial, Helvetica, "Nimbus Sans L", sans-serif
-$font-helvetica:  Helvetica, Arial, "Nimbus Sans L", sans-serif
-$font-courier:    "Courier New", "DejaVu Sans Mono", monospace, sans-serif
+$font-times:   "Times New Roman", Times, Georgia, serif
+$font-georgia: Georgia, $font-times
+$font-tahoma:  Tahoma, Verdana, "DejaVu Sans", sans-serif
+$font-verdana: Verdana, Tahoma, "DejaVu Sans", sans-serif
+$font-arial:   Arial, Helvetica, "Nimbus Sans L", sans-serif
+$font-courier: "Courier New", "DejaVu Sans Mono", monospace, sans-serif
 
 // ------------------------------------
 // Custom font families.
@@ -50,7 +54,8 @@ $font-courier:    "Courier New", "DejaVu Sans Mono", monospace, sans-serif
 $font-lato:             "Lato", $font-arial
 $font-sans:             "Roboto", $font-lato
 $font-anonymous:        "Anonymous", $font-courier
-
+$font-open-sans:        "Open Sans", $font-sans
+$font-roboto-slab:      "Roboto Slab", $font-open-sans
 
 // ------------------------------------
 // Descriptive variables.
@@ -59,11 +64,12 @@ $font-anonymous:        "Anonymous", $font-courier
 $font-sans:       $font-lato
 $font-monospace:  $font-anonymous
 
-
 // ------------------------------------
 // Functional variables.
 // ------------------------------------
 
-$font-text:     $font-sans
-$font-heading:  $font-lato
+// $font-text:     $font-sans
+// $font-heading:  $font-lato
+$font-text:     $font-open-sans
+$font-heading:  $font-roboto-slab
 $font-code:     $font-monospace

@@ -1,20 +1,30 @@
 /*
- *------------------------------------------------------------------------------
- * Base Elements
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
+ * Base Elements.
+ *--------------------------------------------------------------------
  */
 
-
+*
+  box-sizing: border-box
 
 // ------------------------------------
 // Body.
 // ------------------------------------
 
 body
-  line-height: 1.25em
-  font-family: $font-sans
-  font-size: $font-size-body
+  font-family: $font-text
   color: $color-grey-darkest
+  font-size: $font-size-small
+  line-height: $line-height-small
+  @media all and (min-width: $small-screen)
+    font-size: $font-size-medium
+    line-height: $line-height-medium
+  @media all and (min-width: $medium-screen)
+    font-size: $font-size-big
+    line-height: $line-height-big
+  @media all and (min-width: $big-screen)
+    font-size: $font-size-bigger
+    line-height: $line-height-bigger
 
 // ------------------------------------
 // Headers.
@@ -28,6 +38,8 @@ body
 h1, h2, h3, h4, h5, h6
   @extend %heading
   line-height: 1em
+  span
+    @extend %heading
 
 h1
   font-size: $font-size-h1
@@ -43,9 +55,11 @@ h4
 
 h5
   font-size: $font-size-h5
+  font-family: $font-text
 
 h6
   font-size: $font-size-h6
+  font-family: $font-text
 
 // ------------------------------------
 // Anchors.
@@ -61,20 +75,19 @@ a
   h1 &, h2 &, h3 &, h4 &, h5 &, h6 &
     color: inherit
 
-
 // ------------------------------------
 // Text.
 // ------------------------------------
 
 p
-  line-height: 1.5em
   margin-bottom: 1.5em
+  font-weight: 300
+  @extend %hyphenated-paragraphs
 
 ::selection
   color: white
   background-color: rgba($color-red, 0.7)
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4)
-
 
 // ------------------------------------
 // Lists.
@@ -82,7 +95,6 @@ p
 
 ul, ol
   padding-left: 1.3em
-
 
 // ------------------------------------
 // Blockquotes.
@@ -92,7 +104,7 @@ blockquote
   padding-left: 1em
   border-left: 5px solid #A02627
   font-style: italic
-  
+
   cite
     @extend %transition-navigation
     display: block
@@ -124,8 +136,6 @@ blockquote
       &
         max-width: none
 
-
-
 // ------------------------------------
 // Blocks.
 // ------------------------------------
@@ -141,3 +151,12 @@ hr
 
 .pull-right
   float: right
+
+// Home specific layout.
+.home-template
+  #main
+    padding-left: 0
+    padding-right: 0
+    #masonry-container
+      margin: 0 auto
+      max-width: 100%
