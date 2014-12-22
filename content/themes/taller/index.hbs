@@ -4,10 +4,9 @@
   the {body} of the default.hbs template, which contains our header/footer. }}
 
 {{! The big featured header on the homepage, with the site logo and description }}
-
 <div id="content-wrapper">
   <main class="content" role="main" id="main">
-    <div class="articles">
+    <div class="articles" id="masonry-container">
       {{! Each post will be output using this markup }}
       {{#foreach posts}}
         {{preprocess_post 'list'}}
@@ -22,7 +21,7 @@
               </header>
               {{featured_media}}
               <section class="post-excerpt">
-                <p>{{abstract}}</p>
+                <p lang="pt">{{abstract}}</p>
               </section>
               <footer class="post-footer">
                 {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author}}</span>{{/if}}
@@ -49,3 +48,18 @@
     </div>
   </footer>
 </div>
+
+{{!-- Masonry scripts. --}}
+<script type="text/javascript" src="/assets/lib/masonry/dist/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="/assets/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript">
+  var container = document.querySelector('#masonry-container');
+  var msnry;
+  // Initialize Masonry after all images have loaded.
+  imagesLoaded( container, function() {
+    msnry = new Masonry( container, {
+      itemSelector: '.preview',
+      "isFitWidth": true
+    } );
+  });
+</script>
