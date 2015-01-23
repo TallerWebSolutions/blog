@@ -102,7 +102,7 @@ blockquote
   padding-left: 1em
   border-left: 5px solid #A02627
   font-style: italic
-  
+
   cite
     @extend %transition-navigation
     display: block
@@ -151,3 +151,24 @@ hr
 
 .pull-right
   float: right
+
+// Homepage pagination styles.
+.pagination
+  text-align: center
+  width: 100%
+  margin-top: 2em
+  span
+    display: none
+  a
+    background-color: $color-red
+    color: white
+    padding: 1em
+    opacity: 1
+    &:hover
+      background-color: $color-wine
+    &.newer-posts
+      border-right: 4px solid $color-grey-light
+      margin-right: 0.5em
+    &.older-posts
+      border-left: 4px solid $color-grey-light
+      margin-left: 0.5em
