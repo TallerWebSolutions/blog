@@ -6,6 +6,7 @@ node_modules/*
 
 # Ignore databases.
 content/data/*
+ghost.db
 
 # Avoid ignoring dump databases.
 !content/data/dump*
