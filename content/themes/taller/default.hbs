@@ -92,4 +92,21 @@
   {{!-- End Google Tag Manager. --}}
 
 </body>
+
+{{!-- Masonry Scripts. --}}
+<script src="/assets/lib/masonry/dist/masonry.pkgd.min.js"></script>
+<script src="/assets/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
+
+<script>
+  var container = document.querySelector('#masonry-container');
+  var msnry;
+  // Initialize Masonry after all images have loaded.
+  imagesLoaded( container, function() {
+    msnry = new Masonry( container, {
+      itemSelector: '.preview',
+      "isFitWidth": true
+    } );
+  });
+</script>
+
 </html>
