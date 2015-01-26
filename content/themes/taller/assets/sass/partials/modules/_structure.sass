@@ -1,9 +1,8 @@
 /*
- *------------------------------------------------------------------------------
- * Structure Module
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
+ * Structure Module.
+ *--------------------------------------------------------------------
  */
-
 
 %spaced-content
   // Smart looping the breakpoint of type width.
@@ -15,12 +14,10 @@
       $spaced-content-current: $spaced-content-current - 3%
 
   +breakpoint("tiniest-width")
-    padding-left: 5px
-    padding-right: 5px
+    padding-left: 0
+    padding-right: 0
 
 %hyphenated-paragraphs
   -webkit-hyphens: auto
   -moz-hyphens: auto
   hyphens: auto
-  @media all and(min--moz-device-pixel-ratio:0)
-    text-align: justify
