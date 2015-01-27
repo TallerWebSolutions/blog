@@ -99,13 +99,14 @@
 
 <script>
   var container = document.querySelector('#masonry-container');
-  var msnry;
+  var msnry = new Masonry(container, {
+    itemSelector: '.preview',
+    isFitWidth: true
+  });
+
   // Initialize Masonry after all images have loaded.
   imagesLoaded( container, function() {
-    msnry = new Masonry( container, {
-      itemSelector: '.preview',
-      "isFitWidth": true
-    } );
+    msnry.layout();
   });
 </script>
 
