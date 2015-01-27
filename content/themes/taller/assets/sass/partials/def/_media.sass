@@ -1,7 +1,7 @@
 /*
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  * Media Definitions
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  * Use this file to set media variables & functions.
  */
 
@@ -92,3 +92,9 @@ $breakpoints: append($breakpoints, (  "small-width", join-breakpoints("screen" "
 $breakpoints: append($breakpoints, ("smaller-width", join-breakpoints("screen" "smaller-width-min" "smaller-width-max"), "screen" "width"))
 $breakpoints: append($breakpoints, (   "tiny-width", join-breakpoints("screen" "tiny-width-min"    "tiny-width-max"   ), "screen" "width"))
 $breakpoints: append($breakpoints, ("tiniest-width", join-breakpoints("screen" "tiniest-width-max"),                     "screen" "width"))
+
+// Typography oriented breakpoints.
+$breakpoints: append($breakpoints, ("smaller-type-width", join-breakpoints("screen" "tiniest-width-max"                    ), "screen" "width"))
+$breakpoints: append($breakpoints, (  "small-type-width", join-breakpoints("screen" "tiny-width-min"    "smaller-width-max"), "screen" "width"))
+$breakpoints: append($breakpoints, ( "medium-type-width", join-breakpoints("screen" "small-width-min"   "default-width-max"), "screen" "width"))
+$breakpoints: append($breakpoints, (    "big-type-width", join-breakpoints("screen" "large-width-min"                      ), "screen" "width"))
