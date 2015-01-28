@@ -12,14 +12,23 @@
 // ------------------------------------
 
 body
-  line-height: 1.25em
-  font-family: $font-sans
-  font-size: $font-size-body
+  line-height: $line-height-smaller
+  font-family: $font-text
+  font-size: $font-size-smaller
   color: $color-grey-darkest
+  +breakpoint("small-type-width")
+    &
+      font-size: $font-size-small
+      line-height: $line-height-small
+  +breakpoint("medium-type-width")
+    &
+      font-size: $font-size-medium
+      line-height: $line-height-medium
+  +breakpoint("big-type-width")
+    &
+      font-size: $font-size-big
+      line-height: $line-height-big
 
-+breakpoint("tiniest-width")
-  html, body
-    font-size: $font-size-mobile
 
 // ------------------------------------
 // Headers.
@@ -51,12 +60,6 @@ h5
 
 h6
   font-size: $font-size-h6
-
-+breakpoint("tiniest-width")
-  h1
-    font-size: 3em
-  h2
-    font-size: 2.5em
 
 // ------------------------------------
 // Anchors.
@@ -156,11 +159,10 @@ hr
 // Home specific layout.
 .home-template, .archive-template, .tag-template
   #main
-    padding-left: 10px
-    padding-right: 10px
+    padding-left: 0
+    padding-right: 0
     #masonry-container
       margin: 0 auto
-      max-width: 100%
 
 // Homepage pagination styles.
 .pagination

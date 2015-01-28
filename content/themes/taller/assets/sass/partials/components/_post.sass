@@ -108,8 +108,6 @@
 .post-content
   @extend %border-light
   padding: 2em 0
-  line-height: 1.5em
-  font-size: 1.25em
   font-weight: 300
   color: #333
 
@@ -190,7 +188,6 @@
   h4
     margin: 3em 0 0.2em
     border-top: 1px dashed $color-grey-lighter
-    font-family: $font-lato
     font-size: 1.8rem
     text-transform: uppercase
     text-shadow: 1px 1px 1px #FFF
@@ -259,10 +256,12 @@
   overflow: visible
 
 .post.preview
-  width: 100%
-  max-width: 30em
+  width: 30em
   position: relative
-  padding: 10px
+  padding-bottom: 20px
+  +breakpoint("smaller-type-width")
+    &
+      width: 22em
 
   .inner
     display: block
