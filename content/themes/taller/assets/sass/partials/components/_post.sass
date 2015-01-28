@@ -129,10 +129,13 @@
     +breakpoint("tiniest-width")
       margin-left: 1rem
       margin-right: 1rem
-  > p.has-image, .pre
+  > p.has-image, p.has-code, pre, iframe
     @extend %expanded
     text-align: center
     max-width: 100%
+
+  p.has-code
+    overflow: auto
 
   .post-full
     h1, h2, h3, h4, h5

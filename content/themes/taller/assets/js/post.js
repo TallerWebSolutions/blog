@@ -14,6 +14,11 @@
     $('.post-content img').parent('p').addClass('has-image');
 
     /**
+     * Inform paragraph of code existence.
+     */
+    $('.post-content code').parent('p').addClass('has-code');
+
+    /**
      * Remove meta-data paragraph.
      */
     $('.post-content meta').parent('p').hide();
@@ -23,7 +28,7 @@
      */
     (function() {
       var postMeta = $('#post-meta');
-      
+
       /**
        * Apply plugin.
        */
