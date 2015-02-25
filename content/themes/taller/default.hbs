@@ -111,7 +111,10 @@
 
   if ($relatedPosts.length) {
     $relatedPosts.ghostRelated({
-      tagsClass: '.post-tags'
+      tagsClass: '.post-tags',
+      messages: {
+          noRelated: 'Não há posts relacionados.'
+      }
     });
   }
 
