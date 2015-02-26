@@ -99,36 +99,12 @@
   })(window,document,'script','dataLayer','GTM-PTGFP9');</script>
   {{!-- End Google Tag Manager. --}}
 
+  {{!-- Masonry Scripts. --}}
+  <script src="/assets/lib/masonry/dist/masonry.pkgd.min.js"></script>
+  <script src="/assets/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
+
+  <script src="/assets/js/vendors/jquery.ghostrelated.js"></script>
+  <script src="/assets/js/main.js"></script>
+
 </body>
-
-{{!-- Masonry Scripts. --}}
-<script src="/assets/lib/masonry/dist/masonry.pkgd.min.js"></script>
-<script src="/assets/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
-<script src="/assets/js/vendors/jquery.ghostrelated.js"></script>
-
-<script>
-  var $relatedPosts = $('.related-posts');
-
-  if ($relatedPosts.length) {
-    $relatedPosts.ghostRelated({
-      tagsClass: '.post-tags'
-    });
-  }
-
-  // Masonry
-  var container = document.querySelector('#masonry-container');
-  var msnry = new Masonry(container, {
-    itemSelector: '.preview',
-    isFitWidth: true,
-    gutter: 20,
-    columnWidth: container.querySelector('.preview')
-  });
-
-  // Initialize Masonry after all images have loaded.
-  imagesLoaded( container, function() {
-    msnry.layout();
-  });
-
-</script>
-
 </html>
