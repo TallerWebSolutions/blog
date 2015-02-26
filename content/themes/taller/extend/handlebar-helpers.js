@@ -16,7 +16,8 @@ var rootPath  = '../../../../'
   spreedsheet = require('request-json').newClient('http://spreadsheets.google.com/'),
 
   // Custom
-  authors     = [];
+  authors     = [],
+  moment      = require('moment');
 
 var lastProcess = new Date();
 
@@ -24,6 +25,10 @@ var lastProcess = new Date();
 jsdomEnv('<html><head></head><body></body></html>', function (err, window) {
   jQuery = jQuery(window);
 });
+
+
+// Translate dates
+moment.lang('pt-BR');
 
 
 // --------------------------
