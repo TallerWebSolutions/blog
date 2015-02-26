@@ -1,11 +1,11 @@
 /* jshint node:true, browser:true */
+/* global Ember */
 
 // Ghost Image Preview
 //
 // Manages the conversion of image markdown `![]()` from markdown into the HTML image preview
 // This provides a dropzone and other interface elements for adding images
 // Is only used in the admin client.
-
 
 var Ghost = Ghost || {};
 (function () {
@@ -28,7 +28,7 @@ var Ghost = Ghost || {};
                             result = '<img class="js-upload-target" src="' + src + '"/>';
                         }
 
-                        if (Ghost && Ghost.touchEditor) {
+                        if ((Ghost && Ghost.touchEditor) || (typeof window !== 'undefined' && Ember.touchEditor)) {
                             output = '<section class="image-uploader">' +
                                 result + '<div class="description">Mobile uploads coming soon</div></section>';
                         } else {
