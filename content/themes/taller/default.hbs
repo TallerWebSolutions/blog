@@ -31,6 +31,11 @@
       <meta property="og:image" content="{{author.image}}" />
     {{/post}}
   {{else}}
+    <meta property="og:site_name" content="Taller Blog" />
+    <meta property="og:title" content="{{meta_title}}" />
+    <meta property="og:url" content="{{@blog.url}}{{url}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:image" content="{{@blog.url}}/assets/images/og-logo.jpg'}}" />
   {{/if}}
 
