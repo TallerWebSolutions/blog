@@ -30,6 +30,10 @@
       {{! Everything inside the #post tags pulls data from the post }}
       {{#post}}
 
+      {{#contentFor "meta"}}
+        <meta property="og:image" content="{{author.image}}">
+      {{/contentFor}}
+
       <header class="article-head">
         <section id="post-meta">
           <div class="inner">

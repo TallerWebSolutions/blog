@@ -19,13 +19,12 @@
   <meta property="og:url" content="{{@blog.url}}{{url}}" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
+  <meta property="og:image:type" content="image/jpeg">
 
   {{#is "post"}}
-  <meta property="og:image" content="{{author.image}}">
-  <meta property="og:image:type" content="image/jpeg">
+  {{{ block "meta" }}}
   {{else}}
-  <meta property="og:image" content="{{@blog.url}}/assets/images/brand.png">
-  <meta property="og:image:type" content="image/png">
+  <meta property="og:image" content="{{@blog.url}}/assets/images/og-logo.jpg">
   {{/is}}
 
   {{#foreach tags}}
