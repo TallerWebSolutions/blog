@@ -26,6 +26,14 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
   <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
 
+  {{#if post}}
+    {{#post}}
+      <meta property="og:image" content="{{author.image}}" />
+    {{/post}}
+  {{else}}
+    <meta property="og:image" content="{{@blog.url}}/assets/images/og-logo.jpg'}}" />
+  {{/if}}
+
   {{! Ghost outputs important style and meta data with this tag }}
   {{ghost_head}}
 </head>
