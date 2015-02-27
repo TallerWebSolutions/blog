@@ -30,21 +30,6 @@
       {{! Everything inside the #post tags pulls data from the post }}
       {{#post}}
 
-      {{!-- Metatags for Opengraph --}}
-      {{#contentFor "meta"}}
-        <meta property="og:locale" content="pt_BR">
-        <meta property="og:title" content="{{title}}">
-        <meta property="og:site_name" content="Taller Blog">
-        {{!-- <meta property="og:description" content="{{content}}"> --}}
-        <meta property="og:image" content="{{author.image}}">
-        <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:type" content="article">
-        <meta property="article:author" content="{{author.name}}">
-        {{#foreach tags}}
-          <meta property="article:tag" content="{{this.name}}">
-        {{/foreach}}
-      {{/contentFor}}
-
       <header class="article-head">
         <section id="post-meta">
           <div class="inner">
