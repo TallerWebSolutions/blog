@@ -12,7 +12,23 @@
   <title>{{meta_title}}</title>
   <meta name="description" content="{{meta_description}}" />
   <meta name="google-site-verification" content="uEE2tfPpwFQYDT6HnmrIILHQgL0rS_lvfjuvk4vGLeg" />
-  {{{block "meta"}}}
+  <!-- {{{block "meta"}}} -->
+
+  <!-- Facebook Open Graph Meta Tags -->
+  <meta property="og:site_name" content="Taller Blog" />
+  <meta property="og:url" content="{{@blog.url}}{{url}}" />
+  <meta property="og:title" content="{{meta_title}}" />
+  <meta property="og:description" content="{{meta_description}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt-BR" />
+  {{#is "post"}}
+  {{#post}}
+  <meta property="og:image" content="{{image absolute='true'}}" />
+  {{/post}}
+  {{else}}
+  <meta property="og:image" content="{{@blog.url}}{{@blog.logo}}" />
+  {{/is}}
+  <!-- Facebook og end -->
 
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
