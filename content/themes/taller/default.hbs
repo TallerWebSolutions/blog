@@ -13,19 +13,25 @@
   <meta name="description" content="{{meta_description}}" />
   <meta name="google-site-verification" content="uEE2tfPpwFQYDT6HnmrIILHQgL0rS_lvfjuvk4vGLeg" />
   
-  <!-- {{{block "meta"}}} -->
-
   <!-- Facebook Open Graph Meta Tags -->
   <meta property="og:site_name" content="Taller Blog" />
   <meta property="og:title" content="{{meta_title}}" />
   <meta property="og:url" content="{{@blog.url}}{{url}}" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
+
+  {{#is "post"}}
   <meta property="og:image" content="{{author.image}}">
   <meta property="og:image:type" content="image/jpeg">
+  {{else}}
+  <meta property="og:image" content="{{@blog.url}}/assets/images/brand.png">
+  <meta property="og:image:type" content="image/png">
+  {{/is}}
+
   {{#foreach tags}}
     <meta property="article:tag" content="{{this.name}}">
   {{/foreach}}
+
   <!-- Facebook og end -->
 
   <meta name="HandheldFriendly" content="True" />
