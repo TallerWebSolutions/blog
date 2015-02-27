@@ -107,6 +107,8 @@ hbs.registerHelper('preprocess_post', function (viewMode, options) {
         author.image = author.image || gravatarImage;
       }
 
+      author.metaImage = author.email && gravatar.url(author.email, {s: '200'}) || null;
+
       lodash.merge(post.author, {
         image: '',
         bio: '',
