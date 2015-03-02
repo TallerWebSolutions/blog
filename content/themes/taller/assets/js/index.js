@@ -6,10 +6,10 @@
 (function ($) {
     "use strict";
 
-    $(document).ready(function(){
+    // $(document).ready(function(){
 
-      console.image(window.location.origin + '/assets/images/magic.gif');
+      // console.image(window.location.origin + '/assets/images/magic.gif');
 
-    });
+    // });
 
 }(jQuery));
