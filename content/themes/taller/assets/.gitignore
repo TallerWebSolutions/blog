@@ -1,6 +1,6 @@
 # Ignore CSS files.
 *.css
-js/application.js
+#js/application.js
 
 # Ignore Sass cache files.
 .sass-cache/*
