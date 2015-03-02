@@ -23,17 +23,21 @@
 
   function initializeMasonry () {
 	  var container = document.querySelector('#masonry-container'),
-	  		msnry = new Masonry(container, {
+	  		msnry = null;
+
+		// Initialize Masonry after all images have loaded.
+	  if (container) {
+		  imagesLoaded(container, function() {
+		  	msnry = new Masonry(container, {
 			    itemSelector: '.preview',
 			    isFitWidth: true,
-			    gutter: 20,
+			    gutter: 0,
 			    columnWidth: container.querySelector('.preview')
 			  });
 
-	  // Initialize Masonry after all images have loaded.
-	  imagesLoaded(container, function() {
-	    msnry.layout();
-	  });
+		    msnry.layout();
+		  });
+	  }
   }
 
 }(jQuery));
