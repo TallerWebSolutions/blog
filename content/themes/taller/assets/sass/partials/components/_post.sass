@@ -262,6 +262,9 @@
   @extend %clearfix
   overflow: visible
   margin: 0 10px 0 20px
+  +breakpoint("smaller-type-width")
+    &
+      margin: 0 auto
 
 .post.preview
   width: 30em
@@ -272,6 +275,11 @@
   +breakpoint("smaller-type-width")
     &
       width: 22em
+
+  +breakpoint("smaller-type-width")
+    &
+      float: none
+      margin: 0
 
   a:after
     border: none
