@@ -261,20 +261,20 @@
 .articles
   @extend %clearfix
   overflow: visible
-  margin: 0 10px 0 20px
-  +breakpoint("smaller-type-width")
+  margin: 0 auto
+  +breakpoint("default-width-min")
     &
-      margin: 0 auto
+      width: 1200px
 
 .post.preview
-  width: 30em
+  width: 28em
   position: relative
-  padding-bottom: 20px
+  padding-bottom: 40px
   float: left
-  margin: 0 10px
+  margin: 0 20px
   +breakpoint("smaller-type-width")
     &
-      width: 22em
+      width: 20em
 
   +breakpoint("smaller-type-width")
     &
