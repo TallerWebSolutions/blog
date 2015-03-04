@@ -103,6 +103,11 @@
   })(window,document,'script','dataLayer','GTM-PTGFP9');</script>
   {{!-- End Google Tag Manager. --}}
 
+  <script>
+  // @todo: allow load of editor script only for authenticated users.
+  (function(){ ElTracker = []; var el = document.createElement('script');el.defer = true;el.type = 'text/javascript';el.async = true;el.src = "//eltracker.io";el.src += window === window.parent ? "project/cdn/61e730d3-e168-4dd4-bf6a-c67175e1f64e" : "cdn/editor";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(el, s);})();
+  </script>
+
   {{!-- Masonry Scripts. --}}
   <script src="/assets/js/application.js"></script>
 
