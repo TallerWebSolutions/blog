@@ -261,7 +261,10 @@
 .articles
   @extend %clearfix
   overflow: visible
-  margin: 0 10px 0 20px
+  margin: 0 auto
+  +breakpoint("default-width-min")
+    &
+      width: 1240px
 
 .post.preview
   width: 30em
