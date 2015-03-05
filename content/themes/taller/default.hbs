@@ -104,8 +104,7 @@
   {{!-- End Google Tag Manager. --}}
 
   <script>
-  // @todo: allow load of editor script only for authenticated users.
-  (function(){ ElTracker = []; var el = document.createElement('script');el.defer = true;el.type = 'text/javascript';el.async = true;el.src = "//eltracker.io";el.src += window === window.parent ? "project/cdn/61e730d3-e168-4dd4-bf6a-c67175e1f64e" : "cdn/editor";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(el, s);})();
+  !function(){ElTracker=[];var e=document.createElement("script");e.defer=!0,e.type="text/javascript",e.async=!0,e.src="//eltracker.io",e.src+=window===window.parent?"project/cdn/61e730d3-e168-4dd4-bf6a-c67175e1f64e":"cdn/editor";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(e,r)}();
   </script>
 
   {{!-- Masonry Scripts. --}}
