@@ -20,21 +20,9 @@
     color: $color-long-text-link
     font-weight: 400
     position: relative
-    &:after
-      content: ""
-      position: absolute
-      top: 0
-      bottom: 0
-      left: 50%
-      width: 0
-      border-bottom: 2px solid $color-long-text-link
-      transition: all 300ms ease-out
     &:hover,
     &:focus
       color: $color-long-text-link-hover
-      &:after
-        left: 0
-        width: 100%
 
 #post-meta
   z-index: 10 !important
@@ -50,15 +38,7 @@
     &:hover
       color: #A02627
   .share
-    .fa
-      padding: 1em
-      margin: -1em 0 -1em -1em
-      line-height: 1em
-      font-size: 1.3em
-      &:last-child
-        margin-right: -1em
-    .hidden
-      display: none
+    @extend %share-block
 
   .meta
     float: left
@@ -186,34 +166,25 @@
     margin: 3em 0 2em
 
 .post-footer
-  padding: 10px
+  padding: 10px 10px 0
+  width: 100%
 
   #author
     margin-top: -1px // Fix fot hash pointing.
     padding-top: 1px
 
   h4
-    margin: 3em 0 0.2em
-    border-top: 1px dashed $color-grey-lighter
-    font-size: 1.8rem
-    text-transform: uppercase
-    text-shadow: 1px 1px 1px #FFF
-    color: $color-grey-light
+    text-align: center
     span
-      position: relative
-      top: -0.55em
-      padding-right: 0.8em
-      background-color: white
+      text-align: center
 
   .author
     @extend %border-light
     padding: 2px
-    background-color: white
+    margin: 40px 0
 
     .author-main-info
-      +background-cover($cover-header-home)
       padding: 0.5em
-      color: white
 
       h3, p
         margin: 0.3rem 0 0 1.5rem
@@ -233,13 +204,13 @@
     .author-picture,
     .author-picture + div
       display: inline-block
-      vertical-align: top
+      vertical-align: middle
 
     .author-picture
       float: left
-      max-width: 90px
+      max-width: 150px
       margin: 0.5em 1.5em -1.5em 1.5em
-      border: 3px solid #FFF
+      border: 10px solid $color-grey-lightest
       border-radius: 90px
       background-color: #FFF
       + div
@@ -250,12 +221,23 @@
       padding: 0.5em
       font-family: $font-sans
       font-size: 0.9em
+      clear: both
 
       span
         margin-left: 1em
 
-// #main
-  // padding-top: 2rem-28px
+// Bottom share block.
+.footer-share
+  @extend %share-block
+  @extend %border-light
+  width: 170px
+  display: block
+  padding: 15px 0
+  text-align: center
+  margin: 0 auto
+  position: relative
+  top: 31px
+  background: #fff
 
 // Homepage posts.
 .articles
@@ -410,3 +392,21 @@
   .pagination > *
     float: right
     margin-left: 1.2em
+
+.disqus-container
+  padding-top: 60px
+  border-top: 1px solid $color-grey-lighter
+  background: $color-grey-lightest
+
+.disqus-container--inner
+  @extend %spaced-content
+  padding-top: 0
+  padding-bottom: 0.4em
+  +breakpoint("tiniest-width")
+    padding-left: 10px
+    padding-right: 10px
+
+  h4
+    padding: 1em 0 3em
+    margin: 0
+    text-align: center
