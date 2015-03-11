@@ -31,7 +31,7 @@
       {{#post}}
 
       <header class="article-head">
-        <section id="post-meta">
+        <section id="post-meta" class="post-meta-area">
           <div class="inner">
             <section class="meta">
               <span class="post-title">{{title}}</span>
@@ -83,6 +83,18 @@
             </section>
           </div>
         {{/if}}
+
+        <section class="post-meta-area">
+          <div class="inner">
+            <section class="meta">
+              <span class="post-title">{{title}}</span>
+              {{#if author}}
+                <span class="post-author"><i class="fa fa-user"></i> <a href="#author">{{author}}</a></span>
+              {{/if}}
+              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
+            </section>
+          </div>
+        </section>
 
         <aside>
           <h4>Se você curtiu esse texto, provavelmente vai gostar destes aqui também:</h4>
