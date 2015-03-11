@@ -24,7 +24,7 @@
     &:focus
       color: $color-long-text-link-hover
 
-#post-meta
+.post-meta-area
   z-index: 10 !important
   width: 100% !important
   padding: 1em 0 1em
@@ -181,7 +181,7 @@
   .author
     @extend %border-light
     padding: 2px
-    margin: 40px 0
+    margin: 29px 0
 
     .author-main-info
       padding: 0.5em
@@ -197,7 +197,7 @@
         font-weight: normal
       p
         margin-bottom: 0
-        margin-left: 144px
+        margin-left: 180px
         +breakpoint("tiniest-width-max")
           margin-left: 135px
 
@@ -225,6 +225,13 @@
 
       span
         margin-left: 1em
+  
+  .post-meta-area
+    margin-top: 27px
+    margin-bottom: 68px
+
+  .related-posts
+    margin: 29px 0
 
 // Bottom share block.
 .footer-share
@@ -232,12 +239,22 @@
   @extend %border-light
   width: 170px
   display: block
-  padding: 15px 0
+  padding: 9px 0 5px 0
   text-align: center
   margin: 0 auto
   position: relative
-  top: 31px
+  top: 22px
   background: #fff
+
+  a
+    color: #541818
+
+    &:hover 
+      color: #A02627
+
+  .fa
+    padding: 0.9em 1em
+    line-height: 0
 
 // Homepage posts.
 .articles
