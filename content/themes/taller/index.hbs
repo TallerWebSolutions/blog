@@ -29,7 +29,7 @@
                 <p>{{abstract}}</p>
               </section>
               <footer class="post-footer">
-                {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author}}</span>{{/if}}
+                {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author.name}}</span>{{/if}}
                 {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", " autolink="false"}}</span>{{/if}}
               </footer>
             </div>
