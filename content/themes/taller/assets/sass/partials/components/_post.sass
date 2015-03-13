@@ -50,13 +50,12 @@
       display: none
 
     .post-title
-      border-right: 1px dashed rgba(0,0,0, 0.2)
       padding-right: 1em
       vertical-align: top
       font-weight: 300
-      font-size: 1.6em
 
   &.sticked
+    padding: 0.4em 0 0.4em
     margin-top: 0
     text-align: left
     left: 0
@@ -72,9 +71,14 @@
       margin: 0 1.5em
 
     .meta
-      .post-title,
-      .post-author
+      width: 90%
+
+      .post-title
         display: inline-block
+
+      .post-tags
+        display: none
+
     a
       color: inherit
       &:hover, &:focus

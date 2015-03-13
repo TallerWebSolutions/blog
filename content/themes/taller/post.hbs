@@ -35,10 +35,9 @@
           <div class="inner">
             <section class="meta">
               <span class="post-title">{{title}}</span>
-              {{#if author}}
-                <span class="post-author"><i class="fa fa-user"></i> <a href="#author">{{author}}</a></span>
+              {{#if tags}}
+                <span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>
               {{/if}}
-              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
             </section>
 
             <section class="share">
