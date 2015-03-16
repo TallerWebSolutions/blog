@@ -10,47 +10,59 @@
     <header class="tag-header">
       <h1>{{tag.name}}</h1>
     </header>
-    <div id="masonry-container" class="articles">
+    <div class="articles" id="masonry-container">
       {{! Each post will be output using this markup }}
       {{#foreach posts}}
+        {{preprocess_post 'list'}}
 
-      {{preprocess_post 'list'}}
+        <article class="{{post_class}} preview">
+          <div class="inner">
 
-      <article class="{{post_class}} preview">
-        <a href="{{url}}" class="inner">
-
-          <div class="post-content">
-            <header class="post-header">
-              <h2 class="post-title">{{{title}}}</h2>
-              <span class="site-head-subinfo fa fa-clock-o"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMMM YYYY'}}</time></span>
-            </header>
-            {{featured_media}}
-            <section class="post-excerpt">
-              <p>{{excerpt}}&hellip;</p>
-            </section>
-            <footer class="post-footer">
-              {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author}}</span>{{/if}}
-              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", " autolink="false"}}</span>{{/if}}
-            </footer>
+            <div class="post-content">
+              <header class="post-header">
+                <a href="{{url}}">
+                  <h2 class="post-title">{{{title}}}</h2>
+                </a>
+                <span class="site-head-subinfo fa fa-clock-o"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMMM YYYY'}}</time></span>
+              </header>
+              <a href="{{url}}">
+                {{featured_media}}
+              </a>
+              <section class="post-excerpt">
+                <p>{{abstract}}</p>
+              </section>
+              <footer class="post-footer">
+                {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author.name}}</span>{{/if}}
+                {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", " autolink="false"}}</span>{{/if}}
+              </footer>
+            </div>
           </div>
-        </a>
-      </article>
+        </article>
       {{/foreach}}
     </div>
 
     {{!! After all the posts, we have the previous/next pagination links }}
-{{!     <div class="pagination-container">
-      <i>fim</i>
-    </div> }}
-    {{pagination}}
-
+    {{!-- <div class="pagination-container"> --}}
+      {{!-- <i>fim</i> --}}
+      {{pagination}}
+    {{!-- </div> --}}
   </main>
 
   <footer id="site-footer">
     <div id="site-footer-content" class="inner">
       <div class="inner">
-         <section class="poweredby">Elegantemente desenvolvido com <a class="icon-ghost" href="http://ghost.org">Ghost</a></section>
-         <section class="copyright">Todos os direitos reservados &bull; <a href="http://www.taller.net.br">Taller</a> &copy; 2013</section>
+         <section class="poweredby">
+           <small>Elegantemente desenvolvido com <a class="icon-ghost" href="http://ghost.org">Ghost</a></small>
+         </section>
+         <section class="copyright">
+          <small>
+            Este blog está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons - Atribuição  4.0 Internacional</a>.
+          </small>
+          <br>
+          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+            <img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+          </a>
+         </section>
       </div>
     </div>
   </footer>
