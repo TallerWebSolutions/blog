@@ -1,0 +1,33 @@
+// Button styles definitions.
+
+%button-wrapper
+  display: block
+  text-align: center
+  .button
+    padding: 0 1em
+    margin: 10px
+    display: inline-block
+    box-sizing: border-box
+    line-height: 2em
+    // border-radius: 8px
+    transition: all 400ms ease-in
+    &.call-to-action
+      background-color: $light-orange
+      color: white
+      font-size: 2em
+      text-shadow: 2px 2px $color-red
+      &:hover
+        box-shadow: 0 0 20px $light-orange
+    &.blog-action
+      background-color: $color-red
+      color: white
+      font-size: 1.5em
+      text-shadow: 2px 2px black
+      &:hover
+        box-shadow: 0 0 20px $color-red
+    &.external-action
+      font-size: 1.2em 
+      background-color: $color-grey-lightest
+      text-shadow: 2px 2px white
+      &:hover
+        box-shadow: 0 0 20px $color-grey-lighter
