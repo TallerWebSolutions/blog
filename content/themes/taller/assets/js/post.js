@@ -6,10 +6,10 @@
 (function ($) {
   "use strict";
 
-  $(document).ready(function(){
+  $(document).ready(function(){    
 
     // Inform paragraph of image existence.
-    $('.post-content img').parent('p').addClass('has-image');
+    $('.post-content img').closest('p').addClass('has-image');
 
     // Inform paragraph of code existence.
     $('.post-content code').parent('p').addClass('has-code');
