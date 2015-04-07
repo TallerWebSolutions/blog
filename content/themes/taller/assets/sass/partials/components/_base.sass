@@ -173,21 +173,5 @@ hr
 
 // Homepage pagination styles.
 .pagination
-  text-align: center
-  width: 100%
-  margin: 2em 0
-  span
-    display: none
-  a
-    background-color: $color-red
-    color: white
-    padding: 1em
-    opacity: 1
-    &:hover
-      background-color: $color-wine
-    &.newer-posts
-      border-right: 4px solid $color-grey-light
-      margin-right: 0.5em
-    &.older-posts
-      border-left: 4px solid $color-grey-light
-      margin-left: 0.5em
+  @extend %button-wrapper
+  padding-bottom: 20px
