@@ -127,12 +127,16 @@ header.article-head
     +breakpoint("tiniest-width")
       margin-left: 1rem
       margin-right: 1rem
-  > p.has-image, p.has-code, p.has-linked-image, pre, iframe
+  > p.has-image, p.has-code, p.has-linked-image, iframe
     @extend %expanded
     text-align: center
     max-width: $non-textblock-elements-width
     margin-left: auto
     margin-right: auto
+
+  pre.line-numbers
+    margin: 0 auto
+    max-width: $non-textblock-elements-width
 
   p.has-code
     overflow: auto

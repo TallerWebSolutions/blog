@@ -1,2 +1,945 @@
-!function(){"use strict"}(jQuery),function(a){"use strict";a(document).ready(function(){a(".post-content img").parent("p").addClass("has-image"),a(".post-content code").parent("p").addClass("has-code"),a(".post-content meta").parent("p").hide(),function(){var b=a("#post-meta");b.stick_in_parent({sticky_class:"sticked",brief:2*b.outerHeight(!0),entranceAnimation:function(){a(this).fadeIn(350)}})}()})}(jQuery),function(a){"use strict";var b,c=["markup","php","javascript","coffee","css","scss","sass","ruby","sql"];a("code").each(function(){var d=a(this),e=d.parent("pre"),f=(d.attr("class")||"",e.attr("class")||"",!1);for(e.addClass("line-numbers"),b=0;b<c.length;b++)d.hasClass(c[b])&&(d.addClass("language-"+c[b]),f=!0);f||(d.addClass("language-undefined"),e.addClass("language-undefined"))})}(jQuery),function(){var a=/\blang(?:uage)?-(?!\*)(\w+)\b/i,b=self.Prism={util:{type:function(a){return Object.prototype.toString.call(a).match(/\[object (\w+)\]/)[1]},clone:function(a){var c=b.util.type(a);switch(c){case"Object":var d={};for(var e in a)a.hasOwnProperty(e)&&(d[e]=b.util.clone(a[e]));return d;case"Array":return a.slice()}return a}},languages:{extend:function(a,c){var d=b.util.clone(b.languages[a]);for(var e in c)d[e]=c[e];return d},insertBefore:function(a,c,d,e){e=e||b.languages;var f=e[a],g={};for(var h in f)if(f.hasOwnProperty(h)){if(h==c)for(var i in d)d.hasOwnProperty(i)&&(g[i]=d[i]);g[h]=f[h]}return e[a]=g},DFS:function(a,c){for(var d in a)c.call(a,d,a[d]),"Object"===b.util.type(a)&&b.languages.DFS(a[d],c)}},highlightAll:function(a,c){for(var d,e=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'),f=0;d=e[f++];)b.highlightElement(d,a===!0,c)},highlightElement:function(d,e,f){for(var g,h,i=d;i&&!a.test(i.className);)i=i.parentNode;if(i&&(g=(i.className.match(a)||[,""])[1],h=b.languages[g]),h){d.className=d.className.replace(a,"").replace(/\s+/g," ")+" language-"+g,i=d.parentNode,/pre/i.test(i.nodeName)&&(i.className=i.className.replace(a,"").replace(/\s+/g," ")+" language-"+g);var j=d.textContent;if(j){j=j.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ");var k={element:d,language:g,grammar:h,code:j};if(b.hooks.run("before-highlight",k),e&&self.Worker){var l=new Worker(b.filename);l.onmessage=function(a){k.highlightedCode=c.stringify(JSON.parse(a.data),g),b.hooks.run("before-insert",k),k.element.innerHTML=k.highlightedCode,f&&f.call(k.element),b.hooks.run("after-highlight",k)},l.postMessage(JSON.stringify({language:k.language,code:k.code}))}else k.highlightedCode=b.highlight(k.code,k.grammar,k.language),b.hooks.run("before-insert",k),k.element.innerHTML=k.highlightedCode,f&&f.call(d),b.hooks.run("after-highlight",k)}}},highlight:function(a,d,e){return c.stringify(b.tokenize(a,d),e)},tokenize:function(a,c){var d=b.Token,e=[a],f=c.rest;if(f){for(var g in f)c[g]=f[g];delete c.rest}a:for(var g in c)if(c.hasOwnProperty(g)&&c[g]){var h=c[g],i=h.inside,j=!!h.lookbehind,k=0;h=h.pattern||h;for(var l=0;l<e.length;l++){var m=e[l];if(e.length>a.length)break a;if(!(m instanceof d)){h.lastIndex=0;var n=h.exec(m);if(n){j&&(k=n[1].length);var o=n.index-1+k,n=n[0].slice(k),p=n.length,q=o+p,r=m.slice(0,o+1),s=m.slice(q+1),t=[l,1];r&&t.push(r);var u=new d(g,i?b.tokenize(n,i):n);t.push(u),s&&t.push(s),Array.prototype.splice.apply(e,t)}}}}return e},hooks:{all:{},add:function(a,c){var d=b.hooks.all;d[a]=d[a]||[],d[a].push(c)},run:function(a,c){var d=b.hooks.all[a];if(d&&d.length)for(var e,f=0;e=d[f++];)e(c)}}},c=b.Token=function(a,b){this.type=a,this.content=b};if(c.stringify=function(a,d,e){if("string"==typeof a)return a;if("[object Array]"==Object.prototype.toString.call(a))return a.map(function(b){return c.stringify(b,d,a)}).join("");var f={type:a.type,content:c.stringify(a.content,d,e),tag:"span",classes:["token",a.type],attributes:{},language:d,parent:e};"comment"==f.type&&(f.attributes.spellcheck="true"),b.hooks.run("wrap",f);var g="";for(var h in f.attributes)g+=h+'="'+(f.attributes[h]||"")+'"';return"<"+f.tag+' class="'+f.classes.join(" ")+'" '+g+">"+f.content+"</"+f.tag+">"},!self.document)return void self.addEventListener("message",function(a){var c=JSON.parse(a.data),d=c.language,e=c.code;self.postMessage(JSON.stringify(b.tokenize(e,b.languages[d]))),self.close()},!1);var d=document.getElementsByTagName("script");d=d[d.length-1],d&&(b.filename=d.src,document.addEventListener&&!d.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",b.highlightAll))}(),Prism.languages.markup={comment:/&lt;!--[\w\W]*?-->/g,prolog:/&lt;\?.+?\?>/,doctype:/&lt;!DOCTYPE.+?>/,cdata:/&lt;!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|>|"/g}},punctuation:/\/?>/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi},Prism.hooks.add("wrap",function(a){"entity"===a.type&&(a.attributes.title=a.content.replace(/&amp;/,"&"))}),Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*{))/gi,inside:{punctuation:/[;:]/g}},url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\};]*(?=\s*\{)/g,property:/(\b|\B)[\w-]+(?=\s*:)/gi,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g},Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/gi,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/gi,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}}),Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,"class-name":{pattern:/((?:(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/gi,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,"function":{pattern:/[a-z0-9_]+\(/gi,inside:{punctuation:/\(/}},number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,operator:/[-+]{1,2}|!|&lt;=?|>=?|={1,3}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g},Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|throw|catch|finally|null|break|continue)\b/g,number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g}),Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}}),Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/gi,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/gi,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}}),Prism.languages.php=Prism.languages.extend("clike",{keyword:/\b(and|or|xor|array|as|break|case|cfunction|class|const|continue|declare|default|die|do|else|elseif|enddeclare|endfor|endforeach|endif|endswitch|endwhile|extends|for|foreach|function|include|include_once|global|if|new|return|static|switch|use|require|require_once|var|while|abstract|interface|public|implements|extends|private|protected|parent|static|throw|null|echo|print|trait|namespace|use|final|yield|goto|instanceof|finally|try|catch)\b/gi,constant:/\b[A-Z0-9_]{2,}\b/g}),Prism.languages.insertBefore("php","keyword",{delimiter:/(\?>|&lt;\?php|&lt;\?)/gi,variable:/(\$\w+)\b/gi,"package":{pattern:/(\\|namespace\s+|use\s+)[\w\\]+/g,lookbehind:!0,inside:{punctuation:/\\/}}}),Prism.languages.insertBefore("php","operator",{property:{pattern:/(->)[\w]+/g,lookbehind:!0}}),Prism.languages.markup&&(Prism.hooks.add("before-highlight",function(a){"php"===a.language&&(a.tokenStack=[],a.code=a.code.replace(/(?:&lt;\?php|&lt;\?|<\?php|<\?)[\w\W]*?(?:\?&gt;|\?>)/gi,function(b){return a.tokenStack.push(b),"{{{PHP"+a.tokenStack.length+"}}}"}))}),Prism.hooks.add("after-highlight",function(a){if("php"===a.language){for(var b,c=0;b=a.tokenStack[c];c++)a.highlightedCode=a.highlightedCode.replace("{{{PHP"+(c+1)+"}}}",Prism.highlight(b,a.grammar,"php"));a.element.innerHTML=a.highlightedCode}}),Prism.hooks.add("wrap",function(a){"php"===a.language&&"markup"===a.type&&(a.content=a.content.replace(/(\{\{\{PHP[0-9]+\}\}\})/g,'<span class="token php">$1</span>'))}),Prism.languages.insertBefore("php","comment",{markup:{pattern:/(&lt;|<)[^?]\/?(.*?)(>|&gt;)/g,inside:Prism.languages.markup},php:/\{\{\{PHP[0-9]+\}\}\}/g})),Prism.languages.coffeescript=Prism.languages.extend("javascript",{"block-comment":/([#]{3}\s*\r?\n(.*\s*\r*\n*)\s*?\r?\n[#]{3})/g,comment:/(\s|^)([#]{1}[^#^\r^\n]{2,}?(\r?\n|$))/g,keyword:/\b(this|window|delete|class|extends|namespace|extend|ar|let|if|else|while|do|for|each|of|return|in|instanceof|new|with|typeof|try|catch|finally|null|undefined|break|continue)\b/g}),Prism.languages.insertBefore("coffeescript","keyword",{"function":{pattern:/[a-z|A-z]+\s*[:|=]\s*(\([.|a-z\s|,|:|{|}|\"|\'|=]*\))?\s*-&gt;/gi,inside:{"function-name":/[_?a-z-|A-Z-]+(\s*[:|=])| @[_?$?a-z-|A-Z-]+(\s*)| /g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g}},"attr-name":/[_?a-z-|A-Z-]+(\s*:)| @[_?$?a-z-|A-Z-]+(\s*)| /g}),Prism.languages.scss=Prism.languages.extend("css",{comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},atrule:/@[\w-]+(?=\s+(\(|\{|;))/gi,url:/([-a-z]+-)*url(?=\()/gi,selector:/([^@;\{\}\(\)]?([^@;\{\}\(\)]|&amp;|\#\{\$[-_\w]+\})+)(?=\s*\{(\}|\s|[^\}]+(:|\{)[^\}]+))/gm}),Prism.languages.insertBefore("scss","atrule",{keyword:/@(if|else if|else|for|each|while|import|extend|debug|warn|mixin|include|function|return)|(?=@for\s+\$[-_\w]+\s)+from/i}),Prism.languages.insertBefore("scss","property",{variable:/((\$[-_\w]+)|(#\{\$[-_\w]+\}))/i}),Prism.languages.insertBefore("scss","ignore",{placeholder:/%[-_\w]+/i,statement:/\B!(default|optional)\b/gi,"boolean":/\b(true|false)\b/g,"null":/\b(null)\b/g,operator:/\s+([-+]{1,2}|={1,2}|!=|\|?\||\?|\*|\/|\%)\s+/g}),Prism.languages.python={comment:{pattern:/(^|[^\\])#.*?(\r?\n|$)/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/g,"boolean":/\b(True|False)\b/g,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/[-+]{1,2}|=?&lt;|=?&gt;|!|={1,2}|(&){1,2}|(&amp;){1,2}|\|?\||\?|\*|\/|~|\^|%|\b(or|and|not)\b/g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g},Prism.languages.sql={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|((--)|(\/\/)).*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(ACTION|ADD|AFTER|ALGORITHM|ALTER|ANALYZE|APPLY|AS|AS|ASC|AUTHORIZATION|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADE|CASCADED|CASE|CHAIN|CHAR VARYING|CHARACTER VARYING|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT|CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURRENT_USER|CURSOR|DATA|DATABASE|DATABASES|DATETIME|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE|DOUBLE PRECISION|DROP|DUMMY|DUMP|DUMPFILE|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE|ESCAPED BY|EXCEPT|EXEC|EXECUTE|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR|FOR EACH ROW|FORCE|FOREIGN|FREETEXT|FREETEXTTABLE|FROM|FULL|FUNCTION|GEOMETRY|GEOMETRYCOLLECTION|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY|IDENTITY_INSERT|IDENTITYCOL|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEY|KEYS|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONGBLOB|LONGTEXT|MATCH|MATCHED|MEDIUMBLOB|MEDIUMINT|MEDIUMTEXT|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTILINESTRING|MULTIPOINT|MULTIPOLYGON|NATIONAL|NATIONAL CHAR VARYING|NATIONAL CHARACTER|NATIONAL CHARACTER VARYING|NATIONAL VARCHAR|NATURAL|NCHAR|NCHAR VARCHAR|NEXT|NO|NO SQL|NOCHECK|NOCYCLE|NONCLUSTERED|NULLIF|NUMERIC|OF|OFF|OFFSETS|ON|OPEN|OPENDATASOURCE|OPENQUERY|OPENROWSET|OPTIMIZE|OPTION|OPTIONALLY|ORDER|OUT|OUTER|OUTFILE|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC|PROCEDURE|PUBLIC|PURGE|QUICK|RAISERROR|READ|READS SQL DATA|READTEXT|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURN|RETURNS|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROWCOUNT|ROWGUIDCOL|ROWS?|RTREE|RULE|SAVE|SAVEPOINT|SCHEMA|SELECT|SERIAL|SERIALIZABLE|SESSION|SESSION_USER|SET|SETUSER|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START|STARTING BY|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLE|TABLES|TABLESPACE|TEMPORARY|TEMPTABLE|TERMINATED BY|TEXT|TEXTSIZE|THEN|TIMESTAMP|TINYBLOB|TINYINT|TINYTEXT|TO|TOP|TRAN|TRANSACTION|TRANSACTIONS|TRIGGER|TRUNCATE|TSEQUAL|TYPE|TYPES|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNPIVOT|UPDATE|UPDATETEXT|USAGE|USE|USER|USING|VALUE|VALUES|VARBINARY|VARCHAR|VARCHARACTER|VARYING|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH|WITH ROLLUP|WITHIN|WORK|WRITE|WRITETEXT)\b/gi,"boolean":/\b(TRUE|FALSE|NULL)\b/gi,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/\b(ALL|AND|ANY|BETWEEN|EXISTS|IN|LIKE|NOT|OR|IS|UNIQUE|CHARACTER SET|COLLATE|DIV|OFFSET|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b|[-+]{1}|!|=?&lt;|=?&gt;|={1}|(&amp;){1,2}|\|?\||\?|\*|\//gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[;[\]()`,.]/g},Prism.languages.ruby=Prism.languages.extend("clike",{comment:/#[^\r\n]*(\r?\n|$)/g,keyword:/\b(alias|and|BEGIN|begin|break|case|class|def|define_method|defined|do|each|else|elsif|END|end|ensure|false|for|if|in|module|new|next|nil|not|or|raise|redo|require|rescue|retry|return|self|super|then|throw|true|undef|unless|until|when|while|yield)\b/g,builtin:/\b(Array|Bignum|Binding|Class|Continuation|Dir|Exception|FalseClass|File|Stat|File|Fixnum|Fload|Hash|Integer|IO|MatchData|Method|Module|NilClass|Numeric|Object|Proc|Range|Regexp|String|Struct|TMS|Symbol|ThreadGroup|Thread|Time|TrueClass)\b/,constant:/\b[A-Z][a-zA-Z_0-9]*[?!]?\b/g}),Prism.languages.insertBefore("ruby","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0},variable:/[@$&]+\b[a-zA-Z_][a-zA-Z_0-9]*[?!]?\b/g,symbol:/:\b[a-zA-Z_][a-zA-Z_0-9]*[?!]?\b/g}),Prism.hooks.add("after-highlight",function(a){var b=a.element.parentNode;if(b&&/pre/i.test(b.nodeName)&&-1!==b.className.indexOf("line-numbers")){var c,d=1+a.code.split("\n").length;lines=new Array(d),lines=lines.join("<span></span>"),c=document.createElement("span"),c.className="line-numbers-rows",c.innerHTML=lines,b.hasAttribute("data-start")&&(b.style.counterReset="linenumber "+(parseInt(b.getAttribute("data-start"),10)-1)),a.element.appendChild(c)}}),function(){var a,b;a=this.jQuery,b=a(window),a.fn.stick_in_parent=function(c){var d,e,f,g,h,i,j,k,l,m;for(null==c&&(c={}),h=c.sticky_class,e=c.inner_scrolling,g=c.parent,f=c.offset_top,i=c.brief,j=c.entranceAnimation,null==f&&(f=0),null==g&&(g=void 0),null==e&&(e=!0),null==h&&(h="is_stuck"),null==i&&(i=void 0),null==j&&(j=function(){a(this).show()}),k=function(c,d,k,l,m,n,o){var p,q,r,s,t,u,v,w,x,y;if(u=c.parent(),null!=g&&(u=u.closest(g)),!u.length)throw"failed to find stick parent";return r=!1,x=a("<div />"),v=function(){var a,b,e;return a=parseInt(u.css("border-top-width"),10),b=parseInt(u.css("padding-top"),10),d=parseInt(u.css("padding-bottom"),10),k=u.offset().top+a+b,l=u.height(),e=r?(r=!1,c.insertAfter(x).css({position:"",top:"",width:""}),x.detach(),!0):void 0,m=c.offset().top-parseInt(c.css("margin-top"),10)-f,n=c.outerHeight(!0),o=c.css("float"),x.css({width:c.outerWidth(!0),height:n,display:c.css("display"),"vertical-align":c.css("vertical-align"),"float":o}),e?y():void 0},v(),p=!1,s=void 0,t=f,y=function(){var a,d,g,q,v;return g=b.scrollTop(),null!=s&&(d=g-s),s=g,r?(q=g+n+t>l+k,p&&!q&&(p=!1,c.css({position:"fixed",bottom:"",top:t}).trigger("sticky_kit:unbottom")),m>g&&(r=!1,t=f,("left"===o||"right"===o)&&c.insertAfter(x),x.detach(),a={position:"",width:"",top:"","z-index":"",opacity:1},c.css(a).removeClass(h).trigger("sticky_kit:unstick")),e&&(v=b.height(),n>v&&(p||(t-=d,t=Math.max(v-n,t),t=Math.min(f,t),r&&c.css({top:t+"px"}))))):g-i>m&&(r=!0,a={position:"fixed",top:t,"z-index":1,width:c.width()+"px",opacity:1},c.css(a).hide().addClass(h).after(x),j.call(c),("left"===o||"right"===o)&&x.append(c),c.trigger("sticky_kit:stick")),r&&(null==q&&(q=g+n+t>l+k),!p&&q)?(p=!0,"static"===u.css("position")&&u.css({position:"relative"}),c.css({}).trigger("sticky_kit:bottom")):void 0},w=function(){return v(),y()},q=function(){return b.off("scroll",y),a(document.body).off("sticky_kit:recalc",w),c.off("sticky_kit:detach",q),c.css({position:"",bottom:"",top:""}),u.position("position",""),r?(c.insertAfter(x).removeClass(h),x.remove()):void 0},b.on("scroll",y),b.on("resize",w),a(document.body).on("sticky_kit:recalc",w),c.on("sticky_kit:detach",q),setTimeout(y,0)},l=0,m=this.length;m>l;l++)d=this[l],k(a(d));return this}}.call(this),function(a,b,c){function d(a){return a=a||location.href,"#"+a.replace(/^[^#]*#?(.*)$/,"$1")}var e,f="hashchange",g=document,h=a.event.special,i=g.documentMode,j="on"+f in b&&(i===c||i>7);a.fn[f]=function(a){return a?this.bind(f,a):this.trigger(f)},a.fn[f].delay=50,h[f]=a.extend(h[f],{setup:function(){return j?!1:void a(e.start)},teardown:function(){return j?!1:void a(e.stop)}}),e=function(){function e(){var c=d(),g=n(k);c!==k?(m(k=c,g),a(b).trigger(f)):g!==k&&(location.href=location.href.replace(/#.*/,"")+g),h=setTimeout(e,a.fn[f].delay)}var h,i={},k=d(),l=function(a){return a},m=l,n=l;return i.start=function(){h||e()},i.stop=function(){h&&clearTimeout(h),h=c},a.browser&&a.browser.msie&&!j&&function(){var b,c;i.start=function(){b||(c=a.fn[f].src,c=c&&c+d(),b=a('<iframe tabindex="-1" title="empty"/>').hide().one("load",function(){c||m(d()),e()}).attr("src",c||"javascript:0").insertAfter("body")[0].contentWindow,g.onpropertychange=function(){try{"title"===event.propertyName&&(b.document.title=g.title)}catch(a){}})},i.stop=l,n=function(){return d(b.location.href)},m=function(c,d){var e=b.document,h=a.fn[f].domain;c!==d&&(e.title=g.title,e.open(),h&&e.write('<script>document.domain="'+h+'"</script>'),e.close(),b.location.hash=c)}}(),i}()}(jQuery,this),!function(a){function b(){}function c(a){function c(b){b.prototype.option||(b.prototype.option=function(b){a.isPlainObject(b)&&(this.options=a.extend(!0,this.options,b))})}function e(b,c){a.fn[b]=function(e){if("string"==typeof e){for(var g=d.call(arguments,1),h=0,i=this.length;i>h;h++){var j=this[h],k=a.data(j,b);if(k)if(a.isFunction(k[e])&&"_"!==e.charAt(0)){var l=k[e].apply(k,g);if(void 0!==l)return l}else f("no such method '"+e+"' for "+b+" instance");else f("cannot call methods on "+b+" prior to initialization; attempted to call '"+e+"'")}return this}return this.each(function(){var d=a.data(this,b);d?(d.option(e),d._init()):(d=new c(this,e),a.data(this,b,d))})}}if(a){var f="undefined"==typeof console?b:function(a){};return a.bridget=function(a,b){c(b),e(a,b)},a.bridget}}var d=Array.prototype.slice;"function"==typeof define&&define.amd?define("jquery-bridget/jquery.bridget",["jquery"],c):c("object"==typeof exports?require("jquery"):a.jQuery)}(window),function(a){function b(b){var c=a.event;return c.target=c.target||c.srcElement||b,c}var c=document.documentElement,d=function(){};c.addEventListener?d=function(a,b,c){a.addEventListener(b,c,!1)}:c.attachEvent&&(d=function(a,c,d){a[c+d]=d.handleEvent?function(){var c=b(a);d.handleEvent.call(d,c)}:function(){var c=b(a);d.call(a,c)},a.attachEvent("on"+c,a[c+d])});var e=function(){};c.removeEventListener?e=function(a,b,c){a.removeEventListener(b,c,!1)}:c.detachEvent&&(e=function(a,b,c){a.detachEvent("on"+b,a[b+c]);try{delete a[b+c]}catch(d){a[b+c]=void 0}});var f={bind:d,unbind:e};"function"==typeof define&&define.amd?define("eventie/eventie",f):"object"==typeof exports?module.exports=f:a.eventie=f}(this),function(a){function b(a){"function"==typeof a&&(b.isReady?a():g.push(a))}function c(a){var c="readystatechange"===a.type&&"complete"!==f.readyState;b.isReady||c||d()}function d(){b.isReady=!0;for(var a=0,c=g.length;c>a;a++){var d=g[a];d()}}function e(e){return"complete"===f.readyState?d():(e.bind(f,"DOMContentLoaded",c),e.bind(f,"readystatechange",c),e.bind(a,"load",c)),b}var f=a.document,g=[];b.isReady=!1,"function"==typeof define&&define.amd?define("doc-ready/doc-ready",["eventie/eventie"],e):"object"==typeof exports?module.exports=e(require("eventie")):a.docReady=e(a.eventie)}(window),function(){function a(){}function b(a,b){for(var c=a.length;c--;)if(a[c].listener===b)return c;return-1}function c(a){return function(){return this[a].apply(this,arguments)}}var d=a.prototype,e=this,f=e.EventEmitter;d.getListeners=function(a){var b,c,d=this._getEvents();if(a instanceof RegExp){b={};for(c in d)d.hasOwnProperty(c)&&a.test(c)&&(b[c]=d[c])}else b=d[a]||(d[a]=[]);return b},d.flattenListeners=function(a){var b,c=[];for(b=0;b<a.length;b+=1)c.push(a[b].listener);return c},d.getListenersAsObject=function(a){var b,c=this.getListeners(a);return c instanceof Array&&(b={},b[a]=c),b||c},d.addListener=function(a,c){var d,e=this.getListenersAsObject(a),f="object"==typeof c;for(d in e)e.hasOwnProperty(d)&&-1===b(e[d],c)&&e[d].push(f?c:{listener:c,once:!1});return this},d.on=c("addListener"),d.addOnceListener=function(a,b){return this.addListener(a,{listener:b,once:!0})},d.once=c("addOnceListener"),d.defineEvent=function(a){return this.getListeners(a),this},d.defineEvents=function(a){for(var b=0;b<a.length;b+=1)this.defineEvent(a[b]);return this},d.removeListener=function(a,c){var d,e,f=this.getListenersAsObject(a);for(e in f)f.hasOwnProperty(e)&&(d=b(f[e],c),-1!==d&&f[e].splice(d,1));return this},d.off=c("removeListener"),d.addListeners=function(a,b){return this.manipulateListeners(!1,a,b)},d.removeListeners=function(a,b){return this.manipulateListeners(!0,a,b)},d.manipulateListeners=function(a,b,c){var d,e,f=a?this.removeListener:this.addListener,g=a?this.removeListeners:this.addListeners;if("object"!=typeof b||b instanceof RegExp)for(d=c.length;d--;)f.call(this,b,c[d]);else for(d in b)b.hasOwnProperty(d)&&(e=b[d])&&("function"==typeof e?f.call(this,d,e):g.call(this,d,e));return this},d.removeEvent=function(a){var b,c=typeof a,d=this._getEvents();if("string"===c)delete d[a];else if(a instanceof RegExp)for(b in d)d.hasOwnProperty(b)&&a.test(b)&&delete d[b];else delete this._events;return this},d.removeAllListeners=c("removeEvent"),d.emitEvent=function(a,b){var c,d,e,f,g=this.getListenersAsObject(a);for(e in g)if(g.hasOwnProperty(e))for(d=g[e].length;d--;)c=g[e][d],c.once===!0&&this.removeListener(a,c.listener),f=c.listener.apply(this,b||[]),f===this._getOnceReturnValue()&&this.removeListener(a,c.listener);return this},d.trigger=c("emitEvent"),d.emit=function(a){var b=Array.prototype.slice.call(arguments,1);return this.emitEvent(a,b)},d.setOnceReturnValue=function(a){return this._onceReturnValue=a,this},d._getOnceReturnValue=function(){return this.hasOwnProperty("_onceReturnValue")?this._onceReturnValue:!0},d._getEvents=function(){return this._events||(this._events={})},a.noConflict=function(){return e.EventEmitter=f,a},"function"==typeof define&&define.amd?define("eventEmitter/EventEmitter",[],function(){return a}):"object"==typeof module&&module.exports?module.exports=a:e.EventEmitter=a}.call(this),function(a){function b(a){if(a){if("string"==typeof d[a])return a;a=a.charAt(0).toUpperCase()+a.slice(1);for(var b,e=0,f=c.length;f>e;e++)if(b=c[e]+a,"string"==typeof d[b])return b}}var c="Webkit Moz ms Ms O".split(" "),d=document.documentElement.style;"function"==typeof define&&define.amd?define("get-style-property/get-style-property",[],function(){return b}):"object"==typeof exports?module.exports=b:a.getStyleProperty=b}(window),function(a){function b(a){var b=parseFloat(a),c=-1===a.indexOf("%")&&!isNaN(b);return c&&b}function c(){}function d(){for(var a={width:0,height:0,innerWidth:0,innerHeight:0,outerWidth:0,outerHeight:0},b=0,c=g.length;c>b;b++){var d=g[b];a[d]=0}return a}function e(c){function e(){if(!m){m=!0;var d=a.getComputedStyle;if(j=function(){var a=d?function(a){return d(a,null)}:function(a){return a.currentStyle};return function(b){var c=a(b);return c||f("Style returned "+c+". Are you running this code in a hidden iframe on Firefox? See http://bit.ly/getsizebug1"),c}}(),k=c("boxSizing")){var e=document.createElement("div");e.style.width="200px",e.style.padding="1px 2px 3px 4px",e.style.borderStyle="solid",e.style.borderWidth="1px 2px 3px 4px",e.style[k]="border-box";var g=document.body||document.documentElement;g.appendChild(e);var h=j(e);l=200===b(h.width),g.removeChild(e)}}}function h(a){if(e(),"string"==typeof a&&(a=document.querySelector(a)),a&&"object"==typeof a&&a.nodeType){var c=j(a);if("none"===c.display)return d();var f={};f.width=a.offsetWidth,f.height=a.offsetHeight;for(var h=f.isBorderBox=!(!k||!c[k]||"border-box"!==c[k]),m=0,n=g.length;n>m;m++){var o=g[m],p=c[o];p=i(a,p);var q=parseFloat(p);f[o]=isNaN(q)?0:q}var r=f.paddingLeft+f.paddingRight,s=f.paddingTop+f.paddingBottom,t=f.marginLeft+f.marginRight,u=f.marginTop+f.marginBottom,v=f.borderLeftWidth+f.borderRightWidth,w=f.borderTopWidth+f.borderBottomWidth,x=h&&l,y=b(c.width);y!==!1&&(f.width=y+(x?0:r+v));var z=b(c.height);return z!==!1&&(f.height=z+(x?0:s+w)),f.innerWidth=f.width-(r+v),f.innerHeight=f.height-(s+w),f.outerWidth=f.width+t,f.outerHeight=f.height+u,f}}function i(b,c){if(a.getComputedStyle||-1===c.indexOf("%"))return c;var d=b.style,e=d.left,f=b.runtimeStyle,g=f&&f.left;return g&&(f.left=b.currentStyle.left),d.left=c,c=d.pixelLeft,d.left=e,g&&(f.left=g),c}var j,k,l,m=!1;return h}var f="undefined"==typeof console?c:function(a){},g=["paddingLeft","paddingRight","paddingTop","paddingBottom","marginLeft","marginRight","marginTop","marginBottom","borderLeftWidth","borderRightWidth","borderTopWidth","borderBottomWidth"];"function"==typeof define&&define.amd?define("get-size/get-size",["get-style-property/get-style-property"],e):"object"==typeof exports?module.exports=e(require("desandro-get-style-property")):a.getSize=e(a.getStyleProperty)}(window),function(a){function b(a,b){return a[g](b)}function c(a){if(!a.parentNode){var b=document.createDocumentFragment();b.appendChild(a)}}function d(a,b){c(a);for(var d=a.parentNode.querySelectorAll(b),e=0,f=d.length;f>e;e++)if(d[e]===a)return!0;return!1}function e(a,d){return c(a),b(a,d)}var f,g=function(){if(a.matchesSelector)return"matchesSelector";for(var b=["webkit","moz","ms","o"],c=0,d=b.length;d>c;c++){var e=b[c],f=e+"MatchesSelector";if(a[f])return f}}();if(g){var h=document.createElement("div"),i=b(h,"div");f=i?b:e}else f=d;"function"==typeof define&&define.amd?define("matches-selector/matches-selector",[],function(){return f}):"object"==typeof exports?module.exports=f:window.matchesSelector=f}(Element.prototype),function(a){function b(a,b){for(var c in b)a[c]=b[c];return a}function c(a){for(var b in a)return!1;return b=null,!0}function d(a){return a.replace(/([A-Z])/g,function(a){return"-"+a.toLowerCase()})}function e(a,e,f){function h(a,b){a&&(this.element=a,this.layout=b,this.position={x:0,y:0},this._create())}var i=f("transition"),j=f("transform"),k=i&&j,l=!!f("perspective"),m={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"}[i],n=["transform","transition","transitionDuration","transitionProperty"],o=function(){for(var a={},b=0,c=n.length;c>b;b++){var d=n[b],e=f(d);e&&e!==d&&(a[d]=e)}return a}();b(h.prototype,a.prototype),h.prototype._create=function(){this._transn={ingProperties:{},clean:{},onEnd:{}},this.css({position:"absolute"})},h.prototype.handleEvent=function(a){var b="on"+a.type;this[b]&&this[b](a)},h.prototype.getSize=function(){this.size=e(this.element)},h.prototype.css=function(a){var b=this.element.style;for(var c in a){var d=o[c]||c;b[d]=a[c]}},h.prototype.getPosition=function(){var a=g(this.element),b=this.layout.options,c=b.isOriginLeft,d=b.isOriginTop,e=parseInt(a[c?"left":"right"],10),f=parseInt(a[d?"top":"bottom"],10);e=isNaN(e)?0:e,f=isNaN(f)?0:f;var h=this.layout.size;e-=c?h.paddingLeft:h.paddingRight,f-=d?h.paddingTop:h.paddingBottom,this.position.x=e,this.position.y=f},h.prototype.layoutPosition=function(){var a=this.layout.size,b=this.layout.options,c={};b.isOriginLeft?(c.left=this.position.x+a.paddingLeft+"px",c.right=""):(c.right=this.position.x+a.paddingRight+"px",c.left=""),b.isOriginTop?(c.top=this.position.y+a.paddingTop+"px",c.bottom=""):(c.bottom=this.position.y+a.paddingBottom+"px",c.top=""),this.css(c),this.emitEvent("layout",[this])};var p=l?function(a,b){return"translate3d("+a+"px, "+b+"px, 0)"}:function(a,b){return"translate("+a+"px, "+b+"px)"};h.prototype._transitionTo=function(a,b){this.getPosition();var c=this.position.x,d=this.position.y,e=parseInt(a,10),f=parseInt(b,10),g=e===this.position.x&&f===this.position.y;if(this.setPosition(a,b),g&&!this.isTransitioning)return void this.layoutPosition();var h=a-c,i=b-d,j={},k=this.layout.options;h=k.isOriginLeft?h:-h,i=k.isOriginTop?i:-i,j.transform=p(h,i),this.transition({to:j,onTransitionEnd:{transform:this.layoutPosition},isCleaning:!0})},h.prototype.goTo=function(a,b){this.setPosition(a,b),this.layoutPosition()},h.prototype.moveTo=k?h.prototype._transitionTo:h.prototype.goTo,h.prototype.setPosition=function(a,b){this.position.x=parseInt(a,10),this.position.y=parseInt(b,10)},h.prototype._nonTransition=function(a){this.css(a.to),a.isCleaning&&this._removeStyles(a.to);for(var b in a.onTransitionEnd)a.onTransitionEnd[b].call(this)},h.prototype._transition=function(a){if(!parseFloat(this.layout.options.transitionDuration))return void this._nonTransition(a);var b=this._transn;for(var c in a.onTransitionEnd)b.onEnd[c]=a.onTransitionEnd[c];for(c in a.to)b.ingProperties[c]=!0,a.isCleaning&&(b.clean[c]=!0);if(a.from){this.css(a.from);var d=this.element.offsetHeight;d=null}this.enableTransition(a.to),this.css(a.to),this.isTransitioning=!0};var q=j&&d(j)+",opacity";h.prototype.enableTransition=function(){this.isTransitioning||(this.css({transitionProperty:q,transitionDuration:this.layout.options.transitionDuration}),this.element.addEventListener(m,this,!1))},h.prototype.transition=h.prototype[i?"_transition":"_nonTransition"],h.prototype.onwebkitTransitionEnd=function(a){this.ontransitionend(a)},h.prototype.onotransitionend=function(a){this.ontransitionend(a)};var r={"-webkit-transform":"transform","-moz-transform":"transform","-o-transform":"transform"};h.prototype.ontransitionend=function(a){if(a.target===this.element){var b=this._transn,d=r[a.propertyName]||a.propertyName;if(delete b.ingProperties[d],c(b.ingProperties)&&this.disableTransition(),d in b.clean&&(this.element.style[a.propertyName]="",delete b.clean[d]),d in b.onEnd){var e=b.onEnd[d];e.call(this),delete b.onEnd[d]}this.emitEvent("transitionEnd",[this])}},h.prototype.disableTransition=function(){this.removeTransitionStyles(),this.element.removeEventListener(m,this,!1),this.isTransitioning=!1},h.prototype._removeStyles=function(a){var b={};for(var c in a)b[c]="";this.css(b)};var s={transitionProperty:"",transitionDuration:""};return h.prototype.removeTransitionStyles=function(){this.css(s)},h.prototype.removeElem=function(){this.element.parentNode.removeChild(this.element),this.emitEvent("remove",[this])
-},h.prototype.remove=function(){if(!i||!parseFloat(this.layout.options.transitionDuration))return void this.removeElem();var a=this;this.on("transitionEnd",function(){return a.removeElem(),!0}),this.hide()},h.prototype.reveal=function(){delete this.isHidden,this.css({display:""});var a=this.layout.options;this.transition({from:a.hiddenStyle,to:a.visibleStyle,isCleaning:!0})},h.prototype.hide=function(){this.isHidden=!0,this.css({display:""});var a=this.layout.options;this.transition({from:a.visibleStyle,to:a.hiddenStyle,isCleaning:!0,onTransitionEnd:{opacity:function(){this.isHidden&&this.css({display:"none"})}}})},h.prototype.destroy=function(){this.css({position:"",left:"",right:"",top:"",bottom:"",transition:"",transform:""})},h}var f=a.getComputedStyle,g=f?function(a){return f(a,null)}:function(a){return a.currentStyle};"function"==typeof define&&define.amd?define("outlayer/item",["eventEmitter/EventEmitter","get-size/get-size","get-style-property/get-style-property"],e):"object"==typeof exports?module.exports=e(require("wolfy87-eventemitter"),require("get-size"),require("desandro-get-style-property")):(a.Outlayer={},a.Outlayer.Item=e(a.EventEmitter,a.getSize,a.getStyleProperty))}(window),function(a){function b(a,b){for(var c in b)a[c]=b[c];return a}function c(a){return"[object Array]"===l.call(a)}function d(a){var b=[];if(c(a))b=a;else if(a&&"number"==typeof a.length)for(var d=0,e=a.length;e>d;d++)b.push(a[d]);else b.push(a);return b}function e(a,b){var c=n(b,a);-1!==c&&b.splice(c,1)}function f(a){return a.replace(/(.)([A-Z])/g,function(a,b,c){return b+"-"+c}).toLowerCase()}function g(c,g,l,n,o,p){function q(a,c){if("string"==typeof a&&(a=h.querySelector(a)),!a||!m(a))return void(i&&i.error("Bad "+this.constructor.namespace+" element: "+a));this.element=a,this.options=b({},this.constructor.defaults),this.option(c);var d=++r;this.element.outlayerGUID=d,s[d]=this,this._create(),this.options.isInitLayout&&this.layout()}var r=0,s={};return q.namespace="outlayer",q.Item=p,q.defaults={containerStyle:{position:"relative"},isInitLayout:!0,isOriginLeft:!0,isOriginTop:!0,isResizeBound:!0,isResizingContainer:!0,transitionDuration:"0.4s",hiddenStyle:{opacity:0,transform:"scale(0.001)"},visibleStyle:{opacity:1,transform:"scale(1)"}},b(q.prototype,l.prototype),q.prototype.option=function(a){b(this.options,a)},q.prototype._create=function(){this.reloadItems(),this.stamps=[],this.stamp(this.options.stamp),b(this.element.style,this.options.containerStyle),this.options.isResizeBound&&this.bindResize()},q.prototype.reloadItems=function(){this.items=this._itemize(this.element.children)},q.prototype._itemize=function(a){for(var b=this._filterFindItemElements(a),c=this.constructor.Item,d=[],e=0,f=b.length;f>e;e++){var g=b[e],h=new c(g,this);d.push(h)}return d},q.prototype._filterFindItemElements=function(a){a=d(a);for(var b=this.options.itemSelector,c=[],e=0,f=a.length;f>e;e++){var g=a[e];if(m(g))if(b){o(g,b)&&c.push(g);for(var h=g.querySelectorAll(b),i=0,j=h.length;j>i;i++)c.push(h[i])}else c.push(g)}return c},q.prototype.getItemElements=function(){for(var a=[],b=0,c=this.items.length;c>b;b++)a.push(this.items[b].element);return a},q.prototype.layout=function(){this._resetLayout(),this._manageStamps();var a=void 0!==this.options.isLayoutInstant?this.options.isLayoutInstant:!this._isLayoutInited;this.layoutItems(this.items,a),this._isLayoutInited=!0},q.prototype._init=q.prototype.layout,q.prototype._resetLayout=function(){this.getSize()},q.prototype.getSize=function(){this.size=n(this.element)},q.prototype._getMeasurement=function(a,b){var c,d=this.options[a];d?("string"==typeof d?c=this.element.querySelector(d):m(d)&&(c=d),this[a]=c?n(c)[b]:d):this[a]=0},q.prototype.layoutItems=function(a,b){a=this._getItemsForLayout(a),this._layoutItems(a,b),this._postLayout()},q.prototype._getItemsForLayout=function(a){for(var b=[],c=0,d=a.length;d>c;c++){var e=a[c];e.isIgnored||b.push(e)}return b},q.prototype._layoutItems=function(a,b){function c(){d.emitEvent("layoutComplete",[d,a])}var d=this;if(!a||!a.length)return void c();this._itemsOn(a,"layout",c);for(var e=[],f=0,g=a.length;g>f;f++){var h=a[f],i=this._getItemLayoutPosition(h);i.item=h,i.isInstant=b||h.isLayoutInstant,e.push(i)}this._processLayoutQueue(e)},q.prototype._getItemLayoutPosition=function(){return{x:0,y:0}},q.prototype._processLayoutQueue=function(a){for(var b=0,c=a.length;c>b;b++){var d=a[b];this._positionItem(d.item,d.x,d.y,d.isInstant)}},q.prototype._positionItem=function(a,b,c,d){d?a.goTo(b,c):a.moveTo(b,c)},q.prototype._postLayout=function(){this.resizeContainer()},q.prototype.resizeContainer=function(){if(this.options.isResizingContainer){var a=this._getContainerSize();a&&(this._setContainerMeasure(a.width,!0),this._setContainerMeasure(a.height,!1))}},q.prototype._getContainerSize=k,q.prototype._setContainerMeasure=function(a,b){if(void 0!==a){var c=this.size;c.isBorderBox&&(a+=b?c.paddingLeft+c.paddingRight+c.borderLeftWidth+c.borderRightWidth:c.paddingBottom+c.paddingTop+c.borderTopWidth+c.borderBottomWidth),a=Math.max(a,0),this.element.style[b?"width":"height"]=a+"px"}},q.prototype._itemsOn=function(a,b,c){function d(){return e++,e===f&&c.call(g),!0}for(var e=0,f=a.length,g=this,h=0,i=a.length;i>h;h++){var j=a[h];j.on(b,d)}},q.prototype.ignore=function(a){var b=this.getItem(a);b&&(b.isIgnored=!0)},q.prototype.unignore=function(a){var b=this.getItem(a);b&&delete b.isIgnored},q.prototype.stamp=function(a){if(a=this._find(a)){this.stamps=this.stamps.concat(a);for(var b=0,c=a.length;c>b;b++){var d=a[b];this.ignore(d)}}},q.prototype.unstamp=function(a){if(a=this._find(a))for(var b=0,c=a.length;c>b;b++){var d=a[b];e(d,this.stamps),this.unignore(d)}},q.prototype._find=function(a){return a?("string"==typeof a&&(a=this.element.querySelectorAll(a)),a=d(a)):void 0},q.prototype._manageStamps=function(){if(this.stamps&&this.stamps.length){this._getBoundingRect();for(var a=0,b=this.stamps.length;b>a;a++){var c=this.stamps[a];this._manageStamp(c)}}},q.prototype._getBoundingRect=function(){var a=this.element.getBoundingClientRect(),b=this.size;this._boundingRect={left:a.left+b.paddingLeft+b.borderLeftWidth,top:a.top+b.paddingTop+b.borderTopWidth,right:a.right-(b.paddingRight+b.borderRightWidth),bottom:a.bottom-(b.paddingBottom+b.borderBottomWidth)}},q.prototype._manageStamp=k,q.prototype._getElementOffset=function(a){var b=a.getBoundingClientRect(),c=this._boundingRect,d=n(a),e={left:b.left-c.left-d.marginLeft,top:b.top-c.top-d.marginTop,right:c.right-b.right-d.marginRight,bottom:c.bottom-b.bottom-d.marginBottom};return e},q.prototype.handleEvent=function(a){var b="on"+a.type;this[b]&&this[b](a)},q.prototype.bindResize=function(){this.isResizeBound||(c.bind(a,"resize",this),this.isResizeBound=!0)},q.prototype.unbindResize=function(){this.isResizeBound&&c.unbind(a,"resize",this),this.isResizeBound=!1},q.prototype.onresize=function(){function a(){b.resize(),delete b.resizeTimeout}this.resizeTimeout&&clearTimeout(this.resizeTimeout);var b=this;this.resizeTimeout=setTimeout(a,100)},q.prototype.resize=function(){this.isResizeBound&&this.needsResizeLayout()&&this.layout()},q.prototype.needsResizeLayout=function(){var a=n(this.element),b=this.size&&a;return b&&a.innerWidth!==this.size.innerWidth},q.prototype.addItems=function(a){var b=this._itemize(a);return b.length&&(this.items=this.items.concat(b)),b},q.prototype.appended=function(a){var b=this.addItems(a);b.length&&(this.layoutItems(b,!0),this.reveal(b))},q.prototype.prepended=function(a){var b=this._itemize(a);if(b.length){var c=this.items.slice(0);this.items=b.concat(c),this._resetLayout(),this._manageStamps(),this.layoutItems(b,!0),this.reveal(b),this.layoutItems(c)}},q.prototype.reveal=function(a){var b=a&&a.length;if(b)for(var c=0;b>c;c++){var d=a[c];d.reveal()}},q.prototype.hide=function(a){var b=a&&a.length;if(b)for(var c=0;b>c;c++){var d=a[c];d.hide()}},q.prototype.getItem=function(a){for(var b=0,c=this.items.length;c>b;b++){var d=this.items[b];if(d.element===a)return d}},q.prototype.getItems=function(a){if(a&&a.length){for(var b=[],c=0,d=a.length;d>c;c++){var e=a[c],f=this.getItem(e);f&&b.push(f)}return b}},q.prototype.remove=function(a){a=d(a);var b=this.getItems(a);if(b&&b.length){this._itemsOn(b,"remove",function(){this.emitEvent("removeComplete",[this,b])});for(var c=0,f=b.length;f>c;c++){var g=b[c];g.remove(),e(g,this.items)}}},q.prototype.destroy=function(){var a=this.element.style;a.height="",a.position="",a.width="";for(var b=0,c=this.items.length;c>b;b++){var d=this.items[b];d.destroy()}this.unbindResize();var e=this.element.outlayerGUID;delete s[e],delete this.element.outlayerGUID,j&&j.removeData(this.element,this.constructor.namespace)},q.data=function(a){var b=a&&a.outlayerGUID;return b&&s[b]},q.create=function(a,c){function d(){q.apply(this,arguments)}return Object.create?d.prototype=Object.create(q.prototype):b(d.prototype,q.prototype),d.prototype.constructor=d,d.defaults=b({},q.defaults),b(d.defaults,c),d.prototype.settings={},d.namespace=a,d.data=q.data,d.Item=function(){p.apply(this,arguments)},d.Item.prototype=new p,g(function(){for(var b=f(a),c=h.querySelectorAll(".js-"+b),e="data-"+b+"-options",g=0,k=c.length;k>g;g++){var l,m=c[g],n=m.getAttribute(e);try{l=n&&JSON.parse(n)}catch(o){i&&i.error("Error parsing "+e+" on "+m.nodeName.toLowerCase()+(m.id?"#"+m.id:"")+": "+o);continue}var p=new d(m,l);j&&j.data(m,a,p)}}),j&&j.bridget&&j.bridget(a,d),d},q.Item=p,q}var h=a.document,i=a.console,j=a.jQuery,k=function(){},l=Object.prototype.toString,m="function"==typeof HTMLElement||"object"==typeof HTMLElement?function(a){return a instanceof HTMLElement}:function(a){return a&&"object"==typeof a&&1===a.nodeType&&"string"==typeof a.nodeName},n=Array.prototype.indexOf?function(a,b){return a.indexOf(b)}:function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1};"function"==typeof define&&define.amd?define("outlayer/outlayer",["eventie/eventie","doc-ready/doc-ready","eventEmitter/EventEmitter","get-size/get-size","matches-selector/matches-selector","./item"],g):"object"==typeof exports?module.exports=g(require("eventie"),require("doc-ready"),require("wolfy87-eventemitter"),require("get-size"),require("desandro-matches-selector"),require("./item")):a.Outlayer=g(a.eventie,a.docReady,a.EventEmitter,a.getSize,a.matchesSelector,a.Outlayer.Item)}(window),function(a){function b(a,b){var d=a.create("masonry");return d.prototype._resetLayout=function(){this.getSize(),this._getMeasurement("columnWidth","outerWidth"),this._getMeasurement("gutter","outerWidth"),this.measureColumns();var a=this.cols;for(this.colYs=[];a--;)this.colYs.push(0);this.maxY=0},d.prototype.measureColumns=function(){if(this.getContainerWidth(),!this.columnWidth){var a=this.items[0],c=a&&a.element;this.columnWidth=c&&b(c).outerWidth||this.containerWidth}this.columnWidth+=this.gutter,this.cols=Math.floor((this.containerWidth+this.gutter)/this.columnWidth),this.cols=Math.max(this.cols,1)},d.prototype.getContainerWidth=function(){var a=this.options.isFitWidth?this.element.parentNode:this.element,c=b(a);this.containerWidth=c&&c.innerWidth},d.prototype._getItemLayoutPosition=function(a){a.getSize();var b=a.size.outerWidth%this.columnWidth,d=b&&1>b?"round":"ceil",e=Math[d](a.size.outerWidth/this.columnWidth);e=Math.min(e,this.cols);for(var f=this._getColGroup(e),g=Math.min.apply(Math,f),h=c(f,g),i={x:this.columnWidth*h,y:g},j=g+a.size.outerHeight,k=this.cols+1-f.length,l=0;k>l;l++)this.colYs[h+l]=j;return i},d.prototype._getColGroup=function(a){if(2>a)return this.colYs;for(var b=[],c=this.cols+1-a,d=0;c>d;d++){var e=this.colYs.slice(d,d+a);b[d]=Math.max.apply(Math,e)}return b},d.prototype._manageStamp=function(a){var c=b(a),d=this._getElementOffset(a),e=this.options.isOriginLeft?d.left:d.right,f=e+c.outerWidth,g=Math.floor(e/this.columnWidth);g=Math.max(0,g);var h=Math.floor(f/this.columnWidth);h-=f%this.columnWidth?0:1,h=Math.min(this.cols-1,h);for(var i=(this.options.isOriginTop?d.top:d.bottom)+c.outerHeight,j=g;h>=j;j++)this.colYs[j]=Math.max(i,this.colYs[j])},d.prototype._getContainerSize=function(){this.maxY=Math.max.apply(Math,this.colYs);var a={height:this.maxY};return this.options.isFitWidth&&(a.width=this._getContainerFitWidth()),a},d.prototype._getContainerFitWidth=function(){for(var a=0,b=this.cols;--b&&0===this.colYs[b];)a++;return(this.cols-a)*this.columnWidth-this.gutter},d.prototype.needsResizeLayout=function(){var a=this.containerWidth;return this.getContainerWidth(),a!==this.containerWidth},d}var c=Array.prototype.indexOf?function(a,b){return a.indexOf(b)}:function(a,b){for(var c=0,d=a.length;d>c;c++){var e=a[c];if(e===b)return c}return-1};"function"==typeof define&&define.amd?define(["outlayer/outlayer","get-size/get-size"],b):"object"==typeof exports?module.exports=b(require("outlayer"),require("get-size")):a.Masonry=b(a.Outlayer,a.getSize)}(window),function(){function a(){}function b(a,b){for(var c=a.length;c--;)if(a[c].listener===b)return c;return-1}function c(a){return function(){return this[a].apply(this,arguments)}}var d=a.prototype,e=this,f=e.EventEmitter;d.getListeners=function(a){var b,c,d=this._getEvents();if("object"==typeof a){b={};for(c in d)d.hasOwnProperty(c)&&a.test(c)&&(b[c]=d[c])}else b=d[a]||(d[a]=[]);return b},d.flattenListeners=function(a){var b,c=[];for(b=0;a.length>b;b+=1)c.push(a[b].listener);return c},d.getListenersAsObject=function(a){var b,c=this.getListeners(a);return c instanceof Array&&(b={},b[a]=c),b||c},d.addListener=function(a,c){var d,e=this.getListenersAsObject(a),f="object"==typeof c;for(d in e)e.hasOwnProperty(d)&&-1===b(e[d],c)&&e[d].push(f?c:{listener:c,once:!1});return this},d.on=c("addListener"),d.addOnceListener=function(a,b){return this.addListener(a,{listener:b,once:!0})},d.once=c("addOnceListener"),d.defineEvent=function(a){return this.getListeners(a),this},d.defineEvents=function(a){for(var b=0;a.length>b;b+=1)this.defineEvent(a[b]);return this},d.removeListener=function(a,c){var d,e,f=this.getListenersAsObject(a);for(e in f)f.hasOwnProperty(e)&&(d=b(f[e],c),-1!==d&&f[e].splice(d,1));return this},d.off=c("removeListener"),d.addListeners=function(a,b){return this.manipulateListeners(!1,a,b)},d.removeListeners=function(a,b){return this.manipulateListeners(!0,a,b)},d.manipulateListeners=function(a,b,c){var d,e,f=a?this.removeListener:this.addListener,g=a?this.removeListeners:this.addListeners;if("object"!=typeof b||b instanceof RegExp)for(d=c.length;d--;)f.call(this,b,c[d]);else for(d in b)b.hasOwnProperty(d)&&(e=b[d])&&("function"==typeof e?f.call(this,d,e):g.call(this,d,e));return this},d.removeEvent=function(a){var b,c=typeof a,d=this._getEvents();if("string"===c)delete d[a];else if("object"===c)for(b in d)d.hasOwnProperty(b)&&a.test(b)&&delete d[b];else delete this._events;return this},d.removeAllListeners=c("removeEvent"),d.emitEvent=function(a,b){var c,d,e,f,g=this.getListenersAsObject(a);for(e in g)if(g.hasOwnProperty(e))for(d=g[e].length;d--;)c=g[e][d],c.once===!0&&this.removeListener(a,c.listener),f=c.listener.apply(this,b||[]),f===this._getOnceReturnValue()&&this.removeListener(a,c.listener);return this},d.trigger=c("emitEvent"),d.emit=function(a){var b=Array.prototype.slice.call(arguments,1);return this.emitEvent(a,b)},d.setOnceReturnValue=function(a){return this._onceReturnValue=a,this},d._getOnceReturnValue=function(){return this.hasOwnProperty("_onceReturnValue")?this._onceReturnValue:!0},d._getEvents=function(){return this._events||(this._events={})},a.noConflict=function(){return e.EventEmitter=f,a},"function"==typeof define&&define.amd?define("eventEmitter/EventEmitter",[],function(){return a}):"object"==typeof module&&module.exports?module.exports=a:this.EventEmitter=a}.call(this),function(a){function b(b){var c=a.event;return c.target=c.target||c.srcElement||b,c}var c=document.documentElement,d=function(){};c.addEventListener?d=function(a,b,c){a.addEventListener(b,c,!1)}:c.attachEvent&&(d=function(a,c,d){a[c+d]=d.handleEvent?function(){var c=b(a);d.handleEvent.call(d,c)}:function(){var c=b(a);d.call(a,c)},a.attachEvent("on"+c,a[c+d])});var e=function(){};c.removeEventListener?e=function(a,b,c){a.removeEventListener(b,c,!1)}:c.detachEvent&&(e=function(a,b,c){a.detachEvent("on"+b,a[b+c]);try{delete a[b+c]}catch(d){a[b+c]=void 0}});var f={bind:d,unbind:e};"function"==typeof define&&define.amd?define("eventie/eventie",f):a.eventie=f}(this),function(a,b){"function"==typeof define&&define.amd?define(["eventEmitter/EventEmitter","eventie/eventie"],function(c,d){return b(a,c,d)}):"object"==typeof exports?module.exports=b(a,require("wolfy87-eventemitter"),require("eventie")):a.imagesLoaded=b(a,a.EventEmitter,a.eventie)}(window,function(a,b,c){function d(a,b){for(var c in b)a[c]=b[c];return a}function e(a){return"[object Array]"===m.call(a)}function f(a){var b=[];if(e(a))b=a;else if("number"==typeof a.length)for(var c=0,d=a.length;d>c;c++)b.push(a[c]);else b.push(a);return b}function g(a,b,c){if(!(this instanceof g))return new g(a,b);"string"==typeof a&&(a=document.querySelectorAll(a)),this.elements=f(a),this.options=d({},this.options),"function"==typeof b?c=b:d(this.options,b),c&&this.on("always",c),this.getImages(),j&&(this.jqDeferred=new j.Deferred);var e=this;setTimeout(function(){e.check()})}function h(a){this.img=a}function i(a){this.src=a,n[a]=this}var j=a.jQuery,k=a.console,l=void 0!==k,m=Object.prototype.toString;g.prototype=new b,g.prototype.options={},g.prototype.getImages=function(){this.images=[];for(var a=0,b=this.elements.length;b>a;a++){var c=this.elements[a];"IMG"===c.nodeName&&this.addImage(c);var d=c.nodeType;if(d&&(1===d||9===d||11===d))for(var e=c.querySelectorAll("img"),f=0,g=e.length;g>f;f++){var h=e[f];this.addImage(h)}}},g.prototype.addImage=function(a){var b=new h(a);this.images.push(b)},g.prototype.check=function(){function a(a,e){return b.options.debug&&l&&k.log("confirm",a,e),b.progress(a),c++,c===d&&b.complete(),!0}var b=this,c=0,d=this.images.length;if(this.hasAnyBroken=!1,!d)return void this.complete();for(var e=0;d>e;e++){var f=this.images[e];f.on("confirm",a),f.check()}},g.prototype.progress=function(a){this.hasAnyBroken=this.hasAnyBroken||!a.isLoaded;var b=this;setTimeout(function(){b.emit("progress",b,a),b.jqDeferred&&b.jqDeferred.notify&&b.jqDeferred.notify(b,a)})},g.prototype.complete=function(){var a=this.hasAnyBroken?"fail":"done";this.isComplete=!0;var b=this;setTimeout(function(){if(b.emit(a,b),b.emit("always",b),b.jqDeferred){var c=b.hasAnyBroken?"reject":"resolve";b.jqDeferred[c](b)}})},j&&(j.fn.imagesLoaded=function(a,b){var c=new g(this,a,b);return c.jqDeferred.promise(j(this))}),h.prototype=new b,h.prototype.check=function(){var a=n[this.img.src]||new i(this.img.src);if(a.isConfirmed)return void this.confirm(a.isLoaded,"cached was confirmed");if(this.img.complete&&void 0!==this.img.naturalWidth)return void this.confirm(0!==this.img.naturalWidth,"naturalWidth");var b=this;a.on("confirm",function(a,c){return b.confirm(a.isLoaded,c),!0}),a.check()},h.prototype.confirm=function(a,b){this.isLoaded=a,this.emit("confirm",this,b)};var n={};return i.prototype=new b,i.prototype.check=function(){if(!this.isChecked){var a=new Image;c.bind(a,"load",this),c.bind(a,"error",this),a.src=this.src,this.isChecked=!0}},i.prototype.handleEvent=function(a){var b="on"+a.type;this[b]&&this[b](a)},i.prototype.onload=function(a){this.confirm(!0,"onload"),this.unbindProxyEvents(a)},i.prototype.onerror=function(a){this.confirm(!1,"onerror"),this.unbindProxyEvents(a)},i.prototype.confirm=function(a,b){this.isConfirmed=!0,this.isLoaded=a,this.emit("confirm",this,b)},i.prototype.unbindProxyEvents=function(a){c.unbind(a.target,"load",this),c.unbind(a.target,"error",this)},g}),function(a){function b(b,c){this.element=b,this.options=a.extend({},defaults,c),this.parseRss()}defaults={feed:"/rss",titleClass:".post-title",tagsClass:".post-meta",limit:5,debug:!1},b.prototype.displayRelated=function(b){var c=this,d=0;this._currentPostTags=this.getCurrentPostTags(this.options.tagsClass);var e=this.matchByTag(this._currentPostTags,b);e.forEach(function(b){d<c.options.limit&&a(c.element).append(a('<li><a href="'+b.url+'">'+b.title+"</a></li>")),d++}),0==d&&a(this.element).append(a('<p>No related posts were found. Check the <a href="/">index</a>.</p>'))},b.prototype.parseRss=function(b,c,d){var e=b||1,c=c||"",d=d||[],f=this;a.ajax({url:this.options.feed+"/"+e,type:"GET"}).done(function(b){var g=a(b).find("item > guid").text();if(g!=c)d.push(b),f.parseRss(e+1,g,d);else{var h=f.getPosts(d);f.displayRelated(h)}}).fail(function(a){f.reportError(a)})},b.prototype.getCurrentPostTitle=function(b){"."!=b[0]&&(b="."+b);var c=a(b).eq(0).text();return c.length<1&&this.reportError("Couldn't find the post title with class: "+b),c},b.prototype.getCurrentPostTags=function(b){"."!=b[0]&&(b="."+b);var c=[];return a(b+" a").each(function(){c.push(a(this).text())}),c.length<1&&this.reportError("Couldn't find any tags in this post"),c},b.prototype.getPosts=function(b){var c=[],d=[];b.forEach(function(b){d=a.merge(d,a(b).find("item"))});for(var e=0;e<d.length;e++){var f=a(d[e]);f.find("title").text()!==this.getCurrentPostTitle(this.options.titleClass)&&c.push({title:f.find("title").text(),url:f.find("link").text(),content:f.find("description").text(),tags:a.map(f.find("category"),function(b){return a(b).text()})})}return c.length<1&&this.reportError("Couldn't find any posts in feed: "+feed),c},b.prototype.matchByTag=function(a,b){var c=[];return b.forEach(function(b){var d=!1;b.tags.forEach(function(e){a.forEach(function(a){a.toLowerCase()!==e.toLowerCase()||d||(c.push(b),d=!0)})})}),c.length<1&&this.reportError("There are no closely related posts"),c},b.prototype.reportError=function(b){this.options.debug&&a(this.element).append(a("<li>"+b+"</li>"))},a.fn.ghostRelated=function(a){return this.each(function(){new b(this,a)})}}(jQuery),function(a){"use strict";function b(){var b=a(".related-posts");b.length&&b.ghostRelated({tagsClass:".post-tags"})}function c(){var a=document.querySelector("#masonry-container"),b=null;a&&imagesLoaded(a,function(){b=new Masonry(a,{itemSelector:".preview",isFitWidth:!0,gutter:0,columnWidth:a.querySelector(".preview")}),b.layout()})}a(document).ready(function(){b(),c()})}(jQuery);
+/**
+ * Main JS file for Casper behaviours
+ */
+/*globals jQuery, document */
+(function($) {
+    "use strict";
+})(jQuery);
+
+/**
+ * Post behaviors and adjustments.
+ */
+/*globals jQuery, document */
+(function($) {
+    "use strict";
+    $(document).ready(function() {
+        // Inform paragraph of image existence.
+        $(".post-content img").closest("p").addClass("has-image");
+        // Inform paragraph of code existence.
+        $(".post-content code").parent("p").addClass("has-code");
+        // Remove meta-data paragraph.
+        $(".post-content meta").parent("p").hide();
+        // Sticky header.
+        (function() {
+            var postMeta = $("#post-meta");
+            // Apply plugin.
+            postMeta.stick_in_parent({
+                sticky_class: "sticked",
+                brief: postMeta.outerHeight(true) * 2,
+                entranceAnimation: function() {
+                    $(this).fadeIn(350);
+                }
+            });
+        })();
+    });
+})(jQuery);
+
+/**
+ * Adjustments to code tags with prism.
+ */
+/*globals jQuery, document */
+(function($) {
+    "use strict";
+    var i, languages = [ "markup", "php", "javascript", "coffee", "css", "scss", "sass", "ruby", "sql" ];
+    $("code").each(function() {
+        var $code = $(this), $pre = $code.parent("pre"), codeClass = $code.attr("class") || "", preClass = $pre.attr("class") || "", languageDefined = false;
+        // Add line numbers.
+        $pre.addClass("line-numbers");
+        for (i = 0; i < languages.length; i++) {
+            if ($code.hasClass(languages[i])) {
+                $code.addClass("language-" + languages[i]);
+                languageDefined = true;
+            }
+        }
+        if (!languageDefined) {
+            $code.addClass("language-undefined");
+            $pre.addClass("language-undefined");
+        }
+    });
+})(jQuery);
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
+(function() {
+    var e = /\blang(?:uage)?-(?!\*)(\w+)\b/i, t = self.Prism = {
+        util: {
+            type: function(e) {
+                return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1];
+            },
+            clone: function(e) {
+                var n = t.util.type(e);
+                switch (n) {
+                  case "Object":
+                    var r = {};
+                    for (var i in e) e.hasOwnProperty(i) && (r[i] = t.util.clone(e[i]));
+                    return r;
+
+                  case "Array":
+                    return e.slice();
+                }
+                return e;
+            }
+        },
+        languages: {
+            extend: function(e, n) {
+                var r = t.util.clone(t.languages[e]);
+                for (var i in n) r[i] = n[i];
+                return r;
+            },
+            insertBefore: function(e, n, r, i) {
+                i = i || t.languages;
+                var s = i[e], o = {};
+                for (var u in s) if (s.hasOwnProperty(u)) {
+                    if (u == n) for (var a in r) r.hasOwnProperty(a) && (o[a] = r[a]);
+                    o[u] = s[u];
+                }
+                return i[e] = o;
+            },
+            DFS: function(e, n) {
+                for (var r in e) {
+                    n.call(e, r, e[r]);
+                    t.util.type(e) === "Object" && t.languages.DFS(e[r], n);
+                }
+            }
+        },
+        highlightAll: function(e, n) {
+            var r = document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');
+            for (var i = 0, s; s = r[i++]; ) t.highlightElement(s, e === !0, n);
+        },
+        highlightElement: function(r, i, s) {
+            var o, u, a = r;
+            while (a && !e.test(a.className)) a = a.parentNode;
+            if (a) {
+                o = (a.className.match(e) || [ , "" ])[1];
+                u = t.languages[o];
+            }
+            if (!u) return;
+            r.className = r.className.replace(e, "").replace(/\s+/g, " ") + " language-" + o;
+            a = r.parentNode;
+            /pre/i.test(a.nodeName) && (a.className = a.className.replace(e, "").replace(/\s+/g, " ") + " language-" + o);
+            var f = r.textContent;
+            if (!f) return;
+            f = f.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\u00a0/g, " ");
+            var l = {
+                element: r,
+                language: o,
+                grammar: u,
+                code: f
+            };
+            t.hooks.run("before-highlight", l);
+            if (i && self.Worker) {
+                var c = new Worker(t.filename);
+                c.onmessage = function(e) {
+                    l.highlightedCode = n.stringify(JSON.parse(e.data), o);
+                    t.hooks.run("before-insert", l);
+                    l.element.innerHTML = l.highlightedCode;
+                    s && s.call(l.element);
+                    t.hooks.run("after-highlight", l);
+                };
+                c.postMessage(JSON.stringify({
+                    language: l.language,
+                    code: l.code
+                }));
+            } else {
+                l.highlightedCode = t.highlight(l.code, l.grammar, l.language);
+                t.hooks.run("before-insert", l);
+                l.element.innerHTML = l.highlightedCode;
+                s && s.call(r);
+                t.hooks.run("after-highlight", l);
+            }
+        },
+        highlight: function(e, r, i) {
+            return n.stringify(t.tokenize(e, r), i);
+        },
+        tokenize: function(e, n, r) {
+            var i = t.Token, s = [ e ], o = n.rest;
+            if (o) {
+                for (var u in o) n[u] = o[u];
+                delete n.rest;
+            }
+            e: for (var u in n) {
+                if (!n.hasOwnProperty(u) || !n[u]) continue;
+                var a = n[u], f = a.inside, l = !!a.lookbehind, c = 0;
+                a = a.pattern || a;
+                for (var h = 0; h < s.length; h++) {
+                    var p = s[h];
+                    if (s.length > e.length) break e;
+                    if (p instanceof i) continue;
+                    a.lastIndex = 0;
+                    var d = a.exec(p);
+                    if (d) {
+                        l && (c = d[1].length);
+                        var v = d.index - 1 + c, d = d[0].slice(c), m = d.length, g = v + m, y = p.slice(0, v + 1), b = p.slice(g + 1), w = [ h, 1 ];
+                        y && w.push(y);
+                        var E = new i(u, f ? t.tokenize(d, f) : d);
+                        w.push(E);
+                        b && w.push(b);
+                        Array.prototype.splice.apply(s, w);
+                    }
+                }
+            }
+            return s;
+        },
+        hooks: {
+            all: {},
+            add: function(e, n) {
+                var r = t.hooks.all;
+                r[e] = r[e] || [];
+                r[e].push(n);
+            },
+            run: function(e, n) {
+                var r = t.hooks.all[e];
+                if (!r || !r.length) return;
+                for (var i = 0, s; s = r[i++]; ) s(n);
+            }
+        }
+    }, n = t.Token = function(e, t) {
+        this.type = e;
+        this.content = t;
+    };
+    n.stringify = function(e, r, i) {
+        if (typeof e == "string") return e;
+        if (Object.prototype.toString.call(e) == "[object Array]") return e.map(function(t) {
+            return n.stringify(t, r, e);
+        }).join("");
+        var s = {
+            type: e.type,
+            content: n.stringify(e.content, r, i),
+            tag: "span",
+            classes: [ "token", e.type ],
+            attributes: {},
+            language: r,
+            parent: i
+        };
+        s.type == "comment" && (s.attributes.spellcheck = "true");
+        t.hooks.run("wrap", s);
+        var o = "";
+        for (var u in s.attributes) o += u + '="' + (s.attributes[u] || "") + '"';
+        return "<" + s.tag + ' class="' + s.classes.join(" ") + '" ' + o + ">" + s.content + "</" + s.tag + ">";
+    };
+    if (!self.document) {
+        self.addEventListener("message", function(e) {
+            var n = JSON.parse(e.data), r = n.language, i = n.code;
+            self.postMessage(JSON.stringify(t.tokenize(i, t.languages[r])));
+            self.close();
+        }, !1);
+        return;
+    }
+    var r = document.getElementsByTagName("script");
+    r = r[r.length - 1];
+    if (r) {
+        t.filename = r.src;
+        document.addEventListener && !r.hasAttribute("data-manual") && document.addEventListener("DOMContentLoaded", t.highlightAll);
+    }
+})();
+
+Prism.languages.markup = {
+    comment: /&lt;!--[\w\W]*?-->/g,
+    prolog: /&lt;\?.+?\?>/,
+    doctype: /&lt;!DOCTYPE.+?>/,
+    cdata: /&lt;!\[CDATA\[[\w\W]*?]]>/i,
+    tag: {
+        pattern: /&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,
+        inside: {
+            tag: {
+                pattern: /^&lt;\/?[\w:-]+/i,
+                inside: {
+                    punctuation: /^&lt;\/?/,
+                    namespace: /^[\w-]+?:/
+                }
+            },
+            "attr-value": {
+                pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,
+                inside: {
+                    punctuation: /=|>|"/g
+                }
+            },
+            punctuation: /\/?>/g,
+            "attr-name": {
+                pattern: /[\w:-]+/g,
+                inside: {
+                    namespace: /^[\w-]+?:/
+                }
+            }
+        }
+    },
+    entity: /&amp;#?[\da-z]{1,8};/gi
+};
+
+Prism.hooks.add("wrap", function(e) {
+    e.type === "entity" && (e.attributes.title = e.content.replace(/&amp;/, "&"));
+});
+
+Prism.languages.css = {
+    comment: /\/\*[\w\W]*?\*\//g,
+    atrule: {
+        pattern: /@[\w-]+?.*?(;|(?=\s*{))/gi,
+        inside: {
+            punctuation: /[;:]/g
+        }
+    },
+    url: /url\((["']?).*?\1\)/gi,
+    selector: /[^\{\}\s][^\{\};]*(?=\s*\{)/g,
+    property: /(\b|\B)[\w-]+(?=\s*:)/gi,
+    string: /("|')(\\?.)*?\1/g,
+    important: /\B!important\b/gi,
+    ignore: /&(lt|gt|amp);/gi,
+    punctuation: /[\{\};:]/g
+};
+
+Prism.languages.markup && Prism.languages.insertBefore("markup", "tag", {
+    style: {
+        pattern: /(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/gi,
+        inside: {
+            tag: {
+                pattern: /(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/gi,
+                inside: Prism.languages.markup.tag.inside
+            },
+            rest: Prism.languages.css
+        }
+    }
+});
+
+Prism.languages.clike = {
+    comment: {
+        pattern: /(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,
+        lookbehind: !0
+    },
+    string: /("|')(\\?.)*?\1/g,
+    "class-name": {
+        pattern: /((?:(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/gi,
+        lookbehind: !0,
+        inside: {
+            punctuation: /(\.|\\)/
+        }
+    },
+    keyword: /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/g,
+    "boolean": /\b(true|false)\b/g,
+    "function": {
+        pattern: /[a-z0-9_]+\(/gi,
+        inside: {
+            punctuation: /\(/
+        }
+    },
+    number: /\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,
+    operator: /[-+]{1,2}|!|&lt;=?|>=?|={1,3}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,
+    ignore: /&(lt|gt|amp);/gi,
+    punctuation: /[{}[\];(),.:]/g
+};
+
+Prism.languages.javascript = Prism.languages.extend("clike", {
+    keyword: /\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|throw|catch|finally|null|break|continue)\b/g,
+    number: /\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g
+});
+
+Prism.languages.insertBefore("javascript", "keyword", {
+    regex: {
+        pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,
+        lookbehind: !0
+    }
+});
+
+Prism.languages.markup && Prism.languages.insertBefore("markup", "tag", {
+    script: {
+        pattern: /(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/gi,
+        inside: {
+            tag: {
+                pattern: /(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/gi,
+                inside: Prism.languages.markup.tag.inside
+            },
+            rest: Prism.languages.javascript
+        }
+    }
+});
+
+Prism.languages.php = Prism.languages.extend("clike", {
+    keyword: /\b(and|or|xor|array|as|break|case|cfunction|class|const|continue|declare|default|die|do|else|elseif|enddeclare|endfor|endforeach|endif|endswitch|endwhile|extends|for|foreach|function|include|include_once|global|if|new|return|static|switch|use|require|require_once|var|while|abstract|interface|public|implements|extends|private|protected|parent|static|throw|null|echo|print|trait|namespace|use|final|yield|goto|instanceof|finally|try|catch)\b/gi,
+    constant: /\b[A-Z0-9_]{2,}\b/g
+});
+
+Prism.languages.insertBefore("php", "keyword", {
+    delimiter: /(\?>|&lt;\?php|&lt;\?)/gi,
+    variable: /(\$\w+)\b/gi,
+    "package": {
+        pattern: /(\\|namespace\s+|use\s+)[\w\\]+/g,
+        lookbehind: !0,
+        inside: {
+            punctuation: /\\/
+        }
+    }
+});
+
+Prism.languages.insertBefore("php", "operator", {
+    property: {
+        pattern: /(->)[\w]+/g,
+        lookbehind: !0
+    }
+});
+
+Prism.languages.markup && (Prism.hooks.add("before-highlight", function(a) {
+    "php" === a.language && (a.tokenStack = [], a.code = a.code.replace(/(?:&lt;\?php|&lt;\?|<\?php|<\?)[\w\W]*?(?:\?&gt;|\?>)/gi, function(b) {
+        a.tokenStack.push(b);
+        return "{{{PHP" + a.tokenStack.length + "}}}";
+    }));
+}), Prism.hooks.add("after-highlight", function(a) {
+    if ("php" === a.language) {
+        for (var b = 0, c; c = a.tokenStack[b]; b++) a.highlightedCode = a.highlightedCode.replace("{{{PHP" + (b + 1) + "}}}", Prism.highlight(c, a.grammar, "php"));
+        a.element.innerHTML = a.highlightedCode;
+    }
+}), Prism.hooks.add("wrap", function(a) {
+    "php" === a.language && "markup" === a.type && (a.content = a.content.replace(/(\{\{\{PHP[0-9]+\}\}\})/g, '<span class="token php">$1</span>'));
+}), Prism.languages.insertBefore("php", "comment", {
+    markup: {
+        pattern: /(&lt;|<)[^?]\/?(.*?)(>|&gt;)/g,
+        inside: Prism.languages.markup
+    },
+    php: /\{\{\{PHP[0-9]+\}\}\}/g
+}));
+
+Prism.languages.coffeescript = Prism.languages.extend("javascript", {
+    "block-comment": /([#]{3}\s*\r?\n(.*\s*\r*\n*)\s*?\r?\n[#]{3})/g,
+    comment: /(\s|^)([#]{1}[^#^\r^\n]{2,}?(\r?\n|$))/g,
+    keyword: /\b(this|window|delete|class|extends|namespace|extend|ar|let|if|else|while|do|for|each|of|return|in|instanceof|new|with|typeof|try|catch|finally|null|undefined|break|continue)\b/g
+});
+
+Prism.languages.insertBefore("coffeescript", "keyword", {
+    "function": {
+        pattern: /[a-z|A-z]+\s*[:|=]\s*(\([.|a-z\s|,|:|{|}|\"|\'|=]*\))?\s*-&gt;/gi,
+        inside: {
+            "function-name": /[_?a-z-|A-Z-]+(\s*[:|=])| @[_?$?a-z-|A-Z-]+(\s*)| /g,
+            operator: /[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g
+        }
+    },
+    "attr-name": /[_?a-z-|A-Z-]+(\s*:)| @[_?$?a-z-|A-Z-]+(\s*)| /g
+});
+
+Prism.languages.scss = Prism.languages.extend("css", {
+    comment: {
+        pattern: /(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,
+        lookbehind: !0
+    },
+    atrule: /@[\w-]+(?=\s+(\(|\{|;))/gi,
+    url: /([-a-z]+-)*url(?=\()/gi,
+    selector: /([^@;\{\}\(\)]?([^@;\{\}\(\)]|&amp;|\#\{\$[-_\w]+\})+)(?=\s*\{(\}|\s|[^\}]+(:|\{)[^\}]+))/gm
+});
+
+Prism.languages.insertBefore("scss", "atrule", {
+    keyword: /@(if|else if|else|for|each|while|import|extend|debug|warn|mixin|include|function|return)|(?=@for\s+\$[-_\w]+\s)+from/i
+});
+
+Prism.languages.insertBefore("scss", "property", {
+    variable: /((\$[-_\w]+)|(#\{\$[-_\w]+\}))/i
+});
+
+Prism.languages.insertBefore("scss", "ignore", {
+    placeholder: /%[-_\w]+/i,
+    statement: /\B!(default|optional)\b/gi,
+    "boolean": /\b(true|false)\b/g,
+    "null": /\b(null)\b/g,
+    operator: /\s+([-+]{1,2}|={1,2}|!=|\|?\||\?|\*|\/|\%)\s+/g
+});
+
+Prism.languages.python = {
+    comment: {
+        pattern: /(^|[^\\])#.*?(\r?\n|$)/g,
+        lookbehind: !0
+    },
+    string: /("|')(\\?.)*?\1/g,
+    keyword: /\b(as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/g,
+    "boolean": /\b(True|False)\b/g,
+    number: /\b-?(0x)?\d*\.?[\da-f]+\b/g,
+    operator: /[-+]{1,2}|=?&lt;|=?&gt;|!|={1,2}|(&){1,2}|(&amp;){1,2}|\|?\||\?|\*|\/|~|\^|%|\b(or|and|not)\b/g,
+    ignore: /&(lt|gt|amp);/gi,
+    punctuation: /[{}[\];(),.:]/g
+};
+
+Prism.languages.sql = {
+    comment: {
+        pattern: /(^|[^\\])(\/\*[\w\W]*?\*\/|((--)|(\/\/)).*?(\r?\n|$))/g,
+        lookbehind: !0
+    },
+    string: /("|')(\\?.)*?\1/g,
+    keyword: /\b(ACTION|ADD|AFTER|ALGORITHM|ALTER|ANALYZE|APPLY|AS|AS|ASC|AUTHORIZATION|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADE|CASCADED|CASE|CHAIN|CHAR VARYING|CHARACTER VARYING|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT|CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURRENT_USER|CURSOR|DATA|DATABASE|DATABASES|DATETIME|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE|DOUBLE PRECISION|DROP|DUMMY|DUMP|DUMPFILE|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE|ESCAPED BY|EXCEPT|EXEC|EXECUTE|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR|FOR EACH ROW|FORCE|FOREIGN|FREETEXT|FREETEXTTABLE|FROM|FULL|FUNCTION|GEOMETRY|GEOMETRYCOLLECTION|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY|IDENTITY_INSERT|IDENTITYCOL|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEY|KEYS|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONGBLOB|LONGTEXT|MATCH|MATCHED|MEDIUMBLOB|MEDIUMINT|MEDIUMTEXT|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTILINESTRING|MULTIPOINT|MULTIPOLYGON|NATIONAL|NATIONAL CHAR VARYING|NATIONAL CHARACTER|NATIONAL CHARACTER VARYING|NATIONAL VARCHAR|NATURAL|NCHAR|NCHAR VARCHAR|NEXT|NO|NO SQL|NOCHECK|NOCYCLE|NONCLUSTERED|NULLIF|NUMERIC|OF|OFF|OFFSETS|ON|OPEN|OPENDATASOURCE|OPENQUERY|OPENROWSET|OPTIMIZE|OPTION|OPTIONALLY|ORDER|OUT|OUTER|OUTFILE|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC|PROCEDURE|PUBLIC|PURGE|QUICK|RAISERROR|READ|READS SQL DATA|READTEXT|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURN|RETURNS|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROWCOUNT|ROWGUIDCOL|ROWS?|RTREE|RULE|SAVE|SAVEPOINT|SCHEMA|SELECT|SERIAL|SERIALIZABLE|SESSION|SESSION_USER|SET|SETUSER|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START|STARTING BY|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLE|TABLES|TABLESPACE|TEMPORARY|TEMPTABLE|TERMINATED BY|TEXT|TEXTSIZE|THEN|TIMESTAMP|TINYBLOB|TINYINT|TINYTEXT|TO|TOP|TRAN|TRANSACTION|TRANSACTIONS|TRIGGER|TRUNCATE|TSEQUAL|TYPE|TYPES|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNPIVOT|UPDATE|UPDATETEXT|USAGE|USE|USER|USING|VALUE|VALUES|VARBINARY|VARCHAR|VARCHARACTER|VARYING|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH|WITH ROLLUP|WITHIN|WORK|WRITE|WRITETEXT)\b/gi,
+    "boolean": /\b(TRUE|FALSE|NULL)\b/gi,
+    number: /\b-?(0x)?\d*\.?[\da-f]+\b/g,
+    operator: /\b(ALL|AND|ANY|BETWEEN|EXISTS|IN|LIKE|NOT|OR|IS|UNIQUE|CHARACTER SET|COLLATE|DIV|OFFSET|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b|[-+]{1}|!|=?&lt;|=?&gt;|={1}|(&amp;){1,2}|\|?\||\?|\*|\//gi,
+    ignore: /&(lt|gt|amp);/gi,
+    punctuation: /[;[\]()`,.]/g
+};
+
+Prism.languages.ruby = Prism.languages.extend("clike", {
+    comment: /#[^\r\n]*(\r?\n|$)/g,
+    keyword: /\b(alias|and|BEGIN|begin|break|case|class|def|define_method|defined|do|each|else|elsif|END|end|ensure|false|for|if|in|module|new|next|nil|not|or|raise|redo|require|rescue|retry|return|self|super|then|throw|true|undef|unless|until|when|while|yield)\b/g,
+    builtin: /\b(Array|Bignum|Binding|Class|Continuation|Dir|Exception|FalseClass|File|Stat|File|Fixnum|Fload|Hash|Integer|IO|MatchData|Method|Module|NilClass|Numeric|Object|Proc|Range|Regexp|String|Struct|TMS|Symbol|ThreadGroup|Thread|Time|TrueClass)\b/,
+    constant: /\b[A-Z][a-zA-Z_0-9]*[?!]?\b/g
+});
+
+Prism.languages.insertBefore("ruby", "keyword", {
+    regex: {
+        pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,
+        lookbehind: true
+    },
+    variable: /[@$&]+\b[a-zA-Z_][a-zA-Z_0-9]*[?!]?\b/g,
+    symbol: /:\b[a-zA-Z_][a-zA-Z_0-9]*[?!]?\b/g
+});
+
+Prism.hooks.add("after-highlight", function(e) {
+    var t = e.element.parentNode;
+    if (!t || !/pre/i.test(t.nodeName) || t.className.indexOf("line-numbers") === -1) {
+        return;
+    }
+    var n = 1 + e.code.split("\n").length;
+    var r;
+    lines = new Array(n);
+    lines = lines.join("<span></span>");
+    r = document.createElement("span");
+    r.className = "line-numbers-rows";
+    r.innerHTML = lines;
+    if (t.hasAttribute("data-start")) {
+        t.style.counterReset = "linenumber " + (parseInt(t.getAttribute("data-start"), 10) - 1);
+    }
+    e.element.appendChild(r);
+});
+
+// Generated by CoffeeScript 1.6.3
+/**
+@license Sticky-kit v1.0.2 | WTFPL | Leaf Corcoran 2013 | http://leafo.net
+*/
+(function() {
+    var $, win;
+    $ = this.jQuery;
+    win = $(window);
+    $.fn.stick_in_parent = function(opts) {
+        var elm, inner_scrolling, offset_top, parent_selector, sticky_class, brief, entranceAnimation, _fn, _i, _len;
+        if (opts == null) {
+            opts = {};
+        }
+        sticky_class = opts.sticky_class, inner_scrolling = opts.inner_scrolling, parent_selector = opts.parent, 
+        offset_top = opts.offset_top, brief = opts.brief, entranceAnimation = opts.entranceAnimation;
+        if (offset_top == null) {
+            offset_top = 0;
+        }
+        if (parent_selector == null) {
+            parent_selector = void 0;
+        }
+        if (inner_scrolling == null) {
+            inner_scrolling = true;
+        }
+        if (sticky_class == null) {
+            sticky_class = "is_stuck";
+        }
+        if (brief == null) {
+            brief = void 0;
+        }
+        if (entranceAnimation == null) {
+            entranceAnimation = function() {
+                $(this).show();
+            };
+        }
+        _fn = function(elm, padding_bottom, parent_top, parent_height, top, height, float) {
+            var bottomed, detach, fixed, last_pos, offset, parent, recalc, recalc_and_tick, spacer, tick;
+            parent = elm.parent();
+            if (parent_selector != null) {
+                parent = parent.closest(parent_selector);
+            }
+            if (!parent.length) {
+                throw "failed to find stick parent";
+            }
+            fixed = false;
+            spacer = $("<div />");
+            recalc = function() {
+                var border_top, padding_top, restore;
+                border_top = parseInt(parent.css("border-top-width"), 10);
+                padding_top = parseInt(parent.css("padding-top"), 10);
+                padding_bottom = parseInt(parent.css("padding-bottom"), 10);
+                parent_top = parent.offset().top + border_top + padding_top;
+                parent_height = parent.height();
+                restore = fixed ? (fixed = false, elm.insertAfter(spacer).css({
+                    position: "",
+                    top: "",
+                    width: ""
+                }), spacer.detach(), true) : void 0;
+                top = elm.offset().top - parseInt(elm.css("margin-top"), 10) - offset_top;
+                height = elm.outerHeight(true);
+                float = elm.css("float");
+                spacer.css({
+                    width: elm.outerWidth(true),
+                    height: height,
+                    display: elm.css("display"),
+                    "vertical-align": elm.css("vertical-align"),
+                    "float": float
+                });
+                if (restore) {
+                    return tick();
+                }
+            };
+            recalc();
+            if (height === parent_height) {}
+            bottomed = false;
+            last_pos = void 0;
+            offset = offset_top;
+            tick = function() {
+                var css, delta, scroll, will_bottom, win_height;
+                scroll = win.scrollTop();
+                if (last_pos != null) {
+                    delta = scroll - last_pos;
+                }
+                last_pos = scroll;
+                if (fixed) {
+                    will_bottom = scroll + height + offset > parent_height + parent_top;
+                    if (bottomed && !will_bottom) {
+                        bottomed = false;
+                        elm.css({
+                            position: "fixed",
+                            bottom: "",
+                            top: offset
+                        }).trigger("sticky_kit:unbottom");
+                    }
+                    if (scroll < top) {
+                        fixed = false;
+                        offset = offset_top;
+                        if (float === "left" || float === "right") {
+                            elm.insertAfter(spacer);
+                        }
+                        spacer.detach();
+                        css = {
+                            position: "",
+                            width: "",
+                            top: "",
+                            "z-index": "",
+                            opacity: 1
+                        };
+                        elm.css(css).removeClass(sticky_class).trigger("sticky_kit:unstick");
+                    }
+                    if (inner_scrolling) {
+                        win_height = win.height();
+                        if (height > win_height) {
+                            if (!bottomed) {
+                                offset -= delta;
+                                offset = Math.max(win_height - height, offset);
+                                offset = Math.min(offset_top, offset);
+                                if (fixed) {
+                                    elm.css({
+                                        top: offset + "px"
+                                    });
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (scroll - brief > top) {
+                        fixed = true;
+                        css = {
+                            position: "fixed",
+                            top: offset,
+                            "z-index": 1,
+                            width: elm.width() + "px",
+                            opacity: 1
+                        };
+                        elm.css(css).hide().addClass(sticky_class).after(spacer);
+                        entranceAnimation.call(elm);
+                        if (float === "left" || float === "right") {
+                            spacer.append(elm);
+                        }
+                        elm.trigger("sticky_kit:stick");
+                    }
+                }
+                if (fixed) {
+                    if (will_bottom == null) {
+                        will_bottom = scroll + height + offset > parent_height + parent_top;
+                    }
+                    if (!bottomed && will_bottom) {
+                        bottomed = true;
+                        if (parent.css("position") === "static") {
+                            parent.css({
+                                position: "relative"
+                            });
+                        }
+                        return elm.css({}).trigger("sticky_kit:bottom");
+                    }
+                }
+            };
+            recalc_and_tick = function() {
+                recalc();
+                return tick();
+            };
+            detach = function() {
+                win.off("scroll", tick);
+                $(document.body).off("sticky_kit:recalc", recalc_and_tick);
+                elm.off("sticky_kit:detach", detach);
+                elm.css({
+                    position: "",
+                    bottom: "",
+                    top: ""
+                });
+                parent.position("position", "");
+                if (fixed) {
+                    elm.insertAfter(spacer).removeClass(sticky_class);
+                    return spacer.remove();
+                }
+            };
+            win.on("scroll", tick);
+            win.on("resize", recalc_and_tick);
+            $(document.body).on("sticky_kit:recalc", recalc_and_tick);
+            elm.on("sticky_kit:detach", detach);
+            return setTimeout(tick, 0);
+        };
+        for (_i = 0, _len = this.length; _i < _len; _i++) {
+            elm = this[_i];
+            _fn($(elm));
+        }
+        return this;
+    };
+}).call(this);
+
+/*
+ * jQuery hashchange event - v1.3 - 7/21/2010
+ * http://benalman.com/projects/jquery-hashchange-plugin/
+ * 
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+(function($, e, b) {
+    var c = "hashchange", h = document, f, g = $.event.special, i = h.documentMode, d = "on" + c in e && (i === b || i > 7);
+    function a(j) {
+        j = j || location.href;
+        return "#" + j.replace(/^[^#]*#?(.*)$/, "$1");
+    }
+    $.fn[c] = function(j) {
+        return j ? this.bind(c, j) : this.trigger(c);
+    };
+    $.fn[c].delay = 50;
+    g[c] = $.extend(g[c], {
+        setup: function() {
+            if (d) {
+                return false;
+            }
+            $(f.start);
+        },
+        teardown: function() {
+            if (d) {
+                return false;
+            }
+            $(f.stop);
+        }
+    });
+    f = function() {
+        var j = {}, p, m = a(), k = function(q) {
+            return q;
+        }, l = k, o = k;
+        j.start = function() {
+            p || n();
+        };
+        j.stop = function() {
+            p && clearTimeout(p);
+            p = b;
+        };
+        function n() {
+            var r = a(), q = o(m);
+            if (r !== m) {
+                l(m = r, q);
+                $(e).trigger(c);
+            } else {
+                if (q !== m) {
+                    location.href = location.href.replace(/#.*/, "") + q;
+                }
+            }
+            p = setTimeout(n, $.fn[c].delay);
+        }
+        $.browser && $.browser.msie && !d && function() {
+            var q, r;
+            j.start = function() {
+                if (!q) {
+                    r = $.fn[c].src;
+                    r = r && r + a();
+                    q = $('<iframe tabindex="-1" title="empty"/>').hide().one("load", function() {
+                        r || l(a());
+                        n();
+                    }).attr("src", r || "javascript:0").insertAfter("body")[0].contentWindow;
+                    h.onpropertychange = function() {
+                        try {
+                            if (event.propertyName === "title") {
+                                q.document.title = h.title;
+                            }
+                        } catch (s) {}
+                    };
+                }
+            };
+            j.stop = k;
+            o = function() {
+                return a(q.location.href);
+            };
+            l = function(v, s) {
+                var u = q.document, t = $.fn[c].domain;
+                if (v !== s) {
+                    u.title = h.title;
+                    u.open();
+                    t && u.write('<script>document.domain="' + t + '"</script>');
+                    u.close();
+                    q.location.hash = v;
+                }
+            };
+        }();
+        return j;
+    }();
+})(jQuery, this);
+
+(function($) {
+    defaults = {
+        feed: "/rss",
+        titleClass: ".post-title",
+        tagsClass: ".post-meta",
+        limit: 5,
+        debug: false
+    };
+    function RelatedPosts(element, options) {
+        this.element = element;
+        this.options = $.extend({}, defaults, options);
+        this.parseRss();
+    }
+    RelatedPosts.prototype.displayRelated = function(posts) {
+        var self = this, count = 0;
+        this._currentPostTags = this.getCurrentPostTags(this.options.tagsClass);
+        var related = this.matchByTag(this._currentPostTags, posts);
+        related.forEach(function(post) {
+            if (count < self.options.limit) {
+                $(self.element).append($('<li><a href="' + post.url + '">' + post.title + "</a></li>"));
+            }
+            count++;
+        });
+        if (count == 0) {
+            $(this.element).append($("<p>No related posts were found. " + 'Check the <a href="/">index</a>.</p>'));
+        }
+    };
+    RelatedPosts.prototype.parseRss = function(pageNum, prevId, feeds) {
+        var page = pageNum || 1, prevId = prevId || "", feeds = feeds || [], self = this;
+        $.ajax({
+            url: this.options.feed + "/" + page,
+            type: "GET"
+        }).done(function(data, textStatus, xhr) {
+            var curId = $(data).find("item > guid").text();
+            if (curId != prevId) {
+                feeds.push(data);
+                self.parseRss(page + 1, curId, feeds);
+            } else {
+                var posts = self.getPosts(feeds);
+                self.displayRelated(posts);
+            }
+        }).fail(function(e) {
+            self.reportError(e);
+        });
+    };
+    RelatedPosts.prototype.getCurrentPostTitle = function(titleClass) {
+        if (titleClass[0] != ".") {
+            titleClass = "." + titleClass;
+        }
+        var postTitle = $(titleClass).eq(0).text();
+        if (postTitle.length < 1) {
+            this.reportError("Couldn't find the post title with class: " + titleClass);
+        }
+        return postTitle;
+    };
+    RelatedPosts.prototype.getCurrentPostTags = function(tagsClass) {
+        if (tagsClass[0] != ".") {
+            tagsClass = "." + tagsClass;
+        }
+        var tags = [];
+        $(tagsClass + " a").each(function() {
+            tags.push($(this).text());
+        });
+        if (tags.length < 1) {
+            this.reportError("Couldn't find any tags in this post");
+        }
+        return tags;
+    };
+    RelatedPosts.prototype.getPosts = function(feeds) {
+        var posts = [], items = [];
+        feeds.forEach(function(feed) {
+            items = $.merge(items, $(feed).find("item"));
+        });
+        for (var i = 0; i < items.length; i++) {
+            var item = $(items[i]);
+            if (item.find("title").text() !== this.getCurrentPostTitle(this.options.titleClass)) {
+                posts.push({
+                    title: item.find("title").text(),
+                    url: item.find("link").text(),
+                    content: item.find("description").text(),
+                    tags: $.map(item.find("category"), function(elem) {
+                        return $(elem).text();
+                    })
+                });
+            }
+        }
+        if (posts.length < 1) {
+            this.reportError("Couldn't find any posts in feed: " + feed);
+        }
+        return posts;
+    };
+    RelatedPosts.prototype.matchByTag = function(postTags, posts) {
+        var matches = [];
+        posts.forEach(function(post) {
+            var beenAdded = false;
+            post.tags.forEach(function(tag) {
+                postTags.forEach(function(postTag) {
+                    if (postTag.toLowerCase() === tag.toLowerCase() && !beenAdded) {
+                        matches.push(post);
+                        beenAdded = true;
+                    }
+                });
+            });
+        });
+        if (matches.length < 1) {
+            this.reportError("There are no closely related posts");
+        }
+        return matches;
+    };
+    RelatedPosts.prototype.reportError = function(error) {
+        if (this.options.debug) {
+            $(this.element).append($("<li>" + error + "</li>"));
+        }
+    };
+    $.fn.ghostRelated = function(options) {
+        return this.each(function() {
+            new RelatedPosts(this, options);
+        });
+    };
+})(jQuery);
+
+/**
+ * Main JS file
+ */
+/*globals jQuery, document */
+(function($) {
+    "use strict";
+    $(document).ready(function() {
+        relatedPosts();
+        initializeMasonry();
+    });
+    function relatedPosts() {
+        var $relatedPosts = $(".related-posts");
+        if ($relatedPosts.length) {
+            $relatedPosts.ghostRelated({
+                tagsClass: ".post-tags"
+            });
+        }
+    }
+    function initializeMasonry() {
+        var container = document.querySelector("#masonry-container"), msnry = null;
+        // Initialize Masonry after all images have loaded.
+        if (container) {
+            imagesLoaded(container, function() {
+                msnry = new Masonry(container, {
+                    itemSelector: ".preview",
+                    isFitWidth: true,
+                    gutter: 0,
+                    columnWidth: container.querySelector(".preview")
+                });
+                msnry.layout();
+            });
+        }
+    }
+})(jQuery);
