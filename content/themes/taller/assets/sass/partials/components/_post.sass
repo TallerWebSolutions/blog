@@ -34,6 +34,9 @@ $non-textblock-elements-width: 768px
   text-align: right
   font-family: $font-heading
   font-size: 0.8em
+  +breakpoint("tiniest-width-max")
+    padding-left: 10px
+    padding-right: 10px
 
   a
     color: #222
@@ -214,6 +217,9 @@ span.button-wrapper
     padding: 15px 5px
     margin: 35px 0
     border-radius: 4px
+    +breakpoint("tiniest-width-max")
+      margin-left: 10px
+      margin-right: 10px
 
     .author-main-info
       padding: 0.5em
@@ -227,11 +233,13 @@ span.button-wrapper
         margin-top: 0.8em
         font-size: 1.6em
         font-weight: normal
+        +breakpoint("tiniest-width-max")
+          margin-left: 0
       p
         margin-bottom: 0
         margin-left: 180px
         +breakpoint("tiniest-width-max")
-          margin-left: 135px
+          margin-left: 0
 
     .author-picture,
     .author-picture + div
@@ -247,6 +255,10 @@ span.button-wrapper
       background-color: #FFF
       + div
         display: block
+      +breakpoint("tiniest-width-max")
+        display: block
+        float: none
+        margin: 0 auto
 
     .author-secondary-info
       text-align: right
@@ -261,6 +273,9 @@ span.button-wrapper
   .post-meta-area
     margin-top: 27px
     margin-bottom: 68px
+    +breakpoint("tiniest-width-max")
+      padding-left: 10px
+      padding-right: 10px
 
   .related-posts
     margin: 35px 0 95px 0
