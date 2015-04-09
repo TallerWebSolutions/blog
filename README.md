@@ -11,8 +11,12 @@ git clone https://github.com/TallerWebSolutions/blog
 bower install
 npm install
 
+# Minificar o JS do tema
+cd /content/themes/taller
+grunt
+
 # Compilar o SASS
-cd /content/themes/taller/assets/sass
+cd /assets/sass
 compass compile
 
 # Executar (na raiz do projeto)

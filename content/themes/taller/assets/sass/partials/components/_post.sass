@@ -4,6 +4,8 @@
  *--------------------------------------------------------------------
  */
 
+$non-textblock-elements-width: 768px
+
 // Post listing pages.
 .home-template, .archive-template, .tag-template
   .post
@@ -32,6 +34,9 @@
   text-align: right
   font-family: $font-heading
   font-size: 0.8em
+  +breakpoint("tiniest-width-max")
+    padding-left: 10px
+    padding-right: 10px
 
   a
     color: #222
@@ -94,6 +99,16 @@
   margin-left: 0
   margin-right: 0
 
+#post-head .inner
+  max-width: $non-textblock-elements-width
+  margin-right: auto
+  margin-left: auto
+
+header.article-head
+  max-width: $non-textblock-elements-width
+  margin-right: auto
+  margin-left: auto
+
 .post-content
   @extend %border-light
   padding: 2em 0
@@ -103,9 +118,10 @@
   > p:first-child
     font-size: 1.2em
     margin-top: 0
+    max-width: $non-textblock-elements-width
 
   > *
-    max-width: 30em
+    max-width: 32em
     position: relative
     margin-left: auto
     margin-right: auto
@@ -114,13 +130,22 @@
     +breakpoint("tiniest-width")
       margin-left: 1rem
       margin-right: 1rem
-  > p.has-image, p.has-code, pre, iframe
+  > p.has-image, p.has-code, p.has-linked-image, iframe
     @extend %expanded
     text-align: center
-    max-width: 100%
+    max-width: $non-textblock-elements-width
+    margin-left: auto
+    margin-right: auto
+
+  pre.line-numbers
+    margin: 0 auto
+    max-width: $non-textblock-elements-width
 
   p.has-code
     overflow: auto
+
+  h1, h2, h3, h4, h5, h6
+    max-width: $non-textblock-elements-width
 
   .post-full
     h1, h2, h3, h4, h5
@@ -175,7 +200,7 @@ span.button-wrapper
 .post-footer
   padding: 10px 0 0
   width: 100%
-  max-width: 30em
+  max-width: $non-textblock-elements-width
   margin: 0 auto
 
   #author
@@ -192,6 +217,9 @@ span.button-wrapper
     padding: 15px 5px
     margin: 35px 0
     border-radius: 4px
+    +breakpoint("tiniest-width-max")
+      margin-left: 10px
+      margin-right: 10px
 
     .author-main-info
       padding: 0.5em
@@ -205,11 +233,13 @@ span.button-wrapper
         margin-top: 0.8em
         font-size: 1.6em
         font-weight: normal
+        +breakpoint("tiniest-width-max")
+          margin-left: 0
       p
         margin-bottom: 0
         margin-left: 180px
         +breakpoint("tiniest-width-max")
-          margin-left: 135px
+          margin-left: 0
 
     .author-picture,
     .author-picture + div
@@ -225,6 +255,10 @@ span.button-wrapper
       background-color: #FFF
       + div
         display: block
+      +breakpoint("tiniest-width-max")
+        display: block
+        float: none
+        margin: 0 auto
 
     .author-secondary-info
       text-align: right
@@ -239,6 +273,9 @@ span.button-wrapper
   .post-meta-area
     margin-top: 27px
     margin-bottom: 68px
+    +breakpoint("tiniest-width-max")
+      padding-left: 10px
+      padding-right: 10px
 
   .related-posts
     margin: 35px 0 95px 0
