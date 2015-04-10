@@ -137,6 +137,27 @@ header.article-head
     margin-left: auto
     margin-right: auto
 
+  p.has-span
+    position: relative
+    margin-top: 0
+    margin-bottom: 0
+    +breakpoint("small-width")
+      display: none
+
+  span.note-right
+    background-color: white
+    z-index: 5
+    position: absolute
+    top: 0
+    left: 100%
+    font-size: $font-size-smaller
+    margin-left: 10px
+    padding-left: 10px
+    border-left: 2px solid $color-red
+    width: 190px
+    br
+      display: none
+
   pre.line-numbers
     margin: 0 auto
     max-width: $non-textblock-elements-width
