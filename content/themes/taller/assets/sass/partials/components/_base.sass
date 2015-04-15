@@ -7,6 +7,9 @@
 *
   box-sizing: border-box
 
+html
+  height: 100%
+
 // ------------------------------------
 // Body.
 // ------------------------------------
@@ -16,6 +19,7 @@ body
   font-family: $font-text
   font-size: $font-size-smaller
   color: $color-grey-darkest
+  height: 100%
   +breakpoint("small-type-width")
     &
       font-size: $font-size-small
@@ -168,8 +172,6 @@ hr
   #main
     padding-left: 0
     padding-right: 0
-    // #masonry-container
-    //   margin: 0 auto
 
 // Homepage pagination styles.
 .pagination

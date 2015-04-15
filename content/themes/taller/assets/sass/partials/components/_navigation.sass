@@ -1,7 +1,7 @@
 /*
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  * Navigation
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  */
 
 
@@ -9,6 +9,8 @@
   margin: 0
   padding: 0
   list-style: none
+  +breakpoint("small-width-max")
+    text-align: center
   li
     display: inline-block
     a
@@ -22,5 +24,7 @@
         color: $color-red
       &.active
         font-weight: 600
-  +breakpoint("tiniest-width")
-    text-align: center
+      +breakpoint("small-width-max")
+        padding-top: 0
+  .subscribe
+    @extend %rss-icon
