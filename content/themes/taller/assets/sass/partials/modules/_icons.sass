@@ -1,0 +1,55 @@
+/**
+ * Font-awesome icons styles.
+ */
+
+// Override Font-awesome font path variable.
+$fa-font-path: "../lib/components-font-awesome/fonts"
+
+// Import Font-awesome main SCSS file.
+@import ../../../lib/components-font-awesome/scss/font-awesome
+
+// Font-awesome styles overrides.
+%pseudo-element-padding
+  &:before
+    padding-right: 5px
+
+/**
+ * Font-awesome icons.
+ *
+ * Use this placeholders to apply the icons in the theme, or create
+ * new ones if necessary.
+ */
+
+%rss-icon
+  @extend .fa
+  @extend .fa-rss
+
+%search-icon
+  @extend .fa
+  @extend .fa-search
+
+%user-icon
+  @extend .fa
+  @extend .fa-user
+  @extend %pseudo-element-padding
+
+%tags-icon
+  @extend .fa
+  @extend .fa-tags
+  @extend %pseudo-element-padding
+
+%clock-icon
+  @extend .fa
+  @extend .fa-clock-o
+
+%twitter-icon
+  @extend .fa
+  @extend .fa-clock-o
+
+%facebook-icon
+  @extend .fa
+  @extend .fa-clock-o
+
+%clock-icon
+  @extend .fa
+  @extend .fa-clock-o
