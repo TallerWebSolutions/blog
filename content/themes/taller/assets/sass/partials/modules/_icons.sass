@@ -13,6 +13,10 @@ $fa-font-path: "../lib/components-font-awesome/fonts"
   &:before
     padding-right: 5px
 
+%pseudo-element-font
+  &:before
+    font-family: FontAwesome
+
 /**
  * Font-awesome icons.
  *
@@ -32,6 +36,7 @@ $fa-font-path: "../lib/components-font-awesome/fonts"
   @extend .fa
   @extend .fa-user
   @extend %pseudo-element-padding
+  @extend %pseudo-element-font
 
 %tags-icon
   @extend .fa
@@ -41,6 +46,7 @@ $fa-font-path: "../lib/components-font-awesome/fonts"
 %clock-icon
   @extend .fa
   @extend .fa-clock-o
+  @extend %pseudo-element-font
 
 %twitter-icon
   @extend .fa
@@ -61,3 +67,4 @@ $fa-font-path: "../lib/components-font-awesome/fonts"
 %email-icon
   @extend .fa
   @extend .fa-envelope
+  @extend %pseudo-element-font
