@@ -1,9 +1,11 @@
 {{!< default}}
 
-{{! The comment above "< default" means - insert everything in this file into
-  the {body} of the default.hbs template, which contains our header/footer. }}
+{{! The comment above "< default" means - insert everything in this
+    file into the {body} of the default.hbs template, which contains
+    ourheader/footer. }}
 
-{{! The big featured header on the homepage, with the site logo and description }}
+{{! The big featured header on the homepage, with the site logo and
+    description }}
 
 <div id="content-wrapper">
   <main class="content" role="main" id="main">
@@ -20,7 +22,11 @@
                 <a href="{{url}}">
                   <h2 class="post-title">{{{title}}}</h2>
                 </a>
-                <span class="site-head-subinfo fa fa-clock-o"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMMM YYYY'}}</time></span>
+                <span class="site-head-subinfo">
+                  <time datetime="{{date format="YYYY-MM-DD"}}">
+                    {{date format='DD MMMM YYYY'}}
+                  </time>
+                </span>
               </header>
               <a href="{{url}}">
                 {{featured_media}}
@@ -29,8 +35,8 @@
                 <p>{{abstract}}</p>
               </section>
               <footer class="post-footer">
-                {{#if author}}<span class="post-author"><i class="fa fa-user"></i> {{author.name}}</span>{{/if}}
-                {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", " autolink="false"}}</span>{{/if}}
+                {{#if author}}<span class="post-author">{{author.name}}</span>{{/if}}
+                {{#if tags}}<span class="post-tags">{{tags separator=", " autolink="false"}}</span>{{/if}}
               </footer>
             </div>
           </div>

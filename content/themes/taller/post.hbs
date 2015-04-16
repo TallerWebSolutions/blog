@@ -36,24 +36,9 @@
             <section class="meta">
               <span class="post-title">{{title}}</span>
               {{#if tags}}
-                <span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>
+                <span class="post-tags">{{tags separator=", "}}</span>
               {{/if}}
             </section>
-
-            {{!-- <section class="share">
-              <a class="fa fa-twitter" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}"
-                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                <span class="hidden">Twitter</span>
-              </a>
-              <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
-                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                <span class="hidden">Facebook</span>
-              </a>
-              <a class="fa fa-google-plus" href="https://plus.google.com/share?url={{url absolute="true"}}"
-                 onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                <span class="hidden">Google+</span>
-              </a>
-            </section> --}}
           </div>
         </section>
       </header>
@@ -76,8 +61,19 @@
                 </div>
               </div>
               <div class="author-secondary-info">
-                {{#if author.website}}<span class="meta-website"><a href="{{author.website}}" title=""><i class="fa fa-globe"></i> {{author.website}}</a></span>{{/if}}
-                {{#if author.email}}<span class="meta-email"><a href="mailto:{{author.email}}" title=""><i class="fa fa-envelope"></i> {{author.email}}</a></span>{{/if}}
+                {{#if author.website}}
+                  <span class="meta-website">
+                    <a href="{{author.website}}" title="">
+                      {{author.website}}
+                    </a>
+                  </span>
+                {{/if}}
+                {{#if author.email}}
+                  <span class="meta-email">
+                    <a href="mailto:{{author.email}}" title="">
+                      {{author.email}}
+                    </a>
+                  </span>{{/if}}
               </div>
             </section>
           </div>
@@ -88,9 +84,9 @@
             <section class="meta">
               <span class="post-title">{{title}}</span>
               {{#if author}}
-                <span class="post-author"><i class="fa fa-user"></i> <a href="#author">{{author}}</a></span>
+                <span class="post-author"><a href="#author">{{author}}</a></span>
               {{/if}}
-              {{#if tags}}<span class="post-tags"><i class="fa fa-tags"></i> {{tags separator=", "}}</span>{{/if}}
+              {{#if tags}}<span class="post-tags"></i> {{tags separator=", "}}</span>{{/if}}
             </section>
           </div>
         </section>
@@ -101,15 +97,15 @@
         </aside>
 
         <section class="share footer-share">
-          <a class="fa fa-twitter" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}"
+          <a class="twitter-share" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}"
             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
             <span class="hidden">Twitter</span>
           </a>
-          <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
+          <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
             <span class="hidden">Facebook</span>
           </a>
-          <a class="fa fa-google-plus" href="https://plus.google.com/share?url={{url absolute="true"}}"
+          <a class="gplus-share" href="https://plus.google.com/share?url={{url absolute="true"}}"
              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
             <span class="hidden">Google+</span>
           </a>
