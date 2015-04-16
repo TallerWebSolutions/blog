@@ -13,6 +13,9 @@ $non-textblock-elements-width: 768px
       @extend %border-light
       background-color: white
 
+.post-tags
+  @extend %tags-icon
+
 .post
   color: #666
 
@@ -382,6 +385,7 @@ span.button-wrapper
     font-weight: 300
 
   .site-head-subinfo
+    @extend %clock-icon
     position: relative
     bottom: -1.1rem
     display: inline-block
@@ -451,6 +455,9 @@ span.button-wrapper
 
     > span
       margin-right: 1em
+
+    .post-author
+      @extend %user-icon
 
 .pagination-container
   position: relative
