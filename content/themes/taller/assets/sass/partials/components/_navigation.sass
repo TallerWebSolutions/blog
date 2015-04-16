@@ -11,6 +11,8 @@
   list-style: none
   +breakpoint("small-width-max")
     text-align: center
+  .subscribe
+    @extend %rss-icon
   li
     display: inline-block
     a
@@ -26,5 +28,3 @@
         font-weight: 600
       +breakpoint("small-width-max")
         padding-top: 0
-  .subscribe
-    @extend %rss-icon
