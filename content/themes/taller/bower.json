@@ -18,6 +18,8 @@
   ],
   "dependencies": {
     "masonry": "~3.2.2",
-    "imagesloaded": "~3.1.8"
+    "imagesloaded": "~3.1.8",
+    "ghost-hunter": "*",
+    "components-font-awesome": "~4.3.0"
   }
 }

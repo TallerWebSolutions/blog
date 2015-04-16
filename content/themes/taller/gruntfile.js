@@ -28,16 +28,18 @@ module.exports = function (grunt) {
 						'assets/js/index.js',
 						'assets/js/post.js',
 						'assets/js/prism-adjust.js',
-						
+
 						'assets/js/vendors/prism.js',
 						'assets/js/vendors/sticky-kit.js',
 						'assets/js/vendors/jquery-hashchange.js',
 						// 'assets/js/vendors/console-image/console.image.js',
-						
+
+						'assets/lib/ghost-hunter/jquery.ghostHunter.min.js',
 						'assets/lib/masonry/dist/masonry.pkgd.min.js',
 						'assets/lib/imagesloaded/imagesloaded.pkgd.min.js',
 						'assets/js/vendors/jquery.ghostrelated.js',
 
+						'assets/js/search.js',
 						'assets/js/main.js'
 					]
 				}
