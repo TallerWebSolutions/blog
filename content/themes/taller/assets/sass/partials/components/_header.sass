@@ -1,7 +1,7 @@
 /*
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  * Header
- *------------------------------------------------------------------------------
+ *--------------------------------------------------------------------
  */
 
 
@@ -19,21 +19,19 @@
   text-align: right
 
   > a
-    +breakpoint("tiniest-width")
+    +breakpoint("small-width-max")
       display: block
       text-align: center
+      float: none
     #blog-logo
       float: left
-      margin: 0.95em 0
-      +breakpoint("tiniest-width")
+      margin: 1.2em 0
+      +breakpoint("small-width-max")
         width: 100px
         float: none
 
   .blog-title
     display: none
-    // margin: 0
-    // font-size: 2rem
-    // line-height: 2.5em
 
   .blog-description
     display: inline-block
@@ -100,3 +98,34 @@
   text-shadow: 2px 2px 0 #FFF
   color: #333
   font-size: 4.5rem
+
+// Search form styles.
+#main-nav li.search-container
+  overflow: hidden
+  +breakpoint("small-width-max")
+    display: block
+
+#search-form
+  margin-right: -35px
+  +breakpoint("small-width-max")
+    margin-right: -29px
+    padding-bottom: 10px
+  #search-field
+    @extend %transition-navigation
+    @extend %border-light
+    border-radius: 4px
+    padding-right: 35px
+    width: 60px
+    height: 2em
+    &.open-input
+      width: 180px
+    +breakpoint("small-width-max")
+      width: 180px
+  #search-icon
+    @extend %search-icon
+    padding: 5px
+    left: -40px
+    top: -3px
+    position: relative
+    +breakpoint("default-width-max")
+      top: 0
