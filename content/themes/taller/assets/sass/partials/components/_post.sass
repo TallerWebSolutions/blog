@@ -13,7 +13,7 @@ $non-textblock-elements-width: 768px
       @extend %border-light
       background-color: white
 
-.post-tags
+span.post-tags
   @extend %tags-icon
 
 .post
@@ -290,6 +290,11 @@ span.button-wrapper
       font-family: $font-sans
       font-size: 0.9em
       clear: both
+      .meta-website a
+        @extend %globe-icon
+      .meta-email a
+        @extend %email-icon
+
 
       span
         margin-left: 1em
@@ -319,13 +324,21 @@ span.button-wrapper
 
   a
     color: #541818
+    padding: 0.9em 1em
+    line-height: 0
 
     &:hover
       color: #A02627
 
-  .fa
-    padding: 0.9em 1em
-    line-height: 0
+    &.twitter-share
+      @extend %twitter-icon
+      font-size: 1.3em
+    &.facebook-share
+      @extend %facebook-icon
+      font-size: 1.3em
+    &.gplus-share
+      @extend %gplus-icon
+      font-size: 1.3em
 
 // Homepage posts.
 .articles
