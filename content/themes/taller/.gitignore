@@ -1,4 +1,8 @@
 # Ignore node modules
 node_modules/*
+
+# Ignore bower components.
 assets/lib
+
+# Ignore grunt generated js.
 assets/js/application.js
