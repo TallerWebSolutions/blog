@@ -20,7 +20,6 @@
   <link rel="shortcut icon" href="{{@blog.url}}/assets/images/favicon-48x48.png" type="image/png" />
 
   {{! Styles'n'Scripts }}
-  <link rel='stylesheet' type='text/css' href='//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css' />
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,300italic,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
@@ -73,12 +72,22 @@
         </li>
         <li>
           <a target="_blank" href="{{@blog.url}}/rss/" class="subscribe" title="Subscribe to the blog">
-            <i class="fa fa-rss"></i>
           </a>
+        </li>
+        <li class="search-container">
+          {{!-- <a href="#" class="search-button" title="Search the blog."></a> --}}
+          <form id="search-form">
+            <input id="search-field" />
+            <i id="search-icon" href="javascrit:;"></i>
+            {{!-- <input id="search-submit" class="fa fa-search" type="submit" value=""> --}}
+          </form>
         </li>
       </ul>
     </div>
+
   </header>
+
+  <section id="search-results"></section>
 
   {{! Everything else gets inserted here }}
   {{{body}}}
