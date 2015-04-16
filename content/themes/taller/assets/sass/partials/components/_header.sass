@@ -101,9 +101,10 @@
 
 // Search form styles.
 #main-nav li.search-container
-  overflow: hidden
   +breakpoint("small-width-max")
     display: block
+  +breakpoint("small-width-max")
+    overflow: hidden
 
 #search-form
   margin-right: -35px
