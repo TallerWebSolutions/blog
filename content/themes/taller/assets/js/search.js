@@ -38,9 +38,4 @@ $(document).ready(function() {
         $(this).removeClass('open-input');
       };
     });
-
-  // @TODO: clear input value when refreshing the page.
-  // if (!$searchField.is('.open-input')) {
-  //   console.log($(this).val());
-  // }
 });

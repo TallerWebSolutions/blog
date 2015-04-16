@@ -99,7 +99,7 @@
   color: #333
   font-size: 4.5rem
 
-// Search styles.
+// Search form styles.
 #main-nav li.search-container
   +breakpoint("small-width-max")
     display: block
@@ -111,8 +111,11 @@
     padding-bottom: 10px
   #search-field
     @extend %transition-navigation
+    @extend %border-light
+    border-radius: 4px
     padding-right: 35px
     width: 60px
+    height: 2em
     &.open-input
       width: 180px
     +breakpoint("small-width-max")
