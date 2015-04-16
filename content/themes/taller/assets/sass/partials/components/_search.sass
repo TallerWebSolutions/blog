@@ -6,10 +6,14 @@ section#search-results
   @extend %spaced-content
   p
     margin-top: 40px
+    +breakpoint("tiniest-width")
+      padding: 10px
   article
     border-bottom: 1px solid $color-grey-lighter
     padding: 20px
     margin: 20px 0
+    +breakpoint("tiniest-width")
+      padding: 10px
     &:last-child
       border-bottom: none
       margin-bottom: 40px
