@@ -20,7 +20,7 @@ $(document).ready(function() {
     onComplete : function(){
       $('#search-results').append(
           '<span class="button-wrapper">
-            <a href="{{@blog.url}}" class="button link-button">
+            <a href="/" class="button link-button">
               Voltar para o Blog.
             </a>
           </span>'
