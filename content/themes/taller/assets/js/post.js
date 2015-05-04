@@ -12,7 +12,7 @@
     $('.post-content img').closest('p').addClass('has-image');
 
     // Inform paragraph of code existence.
-    $('.post-content code').parent('p').addClass('has-code');
+    // $('.post-content code').parent('p').addClass('has-code');
 
     // Inform paragraph of span existence.
     $('.post-content span').parent('p').addClass('has-span');
