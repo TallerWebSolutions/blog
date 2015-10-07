@@ -98,15 +98,14 @@
   {{! The main JavaScript file for Taller theme }}
   <script type="text/javascript">
     // analytics
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-48708413-2']);
-    _gaq.push(['_trackPageview']);
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+ ga('create', 'UA-48708413-2', 'auto', {'allowLinker': true});
+ ga('require', 'linker');
+ ga('linker:autoLink', ['taller.net.br'] );
 
     // @todo: allow load of editor script only for authenticated users.
  var ElTracker = [];(function(){ var el = document.createElement('script');el.defer = true;el.type = 'text/javascript';el.async = true;el.src = "//eltracker.io";el.src += window === window.parent ? "project/cdn/61e730d3-e168-4dd4-bf6a-c67175e1f64e" : "project/cdn/editor/61e730d3-e168-4dd4-bf6a-c67175e1f64e";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(el, s);})();
